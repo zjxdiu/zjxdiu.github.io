@@ -5,8 +5,8 @@
         <link>https://github.com/zjxdiu/zjxdiu.github.io</link>
         <description>Shadow in front implying sun behind</description>
         <language>zh-CN</language>
-        <pubDate>Sun, 27 Nov 2022 16:31:00 +0800</pubDate>
-        <lastBuildDate>Sun, 27 Nov 2022 16:31:00 +0800</lastBuildDate>
+        <pubDate>Sun, 27 Nov 2022 21:53:00 +0800</pubDate>
+        <lastBuildDate>Sun, 27 Nov 2022 21:53:00 +0800</lastBuildDate>
         <category>化学</category>
         <category>仪器分析</category>
         <category>信号处理</category>
@@ -20,7 +20,7 @@
             <title>使用批处理和Joplin执行并优化Hexo博客工作流程</title>
             <link>https://github.com/zjxdiu/zjxdiu.github.io/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</link>
             <category>软件</category>
-            <pubDate>Sun, 27 Nov 2022 16:31:00 +0800</pubDate>
+            <pubDate>Sun, 27 Nov 2022 21:53:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;使用静态部署的方式使用 Hexo，我们经常会遇到一个很烦人的问题，就是部署麻烦。&lt;br&gt;
 每次写一篇文章，就要经历&lt;strong&gt; Hexo clean、Hexo g、Hexo s、Hexo d&lt;/strong&gt; 四连，一开始还好，写多了之后烦不胜烦。&lt;/p&gt;
 &lt;p&gt;同时，由于我个人使用 Joplin 进行文章撰写，这个软件虽然简洁，但并不好用；图片虽然可以直接复制，但不能修改输出目录，图片资源默认保存在与 &lt;code&gt;/blog/&lt;/code&gt;  平行的 &lt;code&gt;/_resources/&lt;/code&gt;  文件夹中。&lt;/p&gt;
@@ -28,7 +28,7 @@
 &lt;hr&gt;
 &lt;h3 id=&#34;1-git安装配置不确定是否有必要&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1-git安装配置不确定是否有必要&#34;&gt;#&lt;/a&gt; 1. Git 安装配置（不确定是否有必要）&lt;/h3&gt;
 &lt;p&gt;在安装 Git 的过程中，我们会有一个配置终端的过程，此处其实是建议选择第一项（使用 MinTTY），但我当时选择了第二项即使用系统的 cmd 来作 git bash 的终端。&lt;br&gt;
-&lt;img src=&#34;../_resources/aca6779be5b5f5c9d88dc1215456c295.png&#34; alt=&#34;aca6779be5b5f5c9d88dc1215456c295.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;../_resources/aca6779be5b5f5c9d88dc1215456c295-1.png&#34; alt=&#34;aca6779be5b5f5c9d88dc1215456c295.png&#34;&gt;&lt;br&gt;
  如果选择了第一项，可能也是能正常使用批处理来代替执行的，应该不用担心。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;2-站点配置&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2-站点配置&#34;&gt;#&lt;/a&gt; 2. 站点配置&lt;/h3&gt;
@@ -83,7 +83,7 @@ echo ------------------------------------------------
 echo                  本地预览模式
 echo ------------------------------------------------
 echo 启动预览...
-cmd /c &amp;quot;hexo clean &amp;amp; hexo g &amp;amp; xcopy D:\blog\source\_posts\_resources D:\blog\public\blog\_resources\ /e /s /y &amp;amp; echo 2&amp;gt;D:\blog\public\.nojekyll &amp;amp; start http://localhost:4000/ &amp;amp; hexo s&amp;quot;
+cmd /c &amp;quot;hexo clean &amp;amp; hexo g &amp;amp; xcopy D:\blog\source\_posts\_resources D:\blog\public\blog\_resources\ /e /s /y &amp;amp; echo 2&amp;gt;D:\blog\.deploy_git\.nojekyll &amp;amp; start http://localhost:4000/ &amp;amp; hexo s&amp;quot;
 echo 按任意键返回菜单...
 pause &amp;gt;nul
 set &amp;quot;targetlabel=start&amp;quot;&amp;amp;&amp;amp;goto ac
@@ -91,7 +91,7 @@ set &amp;quot;targetlabel=start&amp;quot;&amp;amp;&amp;amp;goto ac
 echo ------------------------------------------------
 echo                  快速上载blog
 echo ------------------------------------------------
-cmd /c &amp;quot;hexo clean &amp;amp; hexo g &amp;amp; xcopy D:\blog\source\_posts\_resources D:\blog\public\blog\_resources\ /e /s /y &amp;amp; echo 2&amp;gt;D:\blog\public\.nojekyll &amp;amp; hexo d&amp;quot;
+cmd /c &amp;quot;hexo clean &amp;amp; hexo g &amp;amp; xcopy D:\blog\source\_posts\_resources D:\blog\public\blog\_resources\ /e /s /y &amp;amp; echo 2&amp;gt;D:\blog\.deploy_git\.nojekyll &amp;amp; hexo d&amp;quot;
 echo ------------------------------------------------
 echo 完成，2秒后退出...
 ping localhost -n 3 &amp;gt;nul
@@ -113,7 +113,7 @@ echo ------------------------------------------------
 echo 第二步：生成页面
 choice /c 01
 if &amp;quot;%errorlevel%&amp;quot;==&amp;quot;2&amp;quot; goto check
-cmd /c &amp;quot;xcopy D:\blog\source\_posts\_resources D:\blog\public\blog\_resources\ /e /s /y &amp;amp; echo 2&amp;gt;D:\blog\public\.nojekyll &amp;amp; hexo g&amp;quot;
+cmd /c &amp;quot;xcopy D:\blog\source\_posts\_resources D:\blog\public\blog\_resources\ /e /s /y &amp;amp; echo 2&amp;gt;D:\blog\.deploy_git\.nojekyll &amp;amp; hexo g&amp;quot;
 goto check
 :check
 echo ------------------------------------------------
@@ -145,7 +145,7 @@ set &amp;quot;targetlabel=start&amp;quot;&amp;amp;&amp;amp;goto ac&lt;/code&gt;&
 打开 Joplin，新建笔记（记得都放在同一个笔记本下），笔记的名字是文件名，写上 Front-matter 内容，之后就如同在 word 中一样写稿。&lt;br&gt;
 图片直接粘贴即可，需要的话修改 [ ] 里的内容，这是属于 markdown 语法的一部分，不详细说明。&lt;br&gt;
 &lt;strong&gt;愉快地工作吧！&lt;/strong&gt;&lt;br&gt;
-&lt;img src=&#34;../_resources/cf0fb99a327ef788a844524d6eb74278.png&#34; alt=&#34;cf0fb99a327ef788a844524d6eb74278.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;../_resources/cf0fb99a327ef788a844524d6eb74278-1.png&#34; alt=&#34;cf0fb99a327ef788a844524d6eb74278.png&#34;&gt;&lt;/p&gt;
  ]]></description>
         </item>
         <item>
