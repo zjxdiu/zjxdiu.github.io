@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>青羽~blog site • Posts by &#34;软件&#34; category</title>
+        <link>https://github.com/zjxdiu/zjxdiu.github.io</link>
+        <description>Shadow in front implying sun behind</description>
+        <language>zh-CN</language>
+        <pubDate>Sun, 27 Nov 2022 16:31:00 +0800</pubDate>
+        <lastBuildDate>Sun, 27 Nov 2022 16:31:00 +0800</lastBuildDate>
+        <category>化学</category>
+        <category>仪器分析</category>
+        <category>信号处理</category>
+        <category>软件</category>
+        <category>日常</category>
+        <category>生活</category>
+        <category>开发</category>
+        <category>测试</category>
+        <item>
+            <guid isPermalink="true">https://github.com/zjxdiu/zjxdiu.github.io/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</guid>
+            <title>使用批处理和Joplin执行并优化Hexo博客工作流程</title>
+            <link>https://github.com/zjxdiu/zjxdiu.github.io/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</link>
+            <category>软件</category>
+            <pubDate>Sun, 27 Nov 2022 16:31:00 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;使用静态部署的方式使用 Hexo，我们经常会遇到一个很烦人的问题，就是部署麻烦。&lt;br&gt;
+每次写一篇文章，就要经历&lt;strong&gt; Hexo clean、Hexo g、Hexo s、Hexo d&lt;/strong&gt; 四连，一开始还好，写多了之后烦不胜烦。&lt;/p&gt;
+&lt;p&gt;同时，由于我个人使用 Joplin 进行文章撰写，这个软件虽然简洁，但并不好用；图片虽然可以直接复制，但不能修改输出目录，图片资源默认保存在与 &lt;code&gt;/blog/&lt;/code&gt;  平行的 &lt;code&gt;/_resources/&lt;/code&gt;  文件夹中。&lt;/p&gt;
+&lt;p&gt;因此，结合我最为擅长的 batch 脚本语言，我就萌生了使用批处理来优化整个流程的想法。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1-git安装配置不确定是否有必要&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1-git安装配置不确定是否有必要&#34;&gt;#&lt;/a&gt; 1. Git 安装配置（不确定是否有必要）&lt;/h3&gt;
+&lt;p&gt;在安装 Git 的过程中，我们会有一个配置终端的过程，此处其实是建议选择第一项（使用 MinTTY），但我当时选择了第二项即使用系统的 cmd 来作 git bash 的终端。&lt;br&gt;
+&lt;img src=&#34;../_resources/aca6779be5b5f5c9d88dc1215456c295.png&#34; alt=&#34;aca6779be5b5f5c9d88dc1215456c295.png&#34;&gt;&lt;br&gt;
+ 如果选择了第一项，可能也是能正常使用批处理来代替执行的，应该不用担心。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;2-站点配置&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2-站点配置&#34;&gt;#&lt;/a&gt; 2. 站点配置&lt;/h3&gt;
+&lt;p&gt;blog 根目录下的_config.yml 文件：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;hljs yml&#34;&gt;&lt;span class=&#34;hljs-string&#34;&gt;......&lt;/span&gt;
+&lt;span class=&#34;hljs-attr&#34;&gt;post_asset_folder:&lt;/span&gt; &lt;span class=&#34;hljs-literal&#34;&gt;false&lt;/span&gt;
+&lt;span class=&#34;hljs-attr&#34;&gt;relative_link:&lt;/span&gt; &lt;span class=&#34;hljs-literal&#34;&gt;false&lt;/span&gt;
+&lt;span class=&#34;hljs-string&#34;&gt;......&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;使用 Joplin 写文章的话应该关闭这两项（至少我测试下来这样是没问题的）&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;3-脚本编写&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#3-脚本编写&#34;&gt;#&lt;/a&gt; 3. 脚本编写&lt;/h3&gt;
+&lt;p&gt;在 blog 根目录下新建 “程序名.bat”，开始编写功能。&lt;br&gt;
+先放源码：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;hljs batch&#34;&gt;@echo off
+setlocal EnableDelayedExpansion
+goto start
+:ac
+rem 请设置%targetlable%变量，以确保正常跳转至目标位置
+cls
+color 0F
+goto %targetlabel%
+:start
+if &amp;quot;%targetlabel%&amp;quot;==&amp;quot;&amp;quot; (set &amp;quot;targetlabel=start&amp;quot;&amp;amp;&amp;amp;goto ac)
+echo ------------------------------------------------
+echo  1.执行完整的检查和推送blog流程
+echo  2.快速上载blog
+echo  3.本地预览
+echo  4.单独执行指令
+echo ------------------------------------------------
+echo.
+choice /c 1234
+if &amp;quot;%errorlevel%&amp;quot;==&amp;quot;4&amp;quot; goto new
+if &amp;quot;%errorlevel%&amp;quot;==&amp;quot;3&amp;quot; (set &amp;quot;targetlabel=local&amp;quot;&amp;amp;&amp;amp;goto ac)
+if &amp;quot;%errorlevel%&amp;quot;==&amp;quot;2&amp;quot; (set &amp;quot;targetlabel=fast&amp;quot;&amp;amp;&amp;amp;goto ac)
+if &amp;quot;%errorlevel%&amp;quot;==&amp;quot;1&amp;quot; (set &amp;quot;targetlabel=full&amp;quot;&amp;amp;&amp;amp;goto ac)
+pause&amp;amp;exit
+:new
+echo 正在创建新的cmd实例...
+echo ------------------------------------------------
+echo 命令提示：
+echo hexo clean
+echo hexo g
+echo hexo s
+echo hexo d
+echo ------------------------------------------------
+start cmd
+echo 按任意键返回菜单...
+pause &amp;gt;nul
+set &amp;quot;targetlabel=start&amp;quot;&amp;amp;&amp;amp;goto ac
+:local
+echo ------------------------------------------------
+echo                  本地预览模式
+echo ------------------------------------------------
+echo 启动预览...
+cmd /c &amp;quot;hexo clean &amp;amp; hexo g &amp;amp; xcopy D:\blog\source\_posts\_resources D:\blog\public\blog\_resources\ /e /s /y &amp;amp; echo 2&amp;gt;D:\blog\public\.nojekyll &amp;amp; start http://localhost:4000/ &amp;amp; hexo s&amp;quot;
+echo 按任意键返回菜单...
+pause &amp;gt;nul
+set &amp;quot;targetlabel=start&amp;quot;&amp;amp;&amp;amp;goto ac
+:fast
+echo ------------------------------------------------
+echo                  快速上载blog
+echo ------------------------------------------------
+cmd /c &amp;quot;hexo clean &amp;amp; hexo g &amp;amp; xcopy D:\blog\source\_posts\_resources D:\blog\public\blog\_resources\ /e /s /y &amp;amp; echo 2&amp;gt;D:\blog\public\.nojekyll &amp;amp; hexo d&amp;quot;
+echo ------------------------------------------------
+echo 完成，2秒后退出...
+ping localhost -n 3 &amp;gt;nul
+exit
+:full
+echo ------------------------------------------------
+echo                  完整流程向导
+echo              按0为确定，按1为跳过
+echo ------------------------------------------------
+goto clean
+:clean
+echo 第一步：清理缓存
+choice /c 01
+if &amp;quot;%errorlevel%&amp;quot;==&amp;quot;2&amp;quot; goto generate
+cmd /c &amp;quot;hexo clean&amp;quot;
+goto generate
+:generate
+echo ------------------------------------------------
+echo 第二步：生成页面
+choice /c 01
+if &amp;quot;%errorlevel%&amp;quot;==&amp;quot;2&amp;quot; goto check
+cmd /c &amp;quot;xcopy D:\blog\source\_posts\_resources D:\blog\public\blog\_resources\ /e /s /y &amp;amp; echo 2&amp;gt;D:\blog\public\.nojekyll &amp;amp; hexo g&amp;quot;
+goto check
+:check
+echo ------------------------------------------------
+echo 第三步：本地预览
+choice /c 01
+if &amp;quot;%errorlevel%&amp;quot;==&amp;quot;2&amp;quot; goto deploy
+start http://localhost:4000/
+cmd /c &amp;quot;hexo s&amp;quot;
+goto deploy
+:deploy
+echo ------------------------------------------------
+echo 第四步：上传到远程服务器
+choice /c 01
+if &amp;quot;%errorlevel%&amp;quot;==&amp;quot;2&amp;quot; goto done
+cmd /c &amp;quot;hexo d&amp;quot;
+goto done
+:done
+echo ------------------------------------------------
+echo 流程已完成，按任意键返回菜单...
+pause &amp;gt;nul
+set &amp;quot;targetlabel=start&amp;quot;&amp;amp;&amp;amp;goto ac&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;我自认为自己的批处理写得都算比较清晰的了，虽然注释很少，但结合文字应该能看懂每一步是在干什么。&lt;br&gt;
+如果要使用，请把里面所有的 &lt;code&gt;D:\blog\source\_posts\_resources&lt;/code&gt;  替换为你 Joplin 每次导出时的资源目录，把所有的 &lt;code&gt;D:\blog\public\blog\_resources\&lt;/code&gt;  替换为你的博客站点目录，注意不要动 &lt;code&gt;\public\...&lt;/code&gt;  后面的内容。&lt;/p&gt;
+&lt;p&gt;如果要更换功能模块，也应按照这里的写法，使用  &lt;code&gt;cmd /c 命令内容 &amp;amp; 第二条命令 &amp;amp; 后面的很多命令&lt;/code&gt;  来执行，除了 start 用于启动网页之外尽量不要直接在批处理中使用模块的命令，否则容易直接闪退。&lt;/p&gt;
+&lt;p&gt;创建 &lt;code&gt;.nojekyll&lt;/code&gt;  文件的目的是防止 GitHub 忽略掉下划线开头的文件夹，即 &lt;code&gt;_resources&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;4-工作流程&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#4-工作流程&#34;&gt;#&lt;/a&gt; 4. 工作流程&lt;/h3&gt;
+&lt;p&gt;现在，我们可以愉快地写文章了。&lt;br&gt;
+打开 Joplin，新建笔记（记得都放在同一个笔记本下），笔记的名字是文件名，写上 Front-matter 内容，之后就如同在 word 中一样写稿。&lt;br&gt;
+图片直接粘贴即可，需要的话修改 [ ] 里的内容，这是属于 markdown 语法的一部分，不详细说明。&lt;br&gt;
+&lt;strong&gt;愉快地工作吧！&lt;/strong&gt;&lt;br&gt;
+&lt;img src=&#34;../_resources/cf0fb99a327ef788a844524d6eb74278.png&#34; alt=&#34;cf0fb99a327ef788a844524d6eb74278.png&#34;&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://github.com/zjxdiu/zjxdiu.github.io/blog/WPS-word/</guid>
+            <title>WPS word如何设置图片背景，如何解决图片变成平铺问题</title>
+            <link>https://github.com/zjxdiu/zjxdiu.github.io/blog/WPS-word/</link>
+            <category>软件</category>
+            <pubDate>Sat, 26 Nov 2022 23:18:00 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;wps-word如何设置图片背景如何解决图片变成平铺问题&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#wps-word如何设置图片背景如何解决图片变成平铺问题&#34;&gt;#&lt;/a&gt; WPS word 如何设置图片背景，如何解决图片变成平铺问题&lt;/h2&gt;
+&lt;p&gt;问题描述：在 WPS word 中插入背景图片，导出为 PDF、打印后发现图片变成平铺，如图所示&lt;br&gt;
+&lt;img src=&#34;../_resources/1bed71e7e0b967daa78642a737810d17.png&#34; alt=&#34;1bed71e7e0b967daa78642a737810d17.png&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;1. 打开需要插入背景图片的文档&lt;br&gt;
+ 2. 点击：页面布局、背景、其它背景、纹理&lt;br&gt;
+&lt;img src=&#34;../_resources/88b258680c69021372dab599663945bd.png&#34; alt=&#34;88b258680c69021372dab599663945bd.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;3. 选择 “其它纹理”，选择图片后点击确定&lt;br&gt;
+&lt;img src=&#34;../_resources/a4d5ca84c954b134351ea2d9c8d9881c.png&#34; alt=&#34;a4d5ca84c954b134351ea2d9c8d9881c.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;4. 现在背景图片应该可以正常导出了。&lt;/p&gt;
+&lt;hr&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

@@ -1,0 +1,20 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "青羽~blog site • All posts by \"测试\" tag",
+    "description": "Shadow in front implying sun behind",
+    "home_page_url": "https://github.com/zjxdiu/zjxdiu.github.io",
+    "items": [
+        {
+            "id": "https://github.com/zjxdiu/zjxdiu.github.io/blog/%E9%9D%92%E7%BE%BD_blog%E5%BB%BA%E7%AB%8B%E5%AE%8C%E6%88%90%EF%BC%81/",
+            "url": "https://github.com/zjxdiu/zjxdiu.github.io/blog/%E9%9D%92%E7%BE%BD_blog%E5%BB%BA%E7%AB%8B%E5%AE%8C%E6%88%90%EF%BC%81/",
+            "title": "博客成功建立！",
+            "date_published": "2022-11-24T13:27:00.000Z",
+            "content_html": "<h2 id=\"关于青羽\"><a class=\"markdownIt-Anchor\" href=\"#关于青羽\">#</a> 关于青羽</h2>\n<p>你好，我是 zjxdiu，在这个空间里我也叫青羽 b（￣▽￣）d<br>\n 其实这个名字应该会和其他人的重吧，但是我一直觉得叫自己 zjxdiu 也太奇怪了（下面会说这个 id 的由来），然后当我试图想一个符合我自设的名字的时候，“青” 和 “羽” 这两个发音就出现在脑海里（就是 “Pop” 一下就冒出来了），所以我觉得叫自己青羽似乎也不错。<br>\n自设内容会慢慢完善，单独放在 “关于” 里。谁不希望把自己塑造成最喜欢的样子呢，现在我有了自己的网络空间，我就是这里的神（？）</p>\n<hr>\n<h2 id=\"关于zjxdiu\"><a class=\"markdownIt-Anchor\" href=\"#关于zjxdiu\">#</a> 关于 zjxdiu</h2>\n<p>这是我的网络常用 id，一些平台里搜索这个 id 找到的大概都是我。<br>\n它的来源其实有点蠢（dumb）<br>\n这个 id 分成两部分，前面是 zjx，也就是我的名字首字母拼一起；后面是 diu，它是源于粤语里的一句脏话，然后初中的时候班上同学天天把 diu 挂在嘴边。<br>\n这还不是全部，当我辗转于各大 mc 服务器时，我意外地发现，diu 这个 id 被占用的概率很低，于是那段时间我的 minecraft 用户名一直叫 diu。<br>\n再长大一点，我觉得只叫 diu 也很容易听出一些低俗感，所以我把两部分拼起来，变成了 zjxdiu。<br>\n虽然还是很难通过英语来阅读这个词，但它确实是伴随着我到大学，一路走过来的 id。</p>\n<hr>\n<h2 id=\"个人资料\"><a class=\"markdownIt-Anchor\" href=\"#个人资料\">#</a> 个人资料</h2>\n<p>就读于长沙理工大学，今年大三。<br>\n什么领域都想涉及，软件、硬件、网络工程、音乐制作、音频处理、视频剪辑、游戏开发、平面设计… 但实际上并没有哪个是学得很好的。<br>\n外表是壮汉，内心世界却很单纯。不愿猜测叵测的人心，却总是被迫卷入一次次的纷争。<br>\n这也是我将虚拟名字定为青羽的原因，总是幻想自己如一缕白羽，随青风而去，附于一片枝叶，不为任何人事所困。</p>\n<hr>\n<h2 id=\"联系方式等\"><a class=\"markdownIt-Anchor\" href=\"#联系方式等\">#</a> 联系方式等</h2>\n<p>这个博客提供很多好友服务，主要针对（之后会有的）幻想世界，包括但不限于：</p>\n<ul>\n<li>对世界观作出修改和补充</li>\n<li>提交自己的角色设定</li>\n<li>获得免费的 AI 角色图集</li>\n<li>更多内容尽请期待</li>\n</ul>\n<p>因为我不会后端，也不会前端（），所以这里不提供评论服务。如果想发表吐槽、评论、意见等，可以通过邮箱告知；我会不定期进行更新，加入一些有意思的内容。<br>\n可以通过以下方式联系我：<br>\n常用平台 id：zjxdiu<br>\nQQ：2987631086</p>\n<ul>\n<li>请在添加好友时说明你是从哪里找到我号码的，否则可能不会同意申请<br>\n E-mail：zjxdiu@qq.com</li>\n<li>可以用于提交各种东西，向我提问，等等</li>\n</ul>\n<hr>\n<p>友情链接功能还没调试好，暂时不开放…</p>\n",
+            "tags": [
+                "日常",
+                "开发",
+                "测试"
+            ]
+        }
+    ]
+}

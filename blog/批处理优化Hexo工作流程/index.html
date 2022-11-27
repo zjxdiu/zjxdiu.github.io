@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>使用批处理和Joplin执行并优化Hexo博客工作流程 | 青羽~blog site</title>
+  <meta name="description" content="使用静态部署的方式使用 Hexo，我们经常会遇到一个很烦人的问题，就是部署麻烦。 每次写一篇文章，就要经历 Hexo clean、Hexo g、Hexo s、Hexo d 四连，一开始还好，写多了之后烦不胜烦。 同时，由于我个人使用 Joplin 进行文章撰写，这个软件虽然简洁，但并不好用；图片虽然可以直接复制，但不能修改输出目录，图片资源默认保存在与 &#x2F;blog&#x2F;  平行的 &#x2F;_resource">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用批处理和Joplin执行并优化Hexo博客工作流程">
+<meta property="og:url" content="https://github.com/zjxdiu/zjxdiu.github.io/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/index.html">
+<meta property="og:site_name" content="青羽~blog site">
+<meta property="og:description" content="使用静态部署的方式使用 Hexo，我们经常会遇到一个很烦人的问题，就是部署麻烦。 每次写一篇文章，就要经历 Hexo clean、Hexo g、Hexo s、Hexo d 四连，一开始还好，写多了之后烦不胜烦。 同时，由于我个人使用 Joplin 进行文章撰写，这个软件虽然简洁，但并不好用；图片虽然可以直接复制，但不能修改输出目录，图片资源默认保存在与 &#x2F;blog&#x2F;  平行的 &#x2F;_resource">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/zjxdiu/zjxdiu.github.io/blog/_resources/aca6779be5b5f5c9d88dc1215456c295.png">
+<meta property="og:image" content="https://github.com/zjxdiu/zjxdiu.github.io/blog/_resources/cf0fb99a327ef788a844524d6eb74278.png">
+<meta property="article:published_time" content="2022-11-27T08:31:00.000Z">
+<meta property="article:modified_time" content="2022-11-27T10:18:21.499Z">
+<meta property="article:author" content="zjxdiu">
+<meta property="article:tag" content="软件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/zjxdiu/zjxdiu.github.io/blog/_resources/aca6779be5b5f5c9d88dc1215456c295.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://github.com/zjxdiu/zjxdiu.github.io/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="青羽~blog site" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body class="main-center no-sidebar" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">时间线</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">链接</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zjxdiu" target="_blank" title="Github" ><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎访问！站点正在建设，如需联系请查看建站文章</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%AA%E5%99%A8%E5%88%86%E6%9E%90/" rel="tag">仪器分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/" rel="tag">信号处理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%96%E5%AD%A6/" rel="tag">化学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6/" rel="tag">软件</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/%E4%BB%AA%E5%99%A8%E5%88%86%E6%9E%90/" style="font-size: 13px;">仪器分析</a> <a href="/tags/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/" style="font-size: 13px;">信号处理</a> <a href="/tags/%E5%8C%96%E5%AD%A6/" style="font-size: 13px;">化学</a> <a href="/tags/%E5%BC%80%E5%8F%91/" style="font-size: 13px;">开发</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 14px;">日常</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 13px;">测试</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13px;">生活</a> <a href="/tags/%E8%BD%AF%E4%BB%B6/" style="font-size: 14px;">软件</a>
+    </div>
+  </div>
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-blog/批处理优化Hexo工作流程" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用批处理和Joplin执行并优化Hexo博客工作流程
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/" class="article-date">
+	  <time datetime="2022-11-27T08:31:00.000Z" itemprop="datePublished">2022-11-27</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a>►<a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/">软件</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E8%BD%AF%E4%BB%B6/" rel="tag">软件</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/" class="leancloud_visitors"  data-flag-title="使用批处理和Joplin执行并优化Hexo博客工作流程">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.2k(字)</span>
+	
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>使用静态部署的方式使用 Hexo，我们经常会遇到一个很烦人的问题，就是部署麻烦。<br>
+每次写一篇文章，就要经历<strong> Hexo clean、Hexo g、Hexo s、Hexo d</strong> 四连，一开始还好，写多了之后烦不胜烦。</p>
+<p>同时，由于我个人使用 Joplin 进行文章撰写，这个软件虽然简洁，但并不好用；图片虽然可以直接复制，但不能修改输出目录，图片资源默认保存在与 <code>/blog/</code>  平行的 <code>/_resources/</code>  文件夹中。</p>
+<p>因此，结合我最为擅长的 batch 脚本语言，我就萌生了使用批处理来优化整个流程的想法。</p>
+<hr>
+<h3 id="1-git安装配置不确定是否有必要"><a class="markdownIt-Anchor" href="#1-git安装配置不确定是否有必要">#</a> 1. Git 安装配置（不确定是否有必要）</h3>
+<p>在安装 Git 的过程中，我们会有一个配置终端的过程，此处其实是建议选择第一项（使用 MinTTY），但我当时选择了第二项即使用系统的 cmd 来作 git bash 的终端。<br>
+<img src="../_resources/aca6779be5b5f5c9d88dc1215456c295.png" alt="aca6779be5b5f5c9d88dc1215456c295.png"><br>
+ 如果选择了第一项，可能也是能正常使用批处理来代替执行的，应该不用担心。</p>
+<hr>
+<h3 id="2-站点配置"><a class="markdownIt-Anchor" href="#2-站点配置">#</a> 2. 站点配置</h3>
+<p>blog 根目录下的_config.yml 文件：</p>
+<pre><code class="hljs yml"><span class="hljs-string">......</span>
+<span class="hljs-attr">post_asset_folder:</span> <span class="hljs-literal">false</span>
+<span class="hljs-attr">relative_link:</span> <span class="hljs-literal">false</span>
+<span class="hljs-string">......</span></code></pre>
+<p>使用 Joplin 写文章的话应该关闭这两项（至少我测试下来这样是没问题的）</p>
+<hr>
+<h3 id="3-脚本编写"><a class="markdownIt-Anchor" href="#3-脚本编写">#</a> 3. 脚本编写</h3>
+<p>在 blog 根目录下新建 “程序名.bat”，开始编写功能。<br>
+先放源码：</p>
+<pre><code class="hljs batch">@echo off
+setlocal EnableDelayedExpansion
+goto start
+:ac
+rem 请设置%targetlable%变量，以确保正常跳转至目标位置
+cls
+color 0F
+goto %targetlabel%
+:start
+if &quot;%targetlabel%&quot;==&quot;&quot; (set &quot;targetlabel=start&quot;&amp;&amp;goto ac)
+echo ------------------------------------------------
+echo  1.执行完整的检查和推送blog流程
+echo  2.快速上载blog
+echo  3.本地预览
+echo  4.单独执行指令
+echo ------------------------------------------------
+echo.
+choice /c 1234
+if &quot;%errorlevel%&quot;==&quot;4&quot; goto new
+if &quot;%errorlevel%&quot;==&quot;3&quot; (set &quot;targetlabel=local&quot;&amp;&amp;goto ac)
+if &quot;%errorlevel%&quot;==&quot;2&quot; (set &quot;targetlabel=fast&quot;&amp;&amp;goto ac)
+if &quot;%errorlevel%&quot;==&quot;1&quot; (set &quot;targetlabel=full&quot;&amp;&amp;goto ac)
+pause&amp;exit
+:new
+echo 正在创建新的cmd实例...
+echo ------------------------------------------------
+echo 命令提示：
+echo hexo clean
+echo hexo g
+echo hexo s
+echo hexo d
+echo ------------------------------------------------
+start cmd
+echo 按任意键返回菜单...
+pause &gt;nul
+set &quot;targetlabel=start&quot;&amp;&amp;goto ac
+:local
+echo ------------------------------------------------
+echo                  本地预览模式
+echo ------------------------------------------------
+echo 启动预览...
+cmd /c &quot;hexo clean &amp; hexo g &amp; xcopy D:\blog\source\_posts\_resources D:\blog\public\blog\_resources\ /e /s /y &amp; echo 2&gt;D:\blog\public\.nojekyll &amp; start http://localhost:4000/ &amp; hexo s&quot;
+echo 按任意键返回菜单...
+pause &gt;nul
+set &quot;targetlabel=start&quot;&amp;&amp;goto ac
+:fast
+echo ------------------------------------------------
+echo                  快速上载blog
+echo ------------------------------------------------
+cmd /c &quot;hexo clean &amp; hexo g &amp; xcopy D:\blog\source\_posts\_resources D:\blog\public\blog\_resources\ /e /s /y &amp; echo 2&gt;D:\blog\public\.nojekyll &amp; hexo d&quot;
+echo ------------------------------------------------
+echo 完成，2秒后退出...
+ping localhost -n 3 &gt;nul
+exit
+:full
+echo ------------------------------------------------
+echo                  完整流程向导
+echo              按0为确定，按1为跳过
+echo ------------------------------------------------
+goto clean
+:clean
+echo 第一步：清理缓存
+choice /c 01
+if &quot;%errorlevel%&quot;==&quot;2&quot; goto generate
+cmd /c &quot;hexo clean&quot;
+goto generate
+:generate
+echo ------------------------------------------------
+echo 第二步：生成页面
+choice /c 01
+if &quot;%errorlevel%&quot;==&quot;2&quot; goto check
+cmd /c &quot;xcopy D:\blog\source\_posts\_resources D:\blog\public\blog\_resources\ /e /s /y &amp; echo 2&gt;D:\blog\public\.nojekyll &amp; hexo g&quot;
+goto check
+:check
+echo ------------------------------------------------
+echo 第三步：本地预览
+choice /c 01
+if &quot;%errorlevel%&quot;==&quot;2&quot; goto deploy
+start http://localhost:4000/
+cmd /c &quot;hexo s&quot;
+goto deploy
+:deploy
+echo ------------------------------------------------
+echo 第四步：上传到远程服务器
+choice /c 01
+if &quot;%errorlevel%&quot;==&quot;2&quot; goto done
+cmd /c &quot;hexo d&quot;
+goto done
+:done
+echo ------------------------------------------------
+echo 流程已完成，按任意键返回菜单...
+pause &gt;nul
+set &quot;targetlabel=start&quot;&amp;&amp;goto ac</code></pre>
+<p>我自认为自己的批处理写得都算比较清晰的了，虽然注释很少，但结合文字应该能看懂每一步是在干什么。<br>
+如果要使用，请把里面所有的 <code>D:\blog\source\_posts\_resources</code>  替换为你 Joplin 每次导出时的资源目录，把所有的 <code>D:\blog\public\blog\_resources\</code>  替换为你的博客站点目录，注意不要动 <code>\public\...</code>  后面的内容。</p>
+<p>如果要更换功能模块，也应按照这里的写法，使用  <code>cmd /c 命令内容 &amp; 第二条命令 &amp; 后面的很多命令</code>  来执行，除了 start 用于启动网页之外尽量不要直接在批处理中使用模块的命令，否则容易直接闪退。</p>
+<p>创建 <code>.nojekyll</code>  文件的目的是防止 GitHub 忽略掉下划线开头的文件夹，即 <code>_resources</code></p>
+<hr>
+<h3 id="4-工作流程"><a class="markdownIt-Anchor" href="#4-工作流程">#</a> 4. 工作流程</h3>
+<p>现在，我们可以愉快地写文章了。<br>
+打开 Joplin，新建笔记（记得都放在同一个笔记本下），笔记的名字是文件名，写上 Front-matter 内容，之后就如同在 word 中一样写稿。<br>
+图片直接粘贴即可，需要的话修改 [ ] 里的内容，这是属于 markdown 语法的一部分，不详细说明。<br>
+<strong>愉快地工作吧！</strong><br>
+<img src="../_resources/cf0fb99a327ef788a844524d6eb74278.png" alt="cf0fb99a327ef788a844524d6eb74278.png"></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://github.com/zjxdiu/zjxdiu.github.io/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/" title="使用批处理和Joplin执行并优化Hexo博客工作流程" target="_blank" rel="external">https://github.com/zjxdiu/zjxdiu.github.io/blog/批处理优化Hexo工作流程/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/blog/%E9%9A%8F%E8%AE%B020221125/" title="疫情爆炸，如何积极面对"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zjxdiu" target="_blank" title="Github" ><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'ZkMCrUSQDneRSAnbRh5WaJry-gzGzoHsz',
+    appKey: 'zUZV2LcazrzxOePqSCJPsWEK',
+    placeholder: '头像将根据昵称自动生成哦~',
+    avatar: 'identicon',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
