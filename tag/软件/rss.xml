@@ -10,11 +10,11 @@
         <category>软件</category>
         <category>日常</category>
         <category>生活</category>
+        <category>开发</category>
+        <category>测试</category>
         <category>化学</category>
         <category>仪器分析</category>
         <category>信号处理</category>
-        <category>开发</category>
-        <category>测试</category>
         <item>
             <guid isPermalink="true">https://github.com/zjxdiu/zjxdiu.github.io/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</guid>
             <title>使用批处理和Joplin执行并优化Hexo博客工作流程</title>
