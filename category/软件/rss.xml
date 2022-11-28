@@ -7,12 +7,12 @@
         <language>zh-CN</language>
         <pubDate>Sun, 27 Nov 2022 21:53:00 +0800</pubDate>
         <lastBuildDate>Sun, 27 Nov 2022 21:53:00 +0800</lastBuildDate>
-        <category>化学</category>
-        <category>仪器分析</category>
-        <category>信号处理</category>
         <category>软件</category>
         <category>日常</category>
         <category>生活</category>
+        <category>化学</category>
+        <category>仪器分析</category>
+        <category>信号处理</category>
         <category>开发</category>
         <category>测试</category>
         <item>
@@ -28,7 +28,7 @@
 &lt;hr&gt;
 &lt;h3 id=&#34;1-git安装配置不确定是否有必要&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1-git安装配置不确定是否有必要&#34;&gt;#&lt;/a&gt; 1. Git 安装配置（不确定是否有必要）&lt;/h3&gt;
 &lt;p&gt;在安装 Git 的过程中，我们会有一个配置终端的过程，此处其实是建议选择第一项（使用 MinTTY），但我当时选择了第二项即使用系统的 cmd 来作 git bash 的终端。&lt;br&gt;
-&lt;img src=&#34;../_resources/aca6779be5b5f5c9d88dc1215456c295-1.png&#34; alt=&#34;aca6779be5b5f5c9d88dc1215456c295.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;../_resources/aca6779be5b5f5c9d88dc1215456c295-2.png&#34; alt=&#34;aca6779be5b5f5c9d88dc1215456c295.png&#34;&gt;&lt;br&gt;
  如果选择了第一项，可能也是能正常使用批处理来代替执行的，应该不用担心。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;2-站点配置&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2-站点配置&#34;&gt;#&lt;/a&gt; 2. 站点配置&lt;/h3&gt;
@@ -144,8 +144,10 @@ set &amp;quot;targetlabel=start&amp;quot;&amp;amp;&amp;amp;goto ac&lt;/code&gt;&
 &lt;p&gt;现在，我们可以愉快地写文章了。&lt;br&gt;
 打开 Joplin，新建笔记（记得都放在同一个笔记本下），笔记的名字是文件名，写上 Front-matter 内容，之后就如同在 word 中一样写稿。&lt;br&gt;
 图片直接粘贴即可，需要的话修改 [ ] 里的内容，这是属于 markdown 语法的一部分，不详细说明。&lt;br&gt;
+写完的文章直接往 &lt;code&gt;blog\source\_posts&lt;/code&gt;  里面一存，然后打开脚本按个 2，等两分钟就部署到 Github Pages 上了。&lt;br&gt;
 &lt;strong&gt;愉快地工作吧！&lt;/strong&gt;&lt;br&gt;
-&lt;img src=&#34;../_resources/cf0fb99a327ef788a844524d6eb74278-1.png&#34; alt=&#34;cf0fb99a327ef788a844524d6eb74278.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;../_resources/cf0fb99a327ef788a844524d6eb74278.png&#34; alt=&#34;cf0fb99a327ef788a844524d6eb74278.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;补充点内容，修改文章稍微有点麻烦，因为 Joplin 非常笨，它不会识别已有的文件，发现重名了直接加后缀，连带着里面的图片也都加后缀、重新复制到 &lt;code&gt;_resources&lt;/code&gt;  里面了；对于我这种硬盘空间够、平时图片不多的人来说倒是无所谓，但部署了之后文章会重复显示好几篇。所以不能直接导出文章，需要手动删除旧的，然后再从 Joplin 中导出即可。&lt;/p&gt;
  ]]></description>
         </item>
         <item>

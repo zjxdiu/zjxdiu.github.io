@@ -25,14 +25,14 @@
 <meta property="og:site_name" content="青羽~blog site">
 <meta property="og:description" content="使用静态部署的方式使用 Hexo，我们经常会遇到一个很烦人的问题，就是部署麻烦。 每次写一篇文章，就要经历 Hexo clean、Hexo g、Hexo s、Hexo d 四连，一开始还好，写多了之后烦不胜烦。 同时，由于我个人使用 Joplin 进行文章撰写，这个软件虽然简洁，但并不好用；图片虽然可以直接复制，但不能修改输出目录，图片资源默认保存在与 &#x2F;blog&#x2F;  平行的 &#x2F;_resource">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://github.com/zjxdiu/zjxdiu.github.io/blog/_resources/aca6779be5b5f5c9d88dc1215456c295-1.png">
-<meta property="og:image" content="https://github.com/zjxdiu/zjxdiu.github.io/blog/_resources/cf0fb99a327ef788a844524d6eb74278-1.png">
+<meta property="og:image" content="https://github.com/zjxdiu/zjxdiu.github.io/blog/_resources/aca6779be5b5f5c9d88dc1215456c295-2.png">
+<meta property="og:image" content="https://github.com/zjxdiu/zjxdiu.github.io/blog/_resources/cf0fb99a327ef788a844524d6eb74278.png">
 <meta property="article:published_time" content="2022-11-27T13:53:00.000Z">
-<meta property="article:modified_time" content="2022-11-27T13:53:59.331Z">
+<meta property="article:modified_time" content="2022-11-27T14:02:03.705Z">
 <meta property="article:author" content="zjxdiu">
 <meta property="article:tag" content="软件">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://github.com/zjxdiu/zjxdiu.github.io/blog/_resources/aca6779be5b5f5c9d88dc1215456c295-1.png">
+<meta name="twitter:image" content="https://github.com/zjxdiu/zjxdiu.github.io/blog/_resources/aca6779be5b5f5c9d88dc1215456c295-2.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://github.com/zjxdiu/zjxdiu.github.io/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/index.html">
   
@@ -240,7 +240,7 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.2k(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.4k(字)</span>
 	
 	
 
@@ -255,7 +255,7 @@
 <hr>
 <h3 id="1-git安装配置不确定是否有必要"><a class="markdownIt-Anchor" href="#1-git安装配置不确定是否有必要">#</a> 1. Git 安装配置（不确定是否有必要）</h3>
 <p>在安装 Git 的过程中，我们会有一个配置终端的过程，此处其实是建议选择第一项（使用 MinTTY），但我当时选择了第二项即使用系统的 cmd 来作 git bash 的终端。<br>
-<img src="../_resources/aca6779be5b5f5c9d88dc1215456c295-1.png" alt="aca6779be5b5f5c9d88dc1215456c295.png"><br>
+<img src="../_resources/aca6779be5b5f5c9d88dc1215456c295-2.png" alt="aca6779be5b5f5c9d88dc1215456c295.png"><br>
  如果选择了第一项，可能也是能正常使用批处理来代替执行的，应该不用担心。</p>
 <hr>
 <h3 id="2-站点配置"><a class="markdownIt-Anchor" href="#2-站点配置">#</a> 2. 站点配置</h3>
@@ -371,8 +371,10 @@ set &quot;targetlabel=start&quot;&amp;&amp;goto ac</code></pre>
 <p>现在，我们可以愉快地写文章了。<br>
 打开 Joplin，新建笔记（记得都放在同一个笔记本下），笔记的名字是文件名，写上 Front-matter 内容，之后就如同在 word 中一样写稿。<br>
 图片直接粘贴即可，需要的话修改 [ ] 里的内容，这是属于 markdown 语法的一部分，不详细说明。<br>
+写完的文章直接往 <code>blog\source\_posts</code>  里面一存，然后打开脚本按个 2，等两分钟就部署到 Github Pages 上了。<br>
 <strong>愉快地工作吧！</strong><br>
-<img src="../_resources/cf0fb99a327ef788a844524d6eb74278-1.png" alt="cf0fb99a327ef788a844524d6eb74278.png"></p>
+<img src="../_resources/cf0fb99a327ef788a844524d6eb74278.png" alt="cf0fb99a327ef788a844524d6eb74278.png"></p>
+<p>补充点内容，修改文章稍微有点麻烦，因为 Joplin 非常笨，它不会识别已有的文件，发现重名了直接加后缀，连带着里面的图片也都加后缀、重新复制到 <code>_resources</code>  里面了；对于我这种硬盘空间够、平时图片不多的人来说倒是无所谓，但部署了之后文章会重复显示好几篇。所以不能直接导出文章，需要手动删除旧的，然后再从 Joplin 中导出即可。</p>
 
       
     </div>
