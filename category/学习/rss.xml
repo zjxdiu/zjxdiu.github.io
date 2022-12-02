@@ -2,7 +2,7 @@
 <rss version="2.0">
     <channel>
         <title>青羽~blog site • Posts by &#34;学习&#34; category</title>
-        <link>https://github.com/zjxdiu/zjxdiu.github.io</link>
+        <link>https://zjxdiu.github.io</link>
         <description>Shadow in front implying sun behind</description>
         <language>zh-CN</language>
         <pubDate>Fri, 02 Dec 2022 14:33:00 +0800</pubDate>
@@ -16,9 +16,9 @@
         <category>日常</category>
         <category>生活</category>
         <item>
-            <guid isPermalink="true">https://github.com/zjxdiu/zjxdiu.github.io/blog/%E6%98%BE%E7%A4%BA%E5%99%A8%E8%B6%85%E9%A2%91/</guid>
+            <guid isPermalink="true">https://zjxdiu.github.io/blog/%E6%98%BE%E7%A4%BA%E5%99%A8%E8%B6%85%E9%A2%91/</guid>
             <title>超频你的显示器，获得更佳的流畅体验</title>
-            <link>https://github.com/zjxdiu/zjxdiu.github.io/blog/%E6%98%BE%E7%A4%BA%E5%99%A8%E8%B6%85%E9%A2%91/</link>
+            <link>https://zjxdiu.github.io/blog/%E6%98%BE%E7%A4%BA%E5%99%A8%E8%B6%85%E9%A2%91/</link>
             <category>超频</category>
             <category>硬件</category>
             <pubDate>Fri, 02 Dec 2022 14:33:00 +0800</pubDate>
@@ -125,9 +125,9 @@
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://github.com/zjxdiu/zjxdiu.github.io/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</guid>
+            <guid isPermalink="true">https://zjxdiu.github.io/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</guid>
             <title>使用批处理和Joplin执行并优化Hexo博客工作流程</title>
-            <link>https://github.com/zjxdiu/zjxdiu.github.io/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</link>
+            <link>https://zjxdiu.github.io/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</link>
             <category>软件</category>
             <pubDate>Sun, 27 Nov 2022 21:53:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;使用静态部署的方式使用 Hexo，我们经常会遇到一个很烦人的问题，就是部署麻烦。&lt;br&gt;
@@ -260,9 +260,9 @@ set &amp;quot;targetlabel=start&amp;quot;&amp;amp;&amp;amp;goto ac&lt;/code&gt;&
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://github.com/zjxdiu/zjxdiu.github.io/blog/WPS-word/</guid>
+            <guid isPermalink="true">https://zjxdiu.github.io/blog/WPS-word/</guid>
             <title>WPS word如何设置图片背景，如何解决图片变成平铺问题</title>
-            <link>https://github.com/zjxdiu/zjxdiu.github.io/blog/WPS-word/</link>
+            <link>https://zjxdiu.github.io/blog/WPS-word/</link>
             <category>软件</category>
             <pubDate>Sat, 26 Nov 2022 23:18:00 +0800</pubDate>
             <description><![CDATA[ &lt;h2 id=&#34;wps-word如何设置图片背景如何解决图片变成平铺问题&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#wps-word如何设置图片背景如何解决图片变成平铺问题&#34;&gt;#&lt;/a&gt; WPS word 如何设置图片背景，如何解决图片变成平铺问题&lt;/h2&gt;

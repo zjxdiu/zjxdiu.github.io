@@ -3,11 +3,11 @@
   <title>青羽~blog site</title>
   
   
-  <link href="https://github.com/zjxdiu/zjxdiu.github.io/atom.xml" rel="self"/>
+  <link href="https://zjxdiu.github.io/atom.xml" rel="self"/>
   
-  <link href="https://github.com/zjxdiu/zjxdiu.github.io/"/>
+  <link href="https://zjxdiu.github.io/"/>
   <updated>2022-12-02T07:25:24.816Z</updated>
-  <id>https://github.com/zjxdiu/zjxdiu.github.io/</id>
+  <id>https://zjxdiu.github.io/</id>
   
   <author>
     <name>zjxdiu</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>超频你的显示器，获得更佳的流畅体验</title>
-    <link href="https://github.com/zjxdiu/zjxdiu.github.io/blog/%E6%98%BE%E7%A4%BA%E5%99%A8%E8%B6%85%E9%A2%91/"/>
-    <id>https://github.com/zjxdiu/zjxdiu.github.io/blog/%E6%98%BE%E7%A4%BA%E5%99%A8%E8%B6%85%E9%A2%91/</id>
+    <link href="https://zjxdiu.github.io/blog/%E6%98%BE%E7%A4%BA%E5%99%A8%E8%B6%85%E9%A2%91/"/>
+    <id>https://zjxdiu.github.io/blog/%E6%98%BE%E7%A4%BA%E5%99%A8%E8%B6%85%E9%A2%91/</id>
     <published>2022-12-02T06:33:00.000Z</published>
     <updated>2022-12-02T07:25:24.816Z</updated>
     
@@ -35,21 +35,21 @@
     
     
     
-    <category term="学习" scheme="https://github.com/zjxdiu/zjxdiu.github.io/categories/%E5%AD%A6%E4%B9%A0/"/>
+    <category term="学习" scheme="https://zjxdiu.github.io/categories/%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="计算机" scheme="https://github.com/zjxdiu/zjxdiu.github.io/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    <category term="计算机" scheme="https://zjxdiu.github.io/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
     
     
-    <category term="超频" scheme="https://github.com/zjxdiu/zjxdiu.github.io/tags/%E8%B6%85%E9%A2%91/"/>
+    <category term="超频" scheme="https://zjxdiu.github.io/tags/%E8%B6%85%E9%A2%91/"/>
     
-    <category term="硬件" scheme="https://github.com/zjxdiu/zjxdiu.github.io/tags/%E7%A1%AC%E4%BB%B6/"/>
+    <category term="硬件" scheme="https://zjxdiu.github.io/tags/%E7%A1%AC%E4%BB%B6/"/>
     
   </entry>
   
   <entry>
     <title>使用批处理和Joplin执行并优化Hexo博客工作流程</title>
-    <link href="https://github.com/zjxdiu/zjxdiu.github.io/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/"/>
-    <id>https://github.com/zjxdiu/zjxdiu.github.io/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</id>
+    <link href="https://zjxdiu.github.io/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/"/>
+    <id>https://zjxdiu.github.io/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</id>
     <published>2022-11-27T13:53:00.000Z</published>
     <updated>2022-11-27T14:02:03.705Z</updated>
     
@@ -65,19 +65,19 @@
     
     
     
-    <category term="学习" scheme="https://github.com/zjxdiu/zjxdiu.github.io/categories/%E5%AD%A6%E4%B9%A0/"/>
+    <category term="学习" scheme="https://zjxdiu.github.io/categories/%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="软件" scheme="https://github.com/zjxdiu/zjxdiu.github.io/categories/%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/"/>
+    <category term="软件" scheme="https://zjxdiu.github.io/categories/%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/"/>
     
     
-    <category term="软件" scheme="https://github.com/zjxdiu/zjxdiu.github.io/tags/%E8%BD%AF%E4%BB%B6/"/>
+    <category term="软件" scheme="https://zjxdiu.github.io/tags/%E8%BD%AF%E4%BB%B6/"/>
     
   </entry>
   
   <entry>
     <title>疫情爆炸，如何积极面对</title>
-    <link href="https://github.com/zjxdiu/zjxdiu.github.io/blog/%E9%9A%8F%E8%AE%B020221125/"/>
-    <id>https://github.com/zjxdiu/zjxdiu.github.io/blog/%E9%9A%8F%E8%AE%B020221125/</id>
+    <link href="https://zjxdiu.github.io/blog/%E9%9A%8F%E8%AE%B020221125/"/>
+    <id>https://zjxdiu.github.io/blog/%E9%9A%8F%E8%AE%B020221125/</id>
     <published>2022-11-27T03:48:00.000Z</published>
     <updated>2022-11-27T10:18:21.495Z</updated>
     
@@ -93,21 +93,21 @@
     
     
     
-    <category term="杂项" scheme="https://github.com/zjxdiu/zjxdiu.github.io/categories/%E6%9D%82%E9%A1%B9/"/>
+    <category term="杂项" scheme="https://zjxdiu.github.io/categories/%E6%9D%82%E9%A1%B9/"/>
     
-    <category term="生活" scheme="https://github.com/zjxdiu/zjxdiu.github.io/categories/%E6%9D%82%E9%A1%B9/%E7%94%9F%E6%B4%BB/"/>
+    <category term="生活" scheme="https://zjxdiu.github.io/categories/%E6%9D%82%E9%A1%B9/%E7%94%9F%E6%B4%BB/"/>
     
     
-    <category term="日常" scheme="https://github.com/zjxdiu/zjxdiu.github.io/tags/%E6%97%A5%E5%B8%B8/"/>
+    <category term="日常" scheme="https://zjxdiu.github.io/tags/%E6%97%A5%E5%B8%B8/"/>
     
-    <category term="生活" scheme="https://github.com/zjxdiu/zjxdiu.github.io/tags/%E7%94%9F%E6%B4%BB/"/>
+    <category term="生活" scheme="https://zjxdiu.github.io/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
   <entry>
     <title>WPS word如何设置图片背景，如何解决图片变成平铺问题</title>
-    <link href="https://github.com/zjxdiu/zjxdiu.github.io/blog/WPS-word/"/>
-    <id>https://github.com/zjxdiu/zjxdiu.github.io/blog/WPS-word/</id>
+    <link href="https://zjxdiu.github.io/blog/WPS-word/"/>
+    <id>https://zjxdiu.github.io/blog/WPS-word/</id>
     <published>2022-11-26T15:18:00.000Z</published>
     <updated>2022-11-27T10:18:21.497Z</updated>
     
@@ -121,19 +121,19 @@
     
     
     
-    <category term="学习" scheme="https://github.com/zjxdiu/zjxdiu.github.io/categories/%E5%AD%A6%E4%B9%A0/"/>
+    <category term="学习" scheme="https://zjxdiu.github.io/categories/%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="软件" scheme="https://github.com/zjxdiu/zjxdiu.github.io/categories/%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/"/>
+    <category term="软件" scheme="https://zjxdiu.github.io/categories/%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/"/>
     
     
-    <category term="软件" scheme="https://github.com/zjxdiu/zjxdiu.github.io/tags/%E8%BD%AF%E4%BB%B6/"/>
+    <category term="软件" scheme="https://zjxdiu.github.io/tags/%E8%BD%AF%E4%BB%B6/"/>
     
   </entry>
   
   <entry>
     <title>傅里叶变换红外光谱技术原理详解</title>
-    <link href="https://github.com/zjxdiu/zjxdiu.github.io/blog/FTIR%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3/"/>
-    <id>https://github.com/zjxdiu/zjxdiu.github.io/blog/FTIR%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3/</id>
+    <link href="https://zjxdiu.github.io/blog/FTIR%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3/"/>
+    <id>https://zjxdiu.github.io/blog/FTIR%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3/</id>
     <published>2022-11-26T13:02:00.000Z</published>
     <updated>2022-11-27T10:18:21.490Z</updated>
     
@@ -152,23 +152,23 @@
     
     
     
-    <category term="专业" scheme="https://github.com/zjxdiu/zjxdiu.github.io/categories/%E4%B8%93%E4%B8%9A/"/>
+    <category term="专业" scheme="https://zjxdiu.github.io/categories/%E4%B8%93%E4%B8%9A/"/>
     
-    <category term="多学科" scheme="https://github.com/zjxdiu/zjxdiu.github.io/categories/%E4%B8%93%E4%B8%9A/%E5%A4%9A%E5%AD%A6%E7%A7%91/"/>
+    <category term="多学科" scheme="https://zjxdiu.github.io/categories/%E4%B8%93%E4%B8%9A/%E5%A4%9A%E5%AD%A6%E7%A7%91/"/>
     
     
-    <category term="化学" scheme="https://github.com/zjxdiu/zjxdiu.github.io/tags/%E5%8C%96%E5%AD%A6/"/>
+    <category term="化学" scheme="https://zjxdiu.github.io/tags/%E5%8C%96%E5%AD%A6/"/>
     
-    <category term="仪器分析" scheme="https://github.com/zjxdiu/zjxdiu.github.io/tags/%E4%BB%AA%E5%99%A8%E5%88%86%E6%9E%90/"/>
+    <category term="仪器分析" scheme="https://zjxdiu.github.io/tags/%E4%BB%AA%E5%99%A8%E5%88%86%E6%9E%90/"/>
     
-    <category term="信号处理" scheme="https://github.com/zjxdiu/zjxdiu.github.io/tags/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/"/>
+    <category term="信号处理" scheme="https://zjxdiu.github.io/tags/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
   <entry>
     <title>博客成功建立！</title>
-    <link href="https://github.com/zjxdiu/zjxdiu.github.io/blog/%E9%9D%92%E7%BE%BD_blog%E5%BB%BA%E7%AB%8B%E5%AE%8C%E6%88%90%EF%BC%81/"/>
-    <id>https://github.com/zjxdiu/zjxdiu.github.io/blog/%E9%9D%92%E7%BE%BD_blog%E5%BB%BA%E7%AB%8B%E5%AE%8C%E6%88%90%EF%BC%81/</id>
+    <link href="https://zjxdiu.github.io/blog/%E9%9D%92%E7%BE%BD_blog%E5%BB%BA%E7%AB%8B%E5%AE%8C%E6%88%90%EF%BC%81/"/>
+    <id>https://zjxdiu.github.io/blog/%E9%9D%92%E7%BE%BD_blog%E5%BB%BA%E7%AB%8B%E5%AE%8C%E6%88%90%EF%BC%81/</id>
     <published>2022-11-24T13:27:00.000Z</published>
     <updated>2022-11-29T13:23:48.936Z</updated>
     
