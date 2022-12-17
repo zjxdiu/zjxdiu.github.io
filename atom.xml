@@ -6,7 +6,7 @@
   <link href="https://zjxdiu.github.io/atom.xml" rel="self"/>
   
   <link href="https://zjxdiu.github.io/"/>
-  <updated>2022-12-05T14:11:49.635Z</updated>
+  <updated>2022-12-17T14:55:49.110Z</updated>
   <id>https://zjxdiu.github.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一段话的风格改编之旅</title>
+    <link href="https://zjxdiu.github.io/blog/%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%841/"/>
+    <id>https://zjxdiu.github.io/blog/%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%841/</id>
+    <published>2022-12-17T14:55:00.000Z</published>
+    <updated>2022-12-17T14:55:49.110Z</updated>
+    
+    <content type="html"><![CDATA[<p>在群里看到一张图：<br>（很长，谨慎观看）<br>觉得很有意思，所以来尝试一手<br><img src="../_resources/dd3a38e57001d9152146cbdaf57f5e79.png" alt="dd3a38e57001d9152146cbdaf57f5e79.png"></p><p>zjxdiu 写作风格：<br>平淡的一天，我照常乘坐拥挤的地铁下班回家。一成不变的枯燥工作使我身心俱疲，但更糟心的事情，正在发生。<br>那看上去似乎已是中老年的身影逐渐靠近，并不瘦弱的身躯似乎隐藏着对全世界的恶意。他走到我的身边，停下了脚步。<br>“没看到这里写着爱心座位吗？” 一边说着，他举起手上的雨伞就是一次猛戳。<br>我避之不及，匆忙间只躲过了伞柄尖端，雨水依旧顺着伞面滑落到我的衣服上。渗透的雨水寒冷刺骨，却远不及我心中的冷意。<br>起身让开了座位，主动忽略了身旁的异样眼光，我只是默然想道：<br>“终有一日，施加于他人的善与恶，会再次回到自己身边。”</p><hr><p>草（指草本植物），真的没写过第一人称，也没写过现实内容，buff 拉满了，感觉跟自己的真实风格差距有亿点大。<br>还有想尝试的还能继续留言（</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;在群里看到一张图：&lt;br&gt;
+（很长，谨慎观看）&lt;br&gt;
+觉得很有意思，所以来尝试一手&lt;br&gt;
+&lt;img src=&quot;../_resources/dd3a38e57001d9152146cbdaf57f5e79.png&quot; alt=&quot;dd3a38e57001d9152146cbd</summary>
+      
+    
+    
+    
+    <category term="杂项" scheme="https://zjxdiu.github.io/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    <category term="生活" scheme="https://zjxdiu.github.io/categories/%E6%9D%82%E9%A1%B9/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+    <category term="日常" scheme="https://zjxdiu.github.io/tags/%E6%97%A5%E5%B8%B8/"/>
+    
+    <category term="脑洞" scheme="https://zjxdiu.github.io/tags/%E8%84%91%E6%B4%9E/"/>
+    
+  </entry>
   
   <entry>
     <title>【补档】唤境游戏如何显示帧率？详解性能相关内容</title>

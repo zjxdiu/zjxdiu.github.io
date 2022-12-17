@@ -5,19 +5,43 @@
         <link>https://zjxdiu.github.io</link>
         <description>Shadow in front implying sun behind</description>
         <language>zh-CN</language>
-        <pubDate>Mon, 05 Dec 2022 22:11:00 +0800</pubDate>
-        <lastBuildDate>Mon, 05 Dec 2022 22:11:00 +0800</lastBuildDate>
+        <pubDate>Sat, 17 Dec 2022 22:55:00 +0800</pubDate>
+        <lastBuildDate>Sat, 17 Dec 2022 22:55:00 +0800</lastBuildDate>
+        <category>软件</category>
         <category>化学</category>
         <category>仪器分析</category>
         <category>信号处理</category>
         <category>分享</category>
-        <category>软件</category>
+        <category>日常</category>
+        <category>脑洞</category>
         <category>超频</category>
         <category>硬件</category>
         <category>开发</category>
         <category>游戏引擎</category>
-        <category>日常</category>
         <category>生活</category>
+        <item>
+            <guid isPermalink="true">https://zjxdiu.github.io/blog/%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%841/</guid>
+            <title>一段话的风格改编之旅</title>
+            <link>https://zjxdiu.github.io/blog/%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%841/</link>
+            <category>日常</category>
+            <category>脑洞</category>
+            <pubDate>Sat, 17 Dec 2022 22:55:00 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;在群里看到一张图：&lt;br&gt;
+（很长，谨慎观看）&lt;br&gt;
+觉得很有意思，所以来尝试一手&lt;br&gt;
+&lt;img src=&#34;../_resources/dd3a38e57001d9152146cbdaf57f5e79.png&#34; alt=&#34;dd3a38e57001d9152146cbdaf57f5e79.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;zjxdiu 写作风格：&lt;br&gt;
+平淡的一天，我照常乘坐拥挤的地铁下班回家。一成不变的枯燥工作使我身心俱疲，但更糟心的事情，正在发生。&lt;br&gt;
+那看上去似乎已是中老年的身影逐渐靠近，并不瘦弱的身躯似乎隐藏着对全世界的恶意。他走到我的身边，停下了脚步。&lt;br&gt;
+“没看到这里写着爱心座位吗？” 一边说着，他举起手上的雨伞就是一次猛戳。&lt;br&gt;
+我避之不及，匆忙间只躲过了伞柄尖端，雨水依旧顺着伞面滑落到我的衣服上。渗透的雨水寒冷刺骨，却远不及我心中的冷意。&lt;br&gt;
+起身让开了座位，主动忽略了身旁的异样眼光，我只是默然想道：&lt;br&gt;
+“终有一日，施加于他人的善与恶，会再次回到自己身边。”&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;草（指草本植物），真的没写过第一人称，也没写过现实内容，buff 拉满了，感觉跟自己的真实风格差距有亿点大。&lt;br&gt;
+还有想尝试的还能继续留言（&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://zjxdiu.github.io/blog/%E8%A1%A5%E6%A1%A31/</guid>
             <title>【补档】唤境游戏如何显示帧率？详解性能相关内容</title>
