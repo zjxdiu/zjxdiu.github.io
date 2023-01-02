@@ -5,8 +5,8 @@
         <link>https://zjxdiu.github.io</link>
         <description>Shadow in front implying sun behind</description>
         <language>zh-CN</language>
-        <pubDate>Sun, 01 Jan 2023 09:46:00 +0800</pubDate>
-        <lastBuildDate>Sun, 01 Jan 2023 09:46:00 +0800</lastBuildDate>
+        <pubDate>Mon, 02 Jan 2023 22:21:15 +0800</pubDate>
+        <lastBuildDate>Mon, 02 Jan 2023 22:21:15 +0800</lastBuildDate>
         <category>化学</category>
         <category>仪器分析</category>
         <category>信号处理</category>
@@ -19,6 +19,15 @@
         <category>开发</category>
         <category>游戏引擎</category>
         <category>生活</category>
+        <item>
+            <guid isPermalink="true">https://zjxdiu.github.io/blog/%E5%9B%BE%E5%BA%8A/</guid>
+            <title>图床</title>
+            <link>https://zjxdiu.github.io/blog/%E5%9B%BE%E5%BA%8A/</link>
+            <pubDate>Mon, 02 Jan 2023 22:21:15 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;此处用于保存一些图片&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#此处用于保存一些图片&#34;&gt;#&lt;/a&gt; 此处用于保存一些图片&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;../_resources/fc3ae10d48f0ad79151951f2ffa88d3c.png&#34; alt=&#34;fc3ae10d48f0ad79151951f2ffa88d3c.png&#34;&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://zjxdiu.github.io/blog/Hello_2023/</guid>
             <title>你好，2023</title>
