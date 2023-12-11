@@ -1,0 +1,758 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zjxdiu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文内容已过时，请查看新版解决方案引用本文大部分内容可参考：长沙理工大学：校园网解除共享限制路由器刷机参考教程（非本次使用）：极路由Enjoy 1200  HC5861B OpenWRT 固件 Rosy主题如何下载固件：padavan固件下载列表 原因与现象为了维护运营商利益，校园网设置了一些检测与规则，对同时登录校园网的设备数量作出了严格的限制，并且不允许终端用户进行网络共享。具体表现为，当用户">
+  
+  
+  
+  <title>长沙理工大学无线网络多设备共享解决方案 - zjxdiu~blog site</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zjxdiu.github.io","root":"/","version":"1.9.6","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"a0ZOBYVJWRe63nlLbT3JQCA6-gzGzoHsz","app_key":"EfjGQrtPSdC22sUcpNXGOUS4","server_url":"https://a0zobyvj.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zjxdiu~blog site</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">长沙理工大学无线网络多设备共享解决方案</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-24 22:07" pubdate>
+          2023年2月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">长沙理工大学无线网络多设备共享解决方案</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="本文内容已过时，请查看新版解决方案"><a href="#本文内容已过时，请查看新版解决方案" class="headerlink" title="本文内容已过时，请查看新版解决方案"></a>本文内容已过时，请查看<a href="openclash_80_proxy.html">新版解决方案</a></h1><h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>本文大部分内容可参考：<br><a target="_blank" rel="noopener" href="https://www.mr-cn.net/2021/06/15/Share-your-network-in-CSUST/">长沙理工大学：校园网解除共享限制</a><br>路由器刷机参考教程（非本次使用）：<br><a target="_blank" rel="noopener" href="https://www.right.com.cn/FORUM/thread-489907-1-1.html">极路由Enjoy 1200  HC5861B OpenWRT 固件 Rosy主题</a><br>如何下载固件：<br><a target="_blank" rel="noopener" href="http://opt.cn2qq.com/padavan/">padavan固件下载列表</a></p>
+<h2 id="原因与现象"><a href="#原因与现象" class="headerlink" title="原因与现象"></a>原因与现象</h2><p>为了维护运营商利益，校园网设置了一些检测与规则，对同时登录校园网的设备数量作出了严格的限制，并且不允许终端用户进行网络共享。<br>具体表现为，当用户使用电脑、手机等的热点、无线信号桥等方法时，只要有第二台设备联网，就会在一定条件下被检测发现，随后此账号将无法访问网络，并自动将网页重定向到登录界面（或1.1.1.3，但这个页面不能加载出来）。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>根据引用文章，可以得知共享检测主要通过80端口下的HTTP报文中浏览器UA的区别来实现，可以看到这个限制条件比较多，而且检测周期并不短；因此会出现稳定共享的时间时长时短的现象。<br>此外，还可能会通过其他方法检测，包括但不限于TTL、IPID、侵入式检测等等。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>为实现稳定的校园网共享，首先需要选择正确的系统：必须使用OpenWRT或Pavanda等软路由系统。<br>本文基于Pavanda操作。</p>
+<h3 id="路由选型"><a href="#路由选型" class="headerlink" title="路由选型"></a>路由选型</h3><p>如果你还没有软路由或者合适的路由器，那么选购路由器就是第一步了。我最终的选择是二手极路由Enjoy 1200，型号HC5861B。极路由虽然已经倒闭，但它的产品可玩性和性价比确实是相对较好的。<br>淘宝入手价格40元，由商家代刷Breed。<br>需要注意的是，这一款路由器不支持USB，电源接口也是12V DC而非5V Micro-USB，如果有这两个功能需求的话可以考虑极路由3或其他产品。</p>
+<h3 id="检查与刷机"><a href="#检查与刷机" class="headerlink" title="检查与刷机"></a>检查与刷机</h3><p>收货后先简单清理积灰，检查网口是否有积聚大量灰尘，天线是否正常连接、旋转。<br>随后插入电源开机，连接电脑网口到路由器LAN 1口，等待IP自动配置完成，进入默认网关的地址（本次为192.168.132.1，极路由原厂固件可能为192.168.199.1）<br>使用默认的管理员账号密码（admin）登录后，发现这台机器已经刷好了老毛子固件（Padavan）了：<br><img src="/../_resources/54de7cdf47ce563bb65d5c42e282e331.png" srcset="/img/loading.gif" lazyload alt="54de7cdf47ce563bb65d5c42e282e331.png"><br>所以省下了很多时间，虽然我的计划是使用OpenWrt，但Padavan本质上是一样的。<br>如果需要刷机教程，请参考引用文章，或直接搜索路由型号+OpenWrt，即可找到一些刷机教程。</p>
+<h2 id="网络拓扑"><a href="#网络拓扑" class="headerlink" title="网络拓扑"></a>网络拓扑</h2><p><img src="/../_resources/15828e53952c884a9b9f9f1cc11b7c77.png" srcset="/img/loading.gif" lazyload alt="15828e53952c884a9b9f9f1cc11b7c77.png"><br>我的目标是达成这样的拓扑，实际上就是一个无线“路由”，也就是将无线信号作为WAN，执行NAT和防火墙规则后建立子网，设备均接入子网中。</p>
+<h2 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h2><h3 id="路由器接入无线网络"><a href="#路由器接入无线网络" class="headerlink" title="路由器接入无线网络"></a>路由器接入无线网络</h3><p>直接参考这张图即可：<br><img src="/../_resources/d6035076edef8fc78299e3af690eea62.png" srcset="/img/loading.gif" lazyload alt="d6035076edef8fc78299e3af690eea62.png"><br>2.4G和5G只能有一个用于AP-Client，另一个必须禁用桥接。<br>需要注意的是，路由器需要用一个频段接入校园网，另一个频段用于发射信号；虽然可以选择client+AP来实现单频复用，实际上只用5GHz的话效果也不错，但我收到的这台路由器不知道为何5G能力极其孱弱（无遮挡50cm距离下client都不能跑满协商速率），而2.4G能力极强（对周围的无线鼠标、蓝牙手柄等造成严重干扰），因此这里不使用这种方法。<br><strong>补充：后面换了一台JCG Q20，TB到手60块，不仅支持WiFi6而且性能远强于前面买的极路由，有需要的同学可以参考购买。这玩意就完全可以5GHz同时用于client和AP了，2.4GHz只用来保留兼容性即可。</strong></p>
+<p><strong>懒得删改的原文：</strong><br><em>这里还涉及到频段的选择，最开始我使用2.4G接入校园网、5G用于共享，但随后我发现无线鼠标的工作会受到较严重的干扰（接收器也工作在2.4G频率上），因此后续改为5G接入、2.4G共享。<br>此外，网络性能也是一个需要关心的重点，5GHz总能提供更优秀的表现，但这里我们只能用于一个目的；由于我平时主要使用电脑上网，而电脑是通过网线连接到路由器的，因此选择5G接入是更好的。实际上，这种情况下2.4G的表现也不差，宿舍面积小、干扰少，多次测试下来延迟在30ms以内，速度8-9MB&#x2F;s，可以满足1080P视频观看和正常游戏。</em></p>
+<h3 id="修改网络配置"><a href="#修改网络配置" class="headerlink" title="修改网络配置"></a>修改网络配置</h3><p>如果对内网网段不敏感（例如你只想要正常上网，平时不开发网页、软件、游戏、不做任何测试，那么这一段可以跳过）<br>在左侧选择外部网络（WAN），可参考下图配置：<br><img src="/../_resources/e613ab56c89c86b939bf67ab5601fc42.png" srcset="/img/loading.gif" lazyload alt="e613ab56c89c86b939bf67ab5601fc42.png"></p>
+<p>LAN配置同理，设置想要的网段、DNS、静态路由等。</p>
+<h2 id="通过NAT连接ipv6"><a href="#通过NAT连接ipv6" class="headerlink" title="通过NAT连接ipv6"></a>通过NAT连接ipv6</h2><p>由于我希望使用到正常的ipv6，故单独在此写出方案；对于绝大多数日常网络而言，关闭ipv6可能反而有助于提高稳定性。<br>参考文章：<a target="_blank" rel="noopener" href="https://post.smzdm.com/p/ad9qkz9k/">校园网环境下Openwrt配置ipv6教程——以nat6为例</a></p>
+<ul>
+<li><p>NAT是什么？<br>NAT是最早出现在ipv4中的技术；由于ipv4地址空间有限（总约42亿个），无法满足爆炸式增长的网络设备入网需求，因此出现了网络地址转换（Network Address Translation）技术；它的作用就是缓解ipv4地址消耗，尽量在ipv6部署完全之前满足原有上网需求。<br>它的工作原理很简单，我们平时使用路由器上网的时候就至少会有一次NAT过程，路由器将一个外网（全球唯一）的地址映射到多个内网地址（通常为192.168.x.x或10.x.x.x），这样一个路由器下的设备就可以共用一个外网IP，大幅缓解了地址消耗，同时解决了耗尽的影响。<br>NAT有助于提高网络安全性，因为路由器上可以部署非常高效的防火墙，也可以天然阻断所有传入连接，但这样的技术也会带来问题；最大的问题无疑就是点对点连接变得不可能，因此游戏联机、网站建设等都会变得很困难。<br>在我的使用场景下，Minecraft联机是最常见的点对点连接应用，此前的解决方案均为FRP内网穿透（见前文章）。</p>
+</li>
+<li><p>为什么我一定要有ipv6连接？<br>很简单，ipv6地址池极大，运营商也并未刻意限制用户的ipv6访问（至少我没有遇到过哪个运营商在ipv6上用NAT的）<strong>（但是教育网除外）</strong>。<br>因此，大多数用户只要开启了ipv6，就能获取到公网IP。这对于点对点连接来说无疑是非常有帮助的。</p>
+</li>
+<li><p>教育网干了什么？<br>一般运营商在家用、商用宽带里分配的ipv6都带有一个&#x2F;64的前缀，这意味着路由器拿到的地址里面还包含了大量的可用地址（约1800万兆个地址；1兆&#x3D;1万亿（也就是18446744073709551616）），用于给后续设备分配ipv6地址；<br>但教育网的ipv6则直接分配了&#x2F;128的地址，这就意味着它给你的地址只能用于一台设备。也就是说，想要共享ipv6，必须使用NAT。</p>
+</li>
+</ul>
+<h3 id="如何使用NAPT66"><a href="#如何使用NAPT66" class="headerlink" title="如何使用NAPT66"></a>如何使用NAPT66</h3><p>NAPT66模块是padavan使用的一个解决方案，所谓NAPT其实是现在NAT的正确称呼，也就是Network Address Port Translation。因为一对多NAT的情况下涉及到端口转换，相当于用端口数换IP数，所以NAPT才是准确的说法。<br>请按照你的路由器型号查找最新的padavan固件，并进行固件更新；在新版PDCN固件中直接内置了NAPT66的一键开关和配置，只需在ipv6设置页面底部点击一键填写配置，然后重启路由器和电脑网卡即可使用。</p>
+<hr>
+<h2 id="更多参考信息"><a href="#更多参考信息" class="headerlink" title="更多参考信息"></a>更多参考信息</h2><p>如果你的路由器使用的固件特殊，没有内置一键NAPT66，则可参考：<a target="_blank" rel="noopener" href="https://doge.uk/coding/padavan-ipv6-napt66.html">Padavan路由下使用NAPT66模块访问移动IPV6网络</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/" class="category-chain-item">网络工程</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BD%91%E7%BB%9C/" class="print-no-link">#网络</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>长沙理工大学无线网络多设备共享解决方案</div>
+      <div>https://zjxdiu.github.io/blog/Network_progress_CSUST/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>zjxdiu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/dynv6_notes/" title="dynv6使用技巧（如何添加多个地址 子域名 等）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">dynv6使用技巧（如何添加多个地址 子域名 等）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/another_toss_of_music_recording/" title="又一次折腾手机游戏《灵魂潮汐》音频录制的记录">
+                        <span class="hidden-mobile">又一次折腾手机游戏《灵魂潮汐》音频录制的记录</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"a0ZOBYVJWRe63nlLbT3JQCA6-gzGzoHsz","appKey":"EfjGQrtPSdC22sUcpNXGOUS4","path":"window.location.pathname","placeholder":null,"avatar":"","meta":["nick","mail"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        本文阅读 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访问数 
+        <span id="leancloud-site-uv"></span>
+         次
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

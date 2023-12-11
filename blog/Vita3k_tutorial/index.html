@@ -1,0 +1,787 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zjxdiu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文未完成前言最近想玩PSV游戏了，但是一来手上没有设备，二是PSV原生的游戏体验不见得就很好（分辨率544P）。那么看着手上的Windows PC，自然是来折腾模拟器了。 vita3k入门vita3k是一个开源、免费的PS Vita模拟器，是目前市面上（大概）唯一真正可用的PSV模拟器。 相关网址官方网站：https://vita3k.org/游戏兼容性列表：https://vita3k.org">
+  
+  
+  
+  <title>PSV模拟器vita3k完全教程 - zjxdiu~blog site</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zjxdiu.github.io","root":"/","version":"1.9.6","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"a0ZOBYVJWRe63nlLbT3JQCA6-gzGzoHsz","app_key":"EfjGQrtPSdC22sUcpNXGOUS4","server_url":"https://a0zobyvj.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zjxdiu~blog site</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">PSV模拟器vita3k完全教程</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-07 18:37" pubdate>
+          2023年7月7日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">PSV模拟器vita3k完全教程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="本文未完成"><a href="#本文未完成" class="headerlink" title="本文未完成"></a>本文未完成</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近想玩PSV游戏了，但是一来手上没有设备，二是PSV原生的游戏体验不见得就很好（分辨率544P）。那么看着手上的Windows PC，自然是来折腾模拟器了。</p>
+<h2 id="vita3k入门"><a href="#vita3k入门" class="headerlink" title="vita3k入门"></a>vita3k入门</h2><p>vita3k是一个开源、免费的PS Vita模拟器，是目前市面上（大概）唯一真正可用的PSV模拟器。</p>
+<h3 id="相关网址"><a href="#相关网址" class="headerlink" title="相关网址"></a>相关网址</h3><p>官方网站：<a target="_blank" rel="noopener" href="https://vita3k.org/">https://vita3k.org/</a><br>游戏兼容性列表：<a target="_blank" rel="noopener" href="https://vita3k.org/compatibility.html">https://vita3k.org/compatibility.html</a><br><em>以上两个网站似乎使用了谷歌的ajax，国内可能直连不上，会导致文字和内容无法加载等问题；使用魔法可以解决</em></p>
+<p>下载链接：<br>Windows：<a target="_blank" rel="noopener" href="https://github.com/Vita3K/Vita3K/releases/download/continuous/windows-latest.zip?time=1688728168579">Github Release</a><br>安卓：<a target="_blank" rel="noopener" href="https://github.com/Vita3K/Vita3K-Android/releases/">Github Release</a></p>
+<p>Github仓库：<a target="_blank" rel="noopener" href="https://github.com/Vita3K/Vita3K">https://github.com/Vita3K/Vita3K</a><br>Github兼容性报告页（issue）：<a target="_blank" rel="noopener" href="https://github.com/Vita3K/compatibility/issues">https://github.com/Vita3K/compatibility/issues</a><br><em>提示：在vita3k程序内可以快速创建兼容性报告，无需自己创建issue</em></p>
+<h3 id="游戏ROM资源下载处："><a href="#游戏ROM资源下载处：" class="headerlink" title="游戏ROM资源下载处："></a>游戏ROM资源下载处：</h3><ul>
+<li><p>国内整理</p>
+<ul>
+<li>都是百度网盘下载，如果只下汉化游戏的话开一个优化速率模式其实很快（百兆跑满），但是其他语言的大多很慢</li>
+<li>老男人游戏网（需要付费注册，价格非常低可以考虑购买）：<a target="_blank" rel="noopener" href="https://www.oldmanemu.net/%e6%8e%8c%e6%9c%ba%e6%b8%b8%e6%88%8f/psv">www.oldmanemu.net/掌机游戏/psv</a></li>
+<li>ROM猎人：<a target="_blank" rel="noopener" href="https://www.yang2000ling.com/#/">www.yang2000ling.com/#/</a></li>
+<li>ROMS乐园：<a target="_blank" rel="noopener" href="https://www.roms.fun/vita/">www.roms.fun/vita</a></li>
+<li>其他各种贴吧论坛等零散位置不一一列举</li>
+</ul>
+</li>
+<li><p>NoPayStation（推荐）</p>
+<ul>
+<li>无需科学上网；</li>
+<li>这个网站的原理是从PS官方服务器里直接获取下载链接，因此不会受到网盘限速的影响，同时也无需依赖其他用户上传，因此资源非常全面；缺点就是没有自制游戏和民间汉化版等</li>
+<li>网址：<a target="_blank" rel="noopener" href="https://nopaystation.com/browse">nopaystation.com&#x2F;browse</a></li>
+<li><strong>下载时，pkg和work.bin文件都要下载</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="安装前提示"><a href="#安装前提示" class="headerlink" title="安装前提示"></a>安装前提示</h3><p>vita3k确实支持安卓设备，但不要指望它能正常工作；基本上能正常运行的游戏只有5%甚至更少，每个设备的表现也不一致，因此<strong>不建议使用安卓设备</strong>模拟PSV。如果有这个需求，可以考虑用电脑串流游玩。<br>因此，以下教程完全基于Windows版本。<br>在Windows上，vita3k需要的配置也不低；虽然官网没说需要vulkan，但根据实际体验来说<strong>vulkan是必须的</strong>（不用指望OpenGL能跑成啥样，兼容性和性能都有很大问题）。此外，AVX指令集和4-8G内存也是需要的。</p>
+<h2 id="安装软件和固件"><a href="#安装软件和固件" class="headerlink" title="安装软件和固件"></a>安装软件和固件</h2><p>从上面的下载链接、官网或者GitHub里直接下载安装。软件安装也很简单，一路next就行。不过需要注意安装路径里不要带空格和中文，防止出现问题。<br>软件启动后需要安装psv环境，以及需要下载固件；这里直接跟随这篇教程即可（固件也在里面可以下载）：<a target="_blank" rel="noopener" href="https://croden1999.github.io/Vita3K-quick-guide/README_USE_VITA3K">croden1999.github.io</a><br>（这个教程其实是挺完整的，但有些地方说明不清晰，所以我写了这篇文章）</p>
+<h2 id="初次启动配置"><a href="#初次启动配置" class="headerlink" title="初次启动配置"></a>初次启动配置</h2><p>安装完成后，打开软件；Vita3K会同时创建两个窗口，一个是命令行终端，另一个是GUI本体。<br><img src="/../_resources/d47d50677f42c898131ec169136675ef.png" srcset="/img/loading.gif" lazyload alt="d47d50677f42c898131ec169136675ef.png"><br>GUI界面在几十秒不操作就会进入锁屏界面，点一下就能恢复。<br>命令行窗口可以直接最小化不管，但开着可以方便检查运行是否出错。</p>
+<h3 id="自动更新"><a href="#自动更新" class="headerlink" title="自动更新"></a>自动更新</h3><p>软件启动后，首先会自动检查更新，包括兼容性数据库更新和软件本体更新。它们需要连接到GitHub的服务器才能进行，并且<strong>无法通过steamcommunity 302、FastGithub等程序进行加速（如果开着则可能直接失败，因为这些软件是在本地搭建代理服务器，因此没有可信证书）</strong>。<br>当然你可以不管更新，但是软件本体建议要尽量保持最新（可以手动下载然后覆盖文件），因为Vita3K仍然是一个正在积极开发的模拟器，每次更新都可能带来更好的兼容性。<br>兼容性列表更新失败可以忽略，但如果你像我一样有强迫症的话，可以用UsbEAm Hosts Editor找到最佳hosts，然后就可以正常更新了（如图，选raw及用户头像；具体教程网上可以查）<br><img src="/../_resources/9392d904053ae7a67590237d60b5f269.png" srcset="/img/loading.gif" lazyload alt="9392d904053ae7a67590237d60b5f269.png"><br>最后，如果你的网络环境实在太差，也可以手动更新；<br>兼容性数据库：在<a target="_blank" rel="noopener" href="https://objects.githubusercontent.com/github-production-release-asset-2e65be/130765034/0fed046f-f0ef-48ea-91c6-eb46c895dbcb?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A/20230728/us-east-1/s3/aws4_request&X-Amz-Date=20230728T081329Z&X-Amz-Expires=300&X-Amz-Signature=33e26dc786a9f8c9b62494bfe29576442d0b802491dd1bf84c27c67b7ab2c6e0&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=130765034&response-content-disposition=attachment;%20filename=app_compat_db.xml&response-content-type=application/octet-stream">这里下载</a>兼容性列表，然后手动放到<code>vita3k\cache</code>里面，替换掉原有文件即可。<br>软件本体：在<a target="_blank" rel="noopener" href="https://github.com/Vita3K/Vita3K/releases/download/continuous/windows-latest.zip">这里下载</a>最新版本的vita3k，把其中所有内容解压到安装目录，替换所有需要替换的文件即可。</p>
+<h3 id="软件界面"><a href="#软件界面" class="headerlink" title="软件界面"></a>软件界面</h3><p><img src="/../_resources/da2c007f9a1c13395a1d1a822800b027.png" srcset="/img/loading.gif" lazyload alt="da2c007f9a1c13395a1d1a822800b027.png"><br>上方有一排选项按钮，这里就是我们需要主要进行配置的地方。</p>
+<p><img src="/../_resources/f0af051c93c4acb47726e4c4a4e58806.png" srcset="/img/loading.gif" lazyload alt="f0af051c93c4acb47726e4c4a4e58806.png"><br>下面都是游戏和应用程序列表；如果显示为图中这样的网格模式，则点击<strong>配置-&gt;设置-&gt;GUI，取消勾选Grid Mode即可</strong></p>
+<p>对于列表模式，这里会显示很多信息；从左到右分别是：游戏图标、兼容性指示、ID、版本、类型、最后使用时间、标题名称。（看顶上的那一排按钮，点哪个就可以按哪个排序）<br>兼容性指示是通过颜色进行的，绿色代表可玩，黄色代表可以进游戏但不能正常游戏或通关，灰色表示这个游戏在数据库里没有兼容性信息（也就是未知）。<br>需要注意的是，很多游戏都具有多个区域，例如日版、美版、欧版等，而它们的ID是不一样的；但测试兼容性的用户可能测试的是另一个区域的版本，因此这里显示灰色不代表就一定没有人测试过。<br>因此，对于游戏兼容性，<strong>去官方的兼容性网站里搜索</strong>才是最佳选择。<br><em>剧透：这个兼容性列表的准确性也不高，有些游戏即使说可玩也不见得一定能玩；但更多时候是显示不可玩但实际可以玩，这一般是因为软件更新太快了，测试用户可能是之前的版本</em></p>
+<p>右上角有个刷新按钮，如果是MAI方式安装游戏或手动删除游戏则需要手动刷新列表。</p>
+<h3 id="设置核心内容"><a href="#设置核心内容" class="headerlink" title="设置核心内容"></a>设置核心内容</h3><p>点击配置-&gt;设置，这里有几个地方需要重点关注。<br><img src="/../_resources/290d4db020ec22c325ab4355145752fb.png" srcset="/img/loading.gif" lazyload alt="290d4db020ec22c325ab4355145752fb.png"></p>
+<ol>
+<li><p>Core<br> 里面是一些模块列表，不用管。</p>
+</li>
+<li><p>CPU<br> 这里可以选择模拟器的CPU后端，Windows上支持Dynarmic和Unicorn两种。前者是默认值；由于Dynarmic的性能和兼容性都比unicorn好很多，不建议修改。<br> 下面还有一个Enable optimizations的选项，这一项通常情况下可以勾选，能提供好一点的性能；但在某些游戏里可能需要关闭才能正常游戏（例如Entwined）。</p>
+</li>
+<li><p>GPU<br> 这里是最重要的设置。<br> 首先可以选择使用哪个API，直接无脑vulkan就行。（即使有些游戏只能在OpenGL下运行，我也不建议妥协，这里的OpenGL性能很差并且有很多bug）。<br> 如果使用vulkan，则可以选择用哪个显卡；这里有独显的选择你的独显。还有一个Disable surface sync，如果勾选则会禁用CPU和GPU之间的同步，能给性能带来很大提升；但少数游戏可能无法运行（实际测试没有发现它影响了任何一个游戏，至少我安装过的没有）<br> Screen Filter里是屏幕缩放方法，Bilinear是双线性缩放，会导致一些像素风游戏失去像素感；换成Nearest（邻近）即可解决。如果需要更好的缩放，可以选择Bicubic（双立方）、FXAA（快速近似抗锯齿）或FSR（这个是我比较喜欢的）。<br> 下面两个滑块，第一个是控制渲染分辨率；默认1x就是原生分辨率960x544，原生的好处就是更不容易出现渲染错误，但画面也比较模糊；使用2x就是1920x1088，在1080P显示器上效果很不错，性能也不会降低太多。第二个滑块是各向异性过滤，这个一般只影响3D游戏，而且比较看个人习惯；我平时开4x，但说实话我的眼睛完全看不出来它有啥用（至少在我玩过的几个PSV游戏里看不出）。<br> 下面还有Use shader cache（使用着色器缓存），启用可以提高性能，但如果游戏渲染有问题可以尝试禁用。最底下是Clean shader Cache and log，点击可以清除着色器缓存，这对于一些兼容性不佳、需要反复尝试各种配置并重启的游戏来说很重要。</p>
+</li>
+<li><p>System<br>  没啥设置，前面是选游戏机的“确认”按钮是用❌键（Cross）还是⚪（Circle），后面的PS TV mode是启用PS TV模式，这个完全不用管。</p>
+</li>
+<li><p>Emulator<br> 另一个比较关键的设置。<br> 第一个选项是游戏以全屏启动，这个对于确认可玩的游戏来说挺方便的，不用每次手动全屏了。<br> 第二个是选择音频后端，可以使用Cubeb或SDL，同时还能选择是否启用NGS支持；这里的配置没有最好一说，不同的游戏可能会需要不同的配置。<br> 下面是一些日志级别、帧率显示、更改模拟目录等，一般不用管。</p>
+</li>
+<li><p>GUI<br> 没啥好调的，就是一些主页显示上的设置。</p>
+</li>
+<li><p>Network和debug<br> 也不用管，Network可能会在联机游戏的时候需要配置，但我确实不想尝试在这上面联网玩游戏（Vita3K官网也说了联机和登录PSN账号是不太可能的）。</p>
+</li>
+</ol>
+<h3 id="游戏独立配置"><a href="#游戏独立配置" class="headerlink" title="游戏独立配置"></a>游戏独立配置</h3><p>右键任意游戏即可打开菜单，里面可以检查兼容性、卸载等。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A8%B1%E4%B9%90/" class="category-chain-item">娱乐</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%A8%B1%E4%B9%90/%E6%A8%A1%E6%8B%9F%E5%99%A8/" class="category-chain-item">模拟器</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B8%B8%E6%88%8F/" class="print-no-link">#游戏</a>
+      
+        <a href="/tags/%E6%95%99%E7%A8%8B/" class="print-no-link">#教程</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>PSV模拟器vita3k完全教程</div>
+      <div>https://zjxdiu.github.io/blog/Vita3k_tutorial/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>zjxdiu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/Stardew_valley_ports/" title="How to play stardew valley ports on JELOS（在JELOS中玩移植版的星露谷）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">How to play stardew valley ports on JELOS（在JELOS中玩移植版的星露谷）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/ML_emusic_classify/" title="一种基于神经网络的电子音乐风格分类算法思路">
+                        <span class="hidden-mobile">一种基于神经网络的电子音乐风格分类算法思路</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"a0ZOBYVJWRe63nlLbT3JQCA6-gzGzoHsz","appKey":"EfjGQrtPSdC22sUcpNXGOUS4","path":"window.location.pathname","placeholder":null,"avatar":"","meta":["nick","mail"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        本文阅读 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访问数 
+        <span id="leancloud-site-uv"></span>
+         次
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,768 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zjxdiu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="因群里有成员对这方面存在疑问，所以写一篇文章详细解释下游戏内性能相关。需要注意的是，本人对于唤境中这些内容的最具体理解未必到位，因此可能出现一些技术细节上的错误，希望大佬能指出错误，感激不尽！为了保证一般开发者也能看得懂，文章会尽量避免非常专业和硬核的描述，相应地就会降低严谨性。如果有兴趣深究，请查找更专业的资料。此外，本文并非是针对唤境游戏的性能优化而写的，如果您的引擎或者制作的游戏出现卡顿，请">
+  
+  
+  
+  <title>【补档】唤境游戏如何显示帧率？详解性能相关内容 - zjxdiu~blog site</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zjxdiu.github.io","root":"/","version":"1.9.6","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"a0ZOBYVJWRe63nlLbT3JQCA6-gzGzoHsz","app_key":"EfjGQrtPSdC22sUcpNXGOUS4","server_url":"https://a0zobyvj.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zjxdiu~blog site</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">【补档】唤境游戏如何显示帧率？详解性能相关内容</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-05 22:11" pubdate>
+          2022年12月5日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【补档】唤境游戏如何显示帧率？详解性能相关内容</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>因群里有成员对这方面存在疑问，所以写一篇文章详细解释下游戏内性能相关。<br>需要注意的是，本人对于唤境中这些内容的最具体理解未必到位，因此可能出现一些技术细节上的错误，希望大佬能指出错误，感激不尽！<br>为了保证一般开发者也能看得懂，文章会尽量避免非常专业和硬核的描述，相应地就会降低严谨性。如果有兴趣深究，请查找更专业的资料。<br>此外，本文并非是针对唤境游戏的性能优化而写的，如果您的引擎或者制作的游戏出现卡顿，请前往b站查看小嗦大佬的教程。<br>传送门：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1wg411E7oF">https://www.bilibili.com/video/BV1wg411E7oF</a></p>
+<hr>
+<h2 id="一、性能相关概念（基础内容）"><a href="#一、性能相关概念（基础内容）" class="headerlink" title="一、性能相关概念（基础内容）"></a>一、性能相关概念（基础内容）</h2><p>通常情况下，我们会通过几个方面来评估一个游戏运行的性能表现，分别是帧率、帧生成时间、CPU占用、GPU占用、内存占用、显存占用等。</p>
+<h3 id="1-帧率-FPS"><a href="#1-帧率-FPS" class="headerlink" title="1. 帧率 &#x2F; FPS"></a>1. 帧率 &#x2F; FPS</h3><p>游戏之所以能呈现动态的画面，是因为它会以一个很快的速度生成画面，每秒几十张甚至上百张，其中每个画面就被称为一 “帧” 。因此，帧是游戏画面在时间上的最小单位。<br>于是，我们有了帧率的概念。帧率，就是每秒钟游戏生成的帧数量。很明显的，帧率越高，我们肉眼感觉到的画面就越流畅，反之则越卡顿。当帧率为0时，游戏就停止在一张静态的图片上。<br>一般而言，当帧率达到60时，人眼观察到的画面就可以称为“比较流畅”了。</p>
+<h3 id="2-帧生成时间（或帧间隔）-FRAMETIME"><a href="#2-帧生成时间（或帧间隔）-FRAMETIME" class="headerlink" title="2.帧生成时间（或帧间隔）&#x2F; FRAMETIME"></a>2.帧生成时间（或帧间隔）&#x2F; FRAMETIME</h3><p>有了帧率的概念，我们就可以引入帧生成时间的概念了。<br>游戏引擎每生成一帧画面，都需要消耗一定的时间，这个时间就称为帧生成时间。<br>帧生成时间波动是造成瞬间卡顿的原因之一。设想一个极端情况，在运行的某一秒里，游戏花了0.9秒来渲染第一帧，然后在剩下0.1秒里渲染了剩下的59帧。这时候的平均帧率还是60，但是你在玩的时候就会明显感觉到游戏发生了一次剧烈的卡顿，因为这0.9秒的时间内游戏处于静止状态。<br>帧生成时间和间隔的定义，严格来说并不是完全一致的，但本文并不是进行画面技术研究，所以暂且认为它们是同一个概念。</p>
+<h3 id="3-CPU占用-CPU"><a href="#3-CPU占用-CPU" class="headerlink" title="3.CPU占用 &#x2F; CPU"></a>3.CPU占用 &#x2F; CPU</h3><p>在计算机中，CPU负责通用计算，也就是任何计算理论上都可以由CPU完成。在游戏中，控制游戏系统运行、通过公式计算数据、运行函数等都是由CPU完成的。最开始的时候，游戏画面的渲染也是由CPU完成的，但后来人们发现CPU难以胜任这一要求，于是将这个工作交由GPU完成。有关这一段历史的发展，详见<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Hb41177JB">https://www.bilibili.com/video/BV1Hb41177JB</a><br>对于现代电脑和手机来说，它们的CPU性能都相当强大，可以完成非常密集的运算需求。但它们的性能也不是无限的，而且在手机、笔记本电脑上，CPU是耗电量非常大的元件。所以，CPU会直接影响游戏的性能表现，降低CPU的占用率也可以有效提高游戏运行的效率，以及在低端设备上成功运行的可能性。</p>
+<h3 id="4-GPU占用-GPU"><a href="#4-GPU占用-GPU" class="headerlink" title="4.GPU占用 &#x2F; GPU"></a>4.GPU占用 &#x2F; GPU</h3><p>前面提到了，GPU是用来替代CPU来完成画面渲染工作的硬件。所以，GPU是离游戏实际画面最近的硬件，因为游戏画面就是由它生成的。<br>GPU负责的内容就是渲染画面，例如显示图片、文字等。<br>对于唤境来说，由于唤境只是2D游戏引擎，因此对于现代GPU来说压力比较低，但还是存在运行效率过低的情况。<br>有关GPU运行解析的内容请见官方教程<a target="_blank" rel="noopener" href="https://evkworld.cn/wiki/58">https://evkworld.cn/wiki/58</a></p>
+<h3 id="5-显存占用-VRAM、VIDEO-MEMORY、IMAGE-MEMORY等"><a href="#5-显存占用-VRAM、VIDEO-MEMORY、IMAGE-MEMORY等" class="headerlink" title="5.显存占用 &#x2F; (VRAM、VIDEO MEMORY、IMAGE MEMORY等)"></a>5.显存占用 &#x2F; (VRAM、VIDEO MEMORY、IMAGE MEMORY等)</h3><p>显存，又称显示内存、显卡内存、图形内存、视频内存等，是显卡用来储存图像信息的临时空间。<br>对于集成显卡（例如手机）而言，显存就是从内存中分出来的部分；对于独立显卡（例如高性能电脑）而言，显存是单独集成在显卡中的一个存储器。所以，当游戏在手机上运行的时候，游戏会同时消耗两份内存空间，一部分用于程序运行，另一部分充当显存。因此，如果您的游戏在电脑上运行很正常，而在低端手机上就无法运行或者特别卡顿，则有可能是因为游戏消耗了较多的显存和内存。</p>
+<hr>
+<h2 id="二、唤境中跟性能有关的表达式"><a href="#二、唤境中跟性能有关的表达式" class="headerlink" title="二、唤境中跟性能有关的表达式"></a>二、唤境中跟性能有关的表达式</h2><p>唤境引擎并没有提供性能监控相关的组件和能力，但可以通过表达式获取到性能数据。<br>所有相关表达式都在系统部分中。</p>
+<h3 id="1-帧率"><a href="#1-帧率" class="headerlink" title="1.帧率"></a>1.帧率</h3><p>表达式：fps<br>刷新频率：每秒1次<br>返回值类型：整数<br>建议使用方法：直接通过表达式获取帧率即可。<br><img src="/../_resources/ba2e311e9e59cfd649509ccc2fa99a0b.png" srcset="/img/loading.gif" lazyload alt="ba2e311e9e59cfd649509ccc2fa99a0b.png"></p>
+<h3 id="2-帧生成时间（帧间隔）"><a href="#2-帧生成时间（帧间隔）" class="headerlink" title="2.帧生成时间（帧间隔）"></a>2.帧生成时间（帧间隔）</h3><p>表达式：dt<br>刷新频率：每帧1次<br>返回值类型：单精度浮点数，即6位小数<br>（当测量单帧间隔时会返回10位小数）<br>其它：引擎内描述为“时间间隔”<br>建议使用方法：先将数据乘以1000，然后使用roundto()将其化简到1-3位小数，最后加上单位“ms”（毫秒），即可得到友好的数字展示。<br><img src="/../_resources/fb34db0b029a4d27e4ad593e8cc363ac.png" srcset="/img/loading.gif" lazyload alt="fb34db0b029a4d27e4ad593e8cc363ac.png"></p>
+<h3 id="3-CPU占用（CPU时间）"><a href="#3-CPU占用（CPU时间）" class="headerlink" title="3.CPU占用（CPU时间）"></a>3.CPU占用（CPU时间）</h3><p>表达式：cpuutilisation<br>刷新频率：每秒1次<br>其它：引擎内描述为“CPU在游戏中消耗的时间”<br>返回值类型：双精度浮点数，即18位小数。<br>建议使用方法：先将数据乘以100，然后使用roundto()将其简化到1-2位小数，最后加上百分比符号“%”，即可得到友好的数字展示。<br><img src="/../_resources/68f1e9a186fe3b6660d1936f792cefe6.png" srcset="/img/loading.gif" lazyload alt="68f1e9a186fe3b6660d1936f792cefe6.png"></p>
+<h3 id="4-GPU占用（渲染消耗时间）"><a href="#4-GPU占用（渲染消耗时间）" class="headerlink" title="4.GPU占用（渲染消耗时间）"></a>4.GPU占用（渲染消耗时间）</h3><p>表达式：gpuutilisation<br>刷新频率：每秒1次<br>其它：引擎内描述为“GPU在游戏中消耗的时间”<br>返回值类型：9位小数。<br>建议使用方法：与CPU占用相同。<br><img src="/../_resources/596e4d2898ce7eb638dca60f52193e12.png" srcset="/img/loading.gif" lazyload alt="596e4d2898ce7eb638dca60f52193e12.png"></p>
+<h3 id="5-显存占用"><a href="#5-显存占用" class="headerlink" title="5.显存占用"></a>5.显存占用</h3><p>表达式：imagememoryusage<br>刷新频率：每帧1次<br>返回值类型：9位小数。<br>建议使用方法：直接通过表达式获取即可。<br><img src="/../_resources/4b1452908420640a6ac75af4bb2b156e.png" srcset="/img/loading.gif" lazyload alt="4b1452908420640a6ac75af4bb2b156e.png"></p>
+<hr>
+<h2 id="三、制作性能监控窗口"><a href="#三、制作性能监控窗口" class="headerlink" title="三、制作性能监控窗口"></a>三、制作性能监控窗口</h2><p>光了解了上面所有的信息，但如果不会用，那就都是白搭。接下来，我会一步步解释如何制作游戏内的性能监控悬浮窗。</p>
+<p>1.打开游戏项目，新建对象：一个文本、一个精灵和一个按钮，精灵的贴图替换成一张长方形图片即可<br><img src="/../_resources/799e625f09a212d9e980f8cff86b3a2e.png" srcset="/img/loading.gif" lazyload alt="799e625f09a212d9e980f8cff86b3a2e.png"></p>
+<p><img src="/../_resources/c6d47b1f64216db3965c811b0afdb06e.png" srcset="/img/loading.gif" lazyload alt="c6d47b1f64216db3965c811b0afdb06e.png"></p>
+<p>2.新建几个全局变量，“启用测量”、“悬浮窗x”、“悬浮窗y”。其中，第一个是布尔类型变量，是必需的；后两个是数值类型变量，不是必需的。<br>后两个的初始值不建议设为0，应该根据你选择的默认位置来设置。<br><img src="/../_resources/a974999ff46bbac77137dbfc7e819c24.png" srcset="/img/loading.gif" lazyload alt="a974999ff46bbac77137dbfc7e819c24.png"></p>
+<p>3.新建一个图层组“悬浮窗”，设置为全局图层组，然后将精灵、文本和按钮拖入该图层组中，调整文本和精灵的大小及属性，文本选择左对齐、上下居中对齐，大小跟精灵差不多一样大就行<br><img src="/../_resources/7cf2b2e120c5da549d4cc1c5b5008a36.png" srcset="/img/loading.gif" lazyload alt="7cf2b2e120c5da549d4cc1c5b5008a36.png"><br><img src="/../_resources/2b26784c58f0c77a067d4447edbd42b4.png" srcset="/img/loading.gif" lazyload alt="2b26784c58f0c77a067d4447edbd42b4.png"></p>
+<p>4.为文本添加拖拽和定时器能力，为精灵添加绑定能力<br><img src="/../_resources/f2cc5d66755ee2eb24d199e7c453ae46.png" srcset="/img/loading.gif" lazyload alt="f2cc5d66755ee2eb24d199e7c453ae46.png"><br><img src="/../_resources/1751f48b11198c44c52e8e9cf67c033d.png" srcset="/img/loading.gif" lazyload alt="1751f48b11198c44c52e8e9cf67c033d.png"></p>
+<p>5.新建一条全局事件表，名称为“性能监控窗口”，或者任何你喜欢的名字。<br><img src="/../_resources/3f181abb7a3ad49aaf2f1b81b178906a.png" srcset="/img/loading.gif" lazyload alt="3f181abb7a3ad49aaf2f1b81b178906a.png"></p>
+<p>6.开始写事件。可以参考我下面的这种设计方案。<br>核心思路：<br>（1）当“启用测量”变量为“真”时，显示文本和精灵，否则隐藏；注意，不要重复触发，可以加入一个触发器（例如“仅触发一次”）来解决；<br>（2）制作好看的文本排版；<br>（3）避免每帧检测和每帧改变文本；<br>（4）（可选）实现悬浮窗的拖动，以及位置记忆。<br><img src="/../_resources/7b2602a886c2529d6189504f42ae5ff3.png" srcset="/img/loading.gif" lazyload alt="7b2602a886c2529d6189504f42ae5ff3.png"><br>文本内容供参考：<br>“帧率：” &amp; fps &amp; newline &amp; “CPU：” &amp; roundto(cpuutilisation*100,1) &amp; “%” &amp; newline &amp; “显存：” &amp; imagememoryusage &amp; “mb”</p>
+<p>7.在每个你希望有监控悬浮窗的场景下都新建一个叫做“悬浮窗”的图层组，不需要放入任何内容，因为你之前已经选中了全局事件表。<br>然后将刚才写的全局事件表应用于每个你希望有悬浮窗的场景。<br><img src="/../_resources/9de754a5f74cef3b19451317d1597aa9.png" srcset="/img/loading.gif" lazyload alt="9de754a5f74cef3b19451317d1597aa9.png"><br><img src="/../_resources/c383bbc3f3d2d8ddb921774cdc2be8c1.png" srcset="/img/loading.gif" lazyload alt="c383bbc3f3d2d8ddb921774cdc2be8c1.png"></p>
+<p>8.检查效果<br><img src="/../_resources/50611b15f85e9e7e7164bff667699f0d.png" srcset="/img/loading.gif" lazyload alt="50611b15f85e9e7e7164bff667699f0d.png"></p>
+<p>9.可额外优化的内容</p>
+<p>拖拽能力没有进行区域限制，可以直接把悬浮窗拖到屏幕外，如何解决？<br>· 提示：只需要使用一个能力即可解决。</p>
+<p>事件表里还有可以进一步优化的内容？<br>· 提示：绑定能力。</p>
+<h2 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h2><p>通过这一篇文章的解析和教学，你应该对唤境游戏的性能及其监控方法有了一定的了解。<br>在多数情况下，唤境游戏其实并不需要这么多高级的技术细节，但这类功能可以给你的游戏添砖加瓦，起到锦上添花的作用。<br>文章撰写仓促，部分内容做不到非常细致和详尽，也可能有错误，欢迎大佬前来指正！</p>
+<p>额外优化内容：<br>（1）给文本和精灵分别添加“边界限制”能力即可；<br>（2）在启用测量为假的时候，给精灵添加一条动作：“取消绑定”</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%9D%82%E9%A1%B9/" class="category-chain-item">杂项</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%9D%82%E9%A1%B9/%E6%9C%AA%E5%88%86%E7%B1%BB/" class="category-chain-item">未分类</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%BC%80%E5%8F%91/" class="print-no-link">#开发</a>
+      
+        <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" class="print-no-link">#游戏引擎</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【补档】唤境游戏如何显示帧率？详解性能相关内容</div>
+      <div>https://zjxdiu.github.io/blog/补档1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>zjxdiu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/Hello_2023/" title="你好，2023">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">你好，2023</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/%E6%98%BE%E7%A4%BA%E5%99%A8%E8%B6%85%E9%A2%91/" title="超频你的显示器，获得更佳的流畅体验">
+                        <span class="hidden-mobile">超频你的显示器，获得更佳的流畅体验</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"a0ZOBYVJWRe63nlLbT3JQCA6-gzGzoHsz","appKey":"EfjGQrtPSdC22sUcpNXGOUS4","path":"window.location.pathname","placeholder":null,"avatar":"","meta":["nick","mail"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        本文阅读 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访问数 
+        <span id="leancloud-site-uv"></span>
+         次
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

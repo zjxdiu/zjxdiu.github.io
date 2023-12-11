@@ -1,0 +1,788 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zjxdiu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="阅前提示：本文约5000字，预计阅读时长&amp;gt;5分钟。 起因由于想跟好友联机minecraft，而使用natfrp做内网穿透时发现有很多问题，包括延迟高且不稳定、速率低、流量限制、高峰时期断连等。刚好想起来家里的网络已经被我启用了ipv6，因此试图使用ipv6来直接对公网开放minecraft服务器。   开始第一次尝试当前状态：    光猫使用路由模式，自主拨号并获取两种ip地址（除非特殊说明">
+  
+  
+  
+  <title>记一次折腾电信ipv6中的各种问题 - zjxdiu~blog site</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zjxdiu.github.io","root":"/","version":"1.9.6","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"a0ZOBYVJWRe63nlLbT3JQCA6-gzGzoHsz","app_key":"EfjGQrtPSdC22sUcpNXGOUS4","server_url":"https://a0zobyvj.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zjxdiu~blog site</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">记一次折腾电信ipv6中的各种问题</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-20 21:37" pubdate>
+          2023年1月20日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          29 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">记一次折腾电信ipv6中的各种问题</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>阅前提示：本文约5000字，预计阅读时长&gt;5分钟。</p>
+<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>由于想跟好友联机minecraft，而使用natfrp做内网穿透时发现有很多问题，包括延迟高且不稳定、速率低、流量限制、高峰时期断连等。刚好想起来家里的网络已经被我启用了ipv6，因此试图使用ipv6来直接对公网开放minecraft服务器。  </p>
+<h2 id="开始第一次尝试"><a href="#开始第一次尝试" class="headerlink" title="开始第一次尝试"></a>开始第一次尝试</h2><p><strong>当前状态：</strong>  </p>
+<ul>
+<li>光猫使用路由模式，自主拨号并获取两种ip地址（除非特殊说明，否则以下简称ip）</li>
+<li>无线路由器（下简称路由器）使用路由模式</li>
+<li>所有设备连接在路由器上，并能获取到ip</li>
+</ul>
+<p><img src="/../_resources/a941e7dad288e2bd65c297c76503f111.png" srcset="/img/loading.gif" lazyload alt="a941e7dad288e2bd65c297c76503f111.png">  </p>
+<p><strong>当前问题：</strong></p>
+<ul>
+<li>首先尝试外网直接连接服务器ipv6，失败</li>
+<li>外网无法ping通任何内网主机</li>
+<li>光猫获取到的ipv6地址仍然无法通过外网ping通</li>
+<li>在光猫中设置端口映射或DMZ主机，无效</li>
+</ul>
+<p>实际上，上述内容已经花了我一下午来检查和排查；网上搜索相关内容，有人说<del>获取到的ipv6是240e开头的，说明是经过了NAT（类似ipv4，所以肯定访问不到）</del>；但是这种说法显然有问题，首先ipv6只有在特殊环境下才需要NAT，其次2开头的地址至少不是内网地址。<br>另有说法称，运营商（我用的是电信）会用防火墙屏蔽入站流量，防止你开服务器。根据我的实验，这个说法是正确的。  </p>
+<p>随后开始折腾，既然防火墙阻碍了我，那我关掉就好。<br>但是现实很惨淡，运营商早就猜到你会搞这一手，所以直接不允许你关闭防火墙。<br>这里包括了最后的那个防止ICMP包攻击，还有其他的防火墙直接不显示。<br><img src="/../_resources/7d186301818af5165a407c1751fb848c.png" srcset="/img/loading.gif" lazyload alt="7d186301818af5165a407c1751fb848c.png"></p>
+<h3 id="换个地方拨号？"><a href="#换个地方拨号？" class="headerlink" title="换个地方拨号？"></a>换个地方拨号？</h3><p>网上提供了一种解决思路，即光猫改桥接、使用路由器进行拨号；这样做有一些好处，例如路由器的性能更强、可以提供更快的网速，以及很高的可玩性、灵活性等等，这里直接把路由器换成软路由就能实现非常多的玩法，因此我就着手开始改桥接。  </p>
+<p>改的过程实际上非常简单，找到宽带的账号密码，进入光猫的超级用户，然后直接改桥接即可。<br><img src="/../_resources/bc81d148f88500f57dbadabcf8080770.png" srcset="/img/loading.gif" lazyload alt="bc81d148f88500f57dbadabcf8080770.png"></p>
+<hr>
+<p>随后，将路由器设置为PPPoE拨号连接；这里就不放图了，各家路由器的配置流程都是一回事。<br>关闭路由器的防火墙，现在，所有的设备又能重新获取到ip，且具有公网ipv6地址。当然由于Windows防火墙的配置，需要关闭Windows的防火墙才能从外网ping通。<br>大获全胜！网速也提升到了570M（家里办理的500M宽带，如果直接从光猫拨号+路由，则速度最高470M）<br><img src="/../_resources/cbdb76297f0af4d4d3837f421060eb67.png" srcset="/img/loading.gif" lazyload alt="cbdb76297f0af4d4d3837f421060eb67.png"></p>
+<p>同时，Minecraft也能正常从外网通过ipv6连接，看起来一切完美。</p>
+<hr>
+<h2 id="核心问题：网页无法访问"><a href="#核心问题：网页无法访问" class="headerlink" title="核心问题：网页无法访问"></a>核心问题：网页无法访问</h2><p>一切完美？当然是不可能的。一定会出问题，而且是大问题。<br>配置好ipv6之后，一开始所有设备工作正常，网速和解析速度起飞。<br>然后，用了半个小时左右，问题开始逐步显现。<br>最开始，我在网上搜索一个Windows方面的配置问题，并且点进去了一个博客园的链接。然后，网页并没有按照我预想中的那样飞快加载，而是不断转圈。<br>最后：<br><img src="/../_resources/84c01f9cc1ebf56595e7d025fc4a0617.png" srcset="/img/loading.gif" lazyload alt="84c01f9cc1ebf56595e7d025fc4a0617.png"></p>
+<p>一开始我以为这是必应的中转链接出现问题了（百度日常），因为点击必应的搜索结果并不是直接访问目标网址，而是先通过一个必应的链接重定向到目标。这个重定向有时候会失败，是正常的。但是，我直接访问目标网址时，居然也不能进去，这就非常奇怪了。<br>这时候我还是乐观的心态，认为是博客园的服务器出了问题，也没有去其它设备上尝试。但我仍然重视了这个问题，并立即去搜索解决方法。因为是开了路由器拨号+ipv6之后才出现的问题，所以查找方向也很明确了。结果，就在我查找的过程中，发现了更多的问题。<br>百度经验、百度知道、百度贴吧、知乎…这些网站一个接一个地挂掉；有时候网站一开始能正常访问，再开的时候就加载不出JS和CSS（变成了没有渲染的样式，仅限知乎），然后就是一样的不响应。症状跟博客园完全一致，控制台里没有任何有效信息，只有一个响应超时。  </p>
+<hr>
+<h3 id="先恢复正常访问"><a href="#先恢复正常访问" class="headerlink" title="先恢复正常访问"></a>先恢复正常访问</h3><p>一通摸索之后，我找到了暂时恢复的方法：在网卡选项里禁用ipv6（Internet 协议版本6）。<br>禁用后，所有网页恢复正常，但这显然不可取，因为我的目的就是使用ipv6，而禁用它也就丧失了所有ipv6能力。<br>需要注意的是，现在出问题的网站都不是纯ipv6站点，有些是纯ipv4站点，但双栈域名居多。这时候访问纯ipv6网站是全部成功的，ipv6测试也是全绿通过，并且无论何种类型的网站都有大量能成功访问的。</p>
+<h3 id="退一步试试"><a href="#退一步试试" class="headerlink" title="退一步试试"></a>退一步试试</h3><p>退一步，指的就是我找到一种方法，让浏览器只使用或优先使用ipv4进行访问。<br>因为出问题的只有浏览器，我电脑里其它软件全都正常运行。<br><em>后续补充：今天发现Windows版的微信也不能正常使用，二维码加载不出来，禁用 ipv6后恢复。</em>。<br>但是，网上相关的教程极少甚至没有，偶有几个是针对Firefox或chrome的，而我使用的是edge；就算我能参考chrome，教程也是针对Linux而非Windows。</p>
+<h3 id="再退一步"><a href="#再退一步" class="headerlink" title="再退一步"></a>再退一步</h3><p>好的，如果浏览器不行，那我就找个方法让整个操作系统都优先使用ipv4。<br>微软提供了一个文档，通过<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-US/troubleshoot/windows-server/networking/configure-ipv6-in-windows">修改注册表的方法</a>来实现全局优先ipv4、禁用ipv6、优先ipv6等等。<br>一看到这里，我立即兴奋地尝试了。改了注册表，重启，访问：  </p>
+<p><code>ERR_TIMED_OUT</code> .png</p>
+<p>好，居然没用。微软，不愧是你。<br>重启很多次无效，当时已经半夜2:30，我没有了折腾的心情，只想赶紧睡觉。</p>
+<h2 id="第一次折腾失败"><a href="#第一次折腾失败" class="headerlink" title="第一次折腾失败"></a>第一次折腾失败</h2><p>网上又找了很多相同症状的用户，解决方案要么是改注册表，要么是说路由器兼容性有问题。<br>好吧，反正跟我联机的同学也不是很在意，natfrp似乎还能继续用用。<br>于是，彻底宣告失败，我重新改回了光猫拨号、路由桥接，随后所有网络恢复正常（除了外网还是不能访问这里的所有ipv6；当然，也包括ipv4，因为有NAT）。  </p>
+<p>这就结束了吗？怎么可能，不搞到好用我是不会罢休的。<br>于是，第二天，我又开始了新一轮的折腾。</p>
+<hr>
+<h2 id="第二次尝试"><a href="#第二次尝试" class="headerlink" title="第二次尝试"></a>第二次尝试</h2><p>重新尝试，同样的光猫改桥接，同样的路由器拨号。同样的正常ipv6公网访问，但是这一次似乎是运气比较好，网页访问全部正常使用，并且坚持了至少4个小时。<br>中途离家4小时，回来之后，惊喜地发现，这些网页又打不开了 :)<br>这时候我就已经明白，无论怎么修改电脑或者路由器配置都无效，于是没有再做尝试，转而对现在的情况进行分析，并希望通过其它方法解决需求。</p>
+<h3 id="转机"><a href="#转机" class="headerlink" title="转机"></a>转机</h3><p>在我整理思路的时候，我意识到，实际上我只需要服务器一台电脑能够获取正常入站的ipv6地址（正常的ipv6）即可，其余设备甚至根本不需要启用ipv6。这时候，我首先想到的就是：</p>
+<h4 id="一号多拨"><a href="#一号多拨" class="headerlink" title="一号多拨"></a>一号多拨</h4><p>一号多拨，指的是我通过同一个光猫，使用同一个宽带账号，分别在两台设备上进行拨号。<br>我的最初想法是，服务器电脑直连光猫并自己拨号获取正常的ipv6地址，同时路由器也自己拨号，但只启用ipv4。<br>网上搜索发现，这种方法当然是可行的，前提是运营商支持多拨。</p>
+<p><code>折腾中</code></p>
+<p>没有任何侥幸，拨号失败。电脑上尝试第二次拨号时直接返回错误629。</p>
+<p>再换一种角度，重新分析我的需求。服务器能使用正常的ipv6，同时其余设备仅需要ipv4（最多需要ipv6内网而非公网访问）。因此，我做了如下操作，来使得二者兼顾。</p>
+<hr>
+<h2 id="最终如何解决"><a href="#最终如何解决" class="headerlink" title="最终如何解决"></a>最终如何解决</h2><p>如果你的需求和遇到的问题跟我完全一样，那么也许可以参考我的方法来临时解决。<br><strong>提示：最终的解决方案也并不完美，只不过暂时保证了两边可以都解决主要矛盾</strong><br>以下是我的解决方案：</p>
+<h3 id="1-将路由器的内网ipv6地址分发从无状态改为有状态。"><a href="#1-将路由器的内网ipv6地址分发从无状态改为有状态。" class="headerlink" title="1. 将路由器的内网ipv6地址分发从无状态改为有状态。"></a>1. 将路由器的内网ipv6地址分发从无状态改为有状态。</h3><p>无状态获取指的是机器自己配置地址，然后通过NDP等方式确定地址有效性即可；有状态获取类似DHCP，不过分配的地址是ipv6。<br>这一步解决了手机联网的问题；由于我的网络环境中手机为主要设备，而安卓系统并不支持通过DHCPv6进行有状态获取ipv6地址；于是所有的手机都只能通过ipv4联网，解决了所有上网问题。</p>
+<h3 id="2-为电脑配置虚假或者无效的ipv6地址"><a href="#2-为电脑配置虚假或者无效的ipv6地址" class="headerlink" title="2.  为电脑配置虚假或者无效的ipv6地址"></a>2.  为电脑配置虚假或者无效的ipv6地址</h3><p>这是我在测试的时候忽然想到的主意，既然ipv4地址在手动配置错误的情况下无法联网，那么ipv6应该也是一样的。<br>ipv6中同样有很多保留地址，例如<code>fe80</code>开头的地址表示本地链路地址，无法进行跨子网路由，因此给我自己的电脑配置一个<code>fe80::1</code>的地址即可。<br>配置后，网卡状态中IPv6连接变为<strong>无Internet访问权限</strong>，使用<code>ipconfig /all</code>查看IP地址，发现手动配置的ipv6地址变成了<strong>本地链接IPv6地址</strong>。<br><img src="/../_resources/054913f5d395b1e809f0d7830e64c948.png" srcset="/img/loading.gif" lazyload alt="054913f5d395b1e809f0d7830e64c948.png"><br>此外，这里网卡仍然获取到了一个IPv6地址，但后面提示（<strong>复制</strong>），检查其地址发现这个地址是我的服务器电脑的公网ipv6地址（因此在此处打码作保护）；这可能是一些其它方面的机制，但并不影响服务器和我的电脑的正常工作。同时，由于内网ipv6地址被正常配置，我仍然可以通过内网ipv6来访问服务器（包括文件服务器、网页服务器、minecraft和远程桌面）。<br>    这一步解决了环境中主要的电脑设备：我自己的使用需求。当然没有完全解决，纯ipv4模式下访问部分双栈网站时速度还是比较慢，但能够正常使用已经是极其难得了。</p>
+<h3 id="3-为Windows-11配置"><a href="#3-为Windows-11配置" class="headerlink" title="3. 为Windows 11配置"></a>3. 为Windows 11配置</h3><p>环境中存在另一台常用的电脑，而它搭载的是Windows 11 家庭版。<br>在win11下可以执行相同的步骤进行配置，只不过需要多出一个步骤：<strong>你需要在系统设置中手动设置ipv6 DNS，而不能使用自动获取。</strong><br>这一步是因为，即便手动配置了ipv6地址，win11似乎也不会立即使用，而是先试图通过DHCP等方法获取ipv6地址以及DNS服务器等；而在自动获取DNS的过程中，路由器很可能就为它分配了一个ipv6地址，导致我们自己设置的地址完全变成内网地址，而无法实现目的。</p>
+<hr>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>至此，全部流程结束，解决方案全部执行。服务器正常接受公网入站流量，其余设备配置后均能实现正常上网。</p>
+<p>但是，我并不对现在的解决方案满意。原因很简单，我开ipv6不仅是为了服务器使用，更是为了提高日常上网体验，同时接轨最新技术（虽然ipv6都是12年前的玩意了）；现在虽然解决了问题，但并未达成全部目的，因为除了服务器主机以外没有设备能够正常使用ipv6的。这个方法顶多也就临时用用，实际上我也就这一个寒假的需求，假期结束返校前肯定会恢复光猫拨号的，因为服务器主机之后只作为内网打印服务器，不再有公网访问需求。此外，每次新加一台电脑，都需要这样设置一遍无效的ipv6地址，以便正常访问网页。<br>所以，整体看下来，其实只是在两边的矛盾中取了一个居中妥协的值，为主要矛盾作了让步。我也不是每天都会折腾网络，更多时候还是希望它日常使用能稳定；但我又不希望放弃服务器的公网访问，因此这两者就是核心问题，而最终的方案也就向这两个问题进行妥协。<br>Anyway，反正问题算是解决了，但愿ipv6的部署进度还能快一点吧（</p>
+<hr>
+<p>明天就是除夕了，浅放一张AI画的胡桃吧，祝大家新年快乐！<br><em>胡桃没画成，人要么太大要么太小，随便搞了个背景算了（）</em><br><img src="/../_resources/7c8d8e5459a9f8cd83c33281ca1aa262.png" srcset="/img/loading.gif" lazyload alt="7c8d8e5459a9f8cd83c33281ca1aa262.png"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/" class="category-chain-item">网络工程</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B8%B8%E6%88%8F/" class="print-no-link">#游戏</a>
+      
+        <a href="/tags/%E7%BD%91%E7%BB%9C/" class="print-no-link">#网络</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>记一次折腾电信ipv6中的各种问题</div>
+      <div>https://zjxdiu.github.io/blog/ipv6_toss/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>zjxdiu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/another_toss_of_music_recording/" title="又一次折腾手机游戏《灵魂潮汐》音频录制的记录">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">又一次折腾手机游戏《灵魂潮汐》音频录制的记录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/Hello_2023/" title="你好，2023">
+                        <span class="hidden-mobile">你好，2023</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"a0ZOBYVJWRe63nlLbT3JQCA6-gzGzoHsz","appKey":"EfjGQrtPSdC22sUcpNXGOUS4","path":"window.location.pathname","placeholder":null,"avatar":"","meta":["nick","mail"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        本文阅读 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访问数 
+        <span id="leancloud-site-uv"></span>
+         次
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
