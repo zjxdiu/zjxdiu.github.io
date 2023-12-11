@@ -766,7 +766,7 @@ sup > a::before,
 }
 html {
   font-size: 18px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
 }
 html,
 body {
@@ -878,7 +878,7 @@ i.iconfont {
     --scrollbar-hover-color: #9da8b3;
     --button-bg-color: transparent;
     --button-hover-bg-color: #46647e;
-    --highlight-bg-color: #303030;
+    --highlight-bg-color: #333;
     --inlinecode-bg-color: rgba(99,110,123,0.4);
     --fold-title-color: #3c4858;
     --fold-border-color: #eaecef;
@@ -916,7 +916,7 @@ i.iconfont {
     --scrollbar-hover-color: #9da8b3;
     --button-bg-color: transparent;
     --button-hover-bg-color: #46647e;
-    --highlight-bg-color: #303030;
+    --highlight-bg-color: #333;
     --inlinecode-bg-color: rgba(99,110,123,0.4);
     --fold-title-color: #3c4858;
     --fold-border-color: #eaecef;
