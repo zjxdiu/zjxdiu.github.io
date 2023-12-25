@@ -4,6 +4,64 @@
   
   
   <entry>
+    <title>长沙理工大学校园网共享观察与方案</title>
+    <link href="/blog/CSUST_network_sharing/"/>
+    <url>/blog/CSUST_network_sharing/</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>时隔几个月，CSUST的网络系统又经过了几次更新。由于情况愈发离谱，因此以后只提供情况观察和记录，不再尝试给出解决方案。如果实在需要的话，本文结尾会有一个简单方法，但显然不会是免费的。</p><h2 id="现在的校园网现状"><a href="#现在的校园网现状" class="headerlink" title="现在的校园网现状"></a>现在的校园网现状</h2><p>其实没啥大变化，以前用的portal认证、IP-MAC-账号的绑定规则等等都是一样的。不同之处在这里：<br><img src="/../_resources/ac3519877ff1e44359bd043568cfce37.png" alt="ac3519877ff1e44359bd043568cfce37.png"><br>图：学校防火墙主动屏蔽了我的网络长达30分钟<br>没错，新增了一个完善的共享锁定页面，让你知道自己为什么用不了网络了。</p><h2 id="最初事件经过"><a href="#最初事件经过" class="headerlink" title="最初事件经过"></a>最初事件经过</h2><p>10月23日晚上约10点50，我正在用手机看视频，忽然手机提示我网络不可用。</p><p>开始排查问题：<br>1.用路由器长时间联网本身不稳定，偶尔掉线是正常现象；但在重连、重启路由器后仍然失效。<br>2.虽然做了80端口加密代理，但在偶然情况下也会触发检测；于是用手机登录校园网、路由器再重新登录，仍然无法解决。<br>3.手机重新连接校园网时弹出上图，告知检测到共享行为。</p><p>一些细节：<br>1.今晚8点半左右我临时关闭了加密代理，不过在10点左右重新启用。<br>2.在检测发生时，我正在使用SS机场看YouTube视频；理论上来说这里流量不仅不是80端口、不是http流量，其数据包更是完整地被SS加密过，那这个检测事件就十分可疑了。<br>3.这个检测的跳转网页是校内未知服务器的页面，而不是认证服务器页面。</p><p>事后：我做了一些更改，并且持续监控网络情况至11点50以后。<br>1.我将加密代理的端口从80改为全部，并且启用了UDP转发，以便所有流量均经加密穿透。<br>2.按以前校友博客文章的方法加入防火墙规则，屏蔽侵入式检测。<br>3.关闭路由器在8080端口上允许外网访问的功能，取消路由器响应ping的能力。<br>直到目前，即使我换用2部手机持续使用也没有被再次检测。</p><p>一些猜想：<br>1.由于最可疑的地方是检测发生时我的网络行为，此时我的流量仅有2个：一是服务器正在使用百度网盘（大概率没有在下载文件，而仅是被百度割韭菜当PCDN在上传），二是手机通过SS机场看油管视频。我的第一反应就是学校防火墙（School FireWall，以下简称SFW）能够检测到SS流量并进行屏蔽。这不是什么新鲜技术，SS是最早一批绕过GFW的协议，其包特征很明显，利用被动的熵检测和主动重放攻击就能快速检测出SS流量和服务器。但是当我将全部流量均通过SS加密穿透SFW时，至少50分钟内没有受到第二次屏蔽。<br>2.随后考虑，使用443端口的https流量虽然经过了TLS加密，但其初次握手过程通常是明文，且TLS数据包本身包含有明文信息。因此，如果SFW今晚额外部署了针对https流量的检测规则，那么我的方案显然是完全无法应付。<br>3.由于我同时做了很多激进的防御措施，其他检测方法也可能出现。例如任何连接到校园网的人都可以访问我的IP、8080端口，然后就是一个登录页面，几乎可以立即判断这是一台路由器而非普通设备。<br>4.最后想想，还有一种可能是DNS探测。这几天chrome一直在某个网站上弹窗提醒我网址可能被篡改，网上搜出来的信息大多指向DNS污染；但我用的是公共DNS，同时路由器上的SS也自带了dnsproxy防止污染，所以这事有点奇怪。但是现在想来，我并没有使用任何DoH和DoT，所有DNS请求都是明文发送，这样只要抓个包就能快速分析出源设备的类型是否单一。我也是在配置的时候考虑到这一点的可能性，因此为SS启用了UDP转发和DNS重定向。<br>（补充：刚才想起来，SS里的UDP转发默认不转发53端口以避免DNS失效，其实也就意味着我的DNS目前仍然是原状态；但这么久了都没有发生检测事件，说明这种方法要么不可行要么没有配置）</p><h2 id="后续观察和更新"><a href="#后续观察和更新" class="headerlink" title="后续观察和更新"></a>后续观察和更新</h2><p>最近几天，又遇到多次屏蔽问题，并在过程中总结了一些经验和应对措施。<br>以下内容完全由个人经验总结而成，不保证准确性。<br>可以确定的是，检测的方式不止80端口的http报文UA字段一种了。目前我认为存在的检测规则包括：80端口报文UA，443端口https报文，UDP检测（webRTC是首要怀疑目标），TTL检测。</p><ol><li>在80端口的检测已经是老生常谈了，不多说；用个修改UA的路由器插件就能解决。</li><li>在443端口传输的https报文都是加密的，我猜测可能是通过目标服务器判断的；我不知道UA在不在明文内容里，但https流量本身不会完全加密整个数据包，至少目标服务器地址不在https加密内容中；因此假如说一台设备同时连接了Windows和vivo的保活服务器，则可以证明共享行为。</li><li>UDP检测，这个源于我两次使用永劫无间的语音通话功能时被屏蔽的经验。同样的，我不确定这个游戏是否使用webRTC传输语音数据，但UDP检测应该是存在的。不过应该与DNS无关。</li><li>TTL检测，这个是最近几天新（重新）增加的。由于安卓和Windows设备的默认TTL值不同，因此检测这个可以肯定地判断共享行为。之前一直没有这个问题的，是最近几天经过多次尝试后发现新增的。</li></ol><h2 id="我自己的解决方法"><a href="#我自己的解决方法" class="headerlink" title="我自己的解决方法"></a>我自己的解决方法</h2><p>前三个没啥好办法解决，我的做法是使用一台位于深圳的公网服务器来做代理，将内网流量加密后经代理上网。由于我的电脑是需要首先保证网络性能的设备，因此路由器中设置电脑的MAC绕过代理。<br>具体步骤如下：</p><ol><li>参考<a href="https://www.librehat.com/three-minutes-to-set-up-shadowsocks-server-on-windows/">https://www.librehat.com/three-minutes-to-set-up-shadowsocks-server-on-windows/</a>搭建好SS服务器。</li><li>按图配置好路由器上的SS：</li></ol><p><img src="/../_resources/03c88091d962b8ef4182999240f61fa7.png" alt="03c88091d962b8ef4182999240f61fa7.png"><br>按照服务端配置来设置SS，加密方式建议使用chacha20，这个是我测试下来在稳定性和速度之间完美平衡的方式。</p><p><img src="/../_resources/5a47300ca260a99ba7eae7697533db68.png" alt="5a47300ca260a99ba7eae7697533db68.png"><br>转发端口建议全部设置，UDP转发里手动填写所有53流量的原因是提高性能。由于国内很多网站会有CDN，并且根据查询DNS的位置返回最近的CDN地址，可能会导致流量从湖南流向深圳再转发回湖南，进而大幅影响性能。这样转发DNS流量后，网络速度会有部分提升。<br>（tips：米家游戏是非常毒瘤的存在，如果要下载原神，那么无论怎么设置总有大概率是只能跑到3M&#x2F;s的速度，这个没办法解决，只能暂时关闭SS或者配置绕过规则，只需要确保这段时间内其他设备不联网即可；）</p><p><img src="/../_resources/2a80f51b8e22940f1ca4e61f2c8a126d.png" alt="2a80f51b8e22940f1ca4e61f2c8a126d.png"><br>在下面的LAN转发中填写需要绕过SS（不经过代理）的MAC地址。使用IP也可行，但需要绑定好静态IP，并且IP控制的性能似乎比MAC差一点。</p><p>全部完成后应用，启用SS即可。</p><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>这个方法目前唯一的问题是，路由器每次重启后会先联网再启动SS，这两个动作之间间隔时间较长，在这个2-3分钟的窗口期内容易被检测和封禁（尤其是晚高峰时段，我的路由器可能固件有点不兼容经常自己重启，如果正好是晚上那么大概率立刻被封）</p><h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>没有结尾，这个对抗会一直持续下去，直到我离开学校。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习</category>
+      
+      <category>网络工程</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>网络</tag>
+      
+      <tag>长期更新</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【依露希尔：星晓】PC端如何设置高帧率（和性能优化）</title>
+    <link href="/blog/HEII_high_fps/"/>
+    <url>/blog/HEII_high_fps/</url>
+    
+    <content type="html"><![CDATA[<h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><p>不想看前面的内容直接跳转到页面底部即可。</p><h2 id="关于游戏"><a href="#关于游戏" class="headerlink" title="关于游戏"></a>关于游戏</h2><p>游戏官网：<a href="https://game.bilibili.com/ylxe/">https://game.bilibili.com/ylxe/</a><br>《依露希尔: 星晓》，b站游戏，类自走棋&#x2F;SRPG（不知道怎么说，但很多同类游戏，总之就是放几个角色上去它会自己打，然后你可以控制放技能啥的）。<br>我11月中旬在tap上看到的，当时抱着试一试的想法玩，然后目前已经加入我的快餐手游每日豪华套餐（</p><p>这游戏让我玩下来的直接原因是游戏素质，虽然跟市场前列肯定有不少差距，但这游戏的硬素质是过关的。这个玩法本身没啥新意，同类游戏随手找一堆；但其他游戏基本上都是Live2D或者spine平面动画，战斗也是Q版（chibi）小人，而这个则是全3D的设计；因此用3D来玩2D玩法，就会给人一种厚积薄发的感觉，在剧情CG、角色表现张力等方面就会更深入。<br>不过，要说的话，能让我坚持玩下来的根本原因还得是PC端。现在的市场大家也清楚，各路国内厂商全都在做手游，而我刚好又是那批只会用电脑的迂腐的人。所以我选手游的一大标准就是有没有PC端，如果没有，大概率就不会继续玩下去了。<br>好在这个问题其实也没有我想象中的那么明显，近期找的五六个游戏里只要有官网的，基本都会提供PC端。虽然官网都自降身份说是“官方模拟器”，但实际上都是原生打包的PC程序。</p><h2 id="游戏文件分析"><a href="#游戏文件分析" class="headerlink" title="游戏文件分析"></a>游戏文件分析</h2><p>因为这些都是unity游戏，所以游戏本体就不分析了，unity打包出来基本大同小异，这里主要分析启动器行为。<br>游戏安装后的文件夹内容如下：<br><img src="/../_resources/169637a25f93cc558eb9da00fa95397d.png" alt="169637a25f93cc558eb9da00fa95397d.png"><br>其中Games就是unity打包的文件夹，License是一些开源许可证，里面包含了7zip、curl和dulilib（网易 开发的UI框架）。<br>根目录中直接存在的也有7z和sqlite3.dll，前者用于解压文件，后者是一个数据库，估计是用来跟踪和校验下载文件的。下面两个就是启动器主程序和其卸载程序。</p><p>打开启动器，看到如下界面：<br><img src="/../_resources/627279705c50fdb3a840264a2f8bcc9a.png" alt="627279705c50fdb3a840264a2f8bcc9a.png"><br>右上角的设置按钮没有用，点开是配置要求。<br>（吐槽一下，这游戏的性能优化做得很差，我的残血3060在大厅界面只能跑63-67帧，游戏界面虽然90fps但占用率也是满的，就离谱）</p><p>这个启动器也没啥可看的，左下角的版本号只会在游戏大更新时更换，右下角一个开始游戏的按钮，实际上就是一个start命令。跟米家游戏一样，除了大更新时游戏无法完成热更新才需要启动器，平时这玩意就是一摆设。</p><h2 id="游戏设置界面"><a href="#游戏设置界面" class="headerlink" title="游戏设置界面"></a>游戏设置界面</h2><p><img src="/../_resources/bbbe9525657e884da09ab6aa27efb574.png" alt="bbbe9525657e884da09ab6aa27efb574.png"><br>真正有用的就这几个，图像质量只能在这几个选项里全局控制，下面的帧率只有30、45和60，垂直同步的性能很差不建议使用（但不开会撕裂，建议在显卡控制面板里启用“快速”垂直同步）。</p><h2 id="如何设置高帧率"><a href="#如何设置高帧率" class="headerlink" title="如何设置高帧率"></a>如何设置高帧率</h2><p>由于启动器与米家游戏的高度相似性，以及游戏都是unity引擎，因此参考隔壁某铁路建设游戏的做法，直接进注册表找。<br>注册表路径非常简单，直接进入<code>计算机\HKEY_CURRENT_USER\SOFTWARE\bilibili\依露希尔：星晓</code>，里面就是游戏的注册表位置了。<br>按下图，找到PCFrameRate开头的表项，改成十进制然后将60修改成你的目标帧率（不建议超过显示器刷新率）<br><img src="/../_resources/e635115d8d5b024a666d9cc8299cee6e.png" alt="e635115d8d5b024a666d9cc8299cee6e.png"><br>改完后点确定，重启游戏，游戏应该已经能在高帧率下运行。如果没有，检查游戏设置里的帧率选项。</p><p>好了，本期的教程就到这里，大家有什么想对小编说的都可以在评论区留言，我们下期再见（？</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>娱乐</category>
+      
+      <category>其他游戏</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>游戏</tag>
+      
+      <tag>教程</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>博客站点更新！</title>
     <link href="/blog/blog_site_change/"/>
     <url>/blog/blog_site_change/</url>
@@ -25,35 +83,6 @@
       <tag>开发</tag>
       
       <tag>测试</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>How to play stardew valley ports on JELOS（在JELOS中玩移植版的星露谷）</title>
-    <link href="/blog/Stardew_valley_ports/"/>
-    <url>/blog/Stardew_valley_ports/</url>
-    
-    <content type="html"><![CDATA[<p><strong>Notification: This article is written in English.</strong></p><h2 id="Recommend-written-guide"><a href="#Recommend-written-guide" class="headerlink" title="Recommend written guide"></a>Recommend written guide</h2><p>Guide from RetroGameCorps: <a href="https://retrogamecorps.com/2021/11/30/stardew-valley-on-retro-handhelds/">https://retrogamecorps.com/2021/11/30/stardew-valley-on-retro-handhelds/</a><br>(At least correct for the time this blog was written.)</p><p>Instructions from PortMaster: <a href="https://github.com/christianhaitian/PortMaster/wiki#stardew-valley">https://github.com/christianhaitian/PortMaster/wiki#stardew-valley</a><br>(Spoiler: This not works quite correct!)(on my device)</p><h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
-    
-    
-    <categories>
-      
-      <category>娱乐</category>
-      
-      <category>模拟器</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>游戏</tag>
-      
-      <tag>教程</tag>
       
     </tags>
     
@@ -184,7 +213,7 @@
     <link href="/blog/Network_progress_CSUST/"/>
     <url>/blog/Network_progress_CSUST/</url>
     
-    <content type="html"><![CDATA[<h1 id="本文内容已过时，请查看新版解决方案"><a href="#本文内容已过时，请查看新版解决方案" class="headerlink" title="本文内容已过时，请查看新版解决方案"></a>本文内容已过时，请查看<a href="openclash_80_proxy.html">新版解决方案</a></h1><h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>本文大部分内容可参考：<br><a href="https://www.mr-cn.net/2021/06/15/Share-your-network-in-CSUST/">长沙理工大学：校园网解除共享限制</a><br>路由器刷机参考教程（非本次使用）：<br><a href="https://www.right.com.cn/FORUM/thread-489907-1-1.html">极路由Enjoy 1200  HC5861B OpenWRT 固件 Rosy主题</a><br>如何下载固件：<br><a href="http://opt.cn2qq.com/padavan/">padavan固件下载列表</a></p><h2 id="原因与现象"><a href="#原因与现象" class="headerlink" title="原因与现象"></a>原因与现象</h2><p>为了维护运营商利益，校园网设置了一些检测与规则，对同时登录校园网的设备数量作出了严格的限制，并且不允许终端用户进行网络共享。<br>具体表现为，当用户使用电脑、手机等的热点、无线信号桥等方法时，只要有第二台设备联网，就会在一定条件下被检测发现，随后此账号将无法访问网络，并自动将网页重定向到登录界面（或1.1.1.3，但这个页面不能加载出来）。</p><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>根据引用文章，可以得知共享检测主要通过80端口下的HTTP报文中浏览器UA的区别来实现，可以看到这个限制条件比较多，而且检测周期并不短；因此会出现稳定共享的时间时长时短的现象。<br>此外，还可能会通过其他方法检测，包括但不限于TTL、IPID、侵入式检测等等。</p><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>为实现稳定的校园网共享，首先需要选择正确的系统：必须使用OpenWRT或Pavanda等软路由系统。<br>本文基于Pavanda操作。</p><h3 id="路由选型"><a href="#路由选型" class="headerlink" title="路由选型"></a>路由选型</h3><p>如果你还没有软路由或者合适的路由器，那么选购路由器就是第一步了。我最终的选择是二手极路由Enjoy 1200，型号HC5861B。极路由虽然已经倒闭，但它的产品可玩性和性价比确实是相对较好的。<br>淘宝入手价格40元，由商家代刷Breed。<br>需要注意的是，这一款路由器不支持USB，电源接口也是12V DC而非5V Micro-USB，如果有这两个功能需求的话可以考虑极路由3或其他产品。</p><h3 id="检查与刷机"><a href="#检查与刷机" class="headerlink" title="检查与刷机"></a>检查与刷机</h3><p>收货后先简单清理积灰，检查网口是否有积聚大量灰尘，天线是否正常连接、旋转。<br>随后插入电源开机，连接电脑网口到路由器LAN 1口，等待IP自动配置完成，进入默认网关的地址（本次为192.168.132.1，极路由原厂固件可能为192.168.199.1）<br>使用默认的管理员账号密码（admin）登录后，发现这台机器已经刷好了老毛子固件（Padavan）了：<br><img src="/../_resources/54de7cdf47ce563bb65d5c42e282e331.png" alt="54de7cdf47ce563bb65d5c42e282e331.png"><br>所以省下了很多时间，虽然我的计划是使用OpenWrt，但Padavan本质上是一样的。<br>如果需要刷机教程，请参考引用文章，或直接搜索路由型号+OpenWrt，即可找到一些刷机教程。</p><h2 id="网络拓扑"><a href="#网络拓扑" class="headerlink" title="网络拓扑"></a>网络拓扑</h2><p><img src="/../_resources/15828e53952c884a9b9f9f1cc11b7c77.png" alt="15828e53952c884a9b9f9f1cc11b7c77.png"><br>我的目标是达成这样的拓扑，实际上就是一个无线“路由”，也就是将无线信号作为WAN，执行NAT和防火墙规则后建立子网，设备均接入子网中。</p><h2 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h2><h3 id="路由器接入无线网络"><a href="#路由器接入无线网络" class="headerlink" title="路由器接入无线网络"></a>路由器接入无线网络</h3><p>直接参考这张图即可：<br><img src="/../_resources/d6035076edef8fc78299e3af690eea62.png" alt="d6035076edef8fc78299e3af690eea62.png"><br>2.4G和5G只能有一个用于AP-Client，另一个必须禁用桥接。<br>需要注意的是，路由器需要用一个频段接入校园网，另一个频段用于发射信号；虽然可以选择client+AP来实现单频复用，实际上只用5GHz的话效果也不错，但我收到的这台路由器不知道为何5G能力极其孱弱（无遮挡50cm距离下client都不能跑满协商速率），而2.4G能力极强（对周围的无线鼠标、蓝牙手柄等造成严重干扰），因此这里不使用这种方法。<br><strong>补充：后面换了一台JCG Q20，TB到手60块，不仅支持WiFi6而且性能远强于前面买的极路由，有需要的同学可以参考购买。这玩意就完全可以5GHz同时用于client和AP了，2.4GHz只用来保留兼容性即可。</strong></p><p><strong>懒得删改的原文：</strong><br><em>这里还涉及到频段的选择，最开始我使用2.4G接入校园网、5G用于共享，但随后我发现无线鼠标的工作会受到较严重的干扰（接收器也工作在2.4G频率上），因此后续改为5G接入、2.4G共享。<br>此外，网络性能也是一个需要关心的重点，5GHz总能提供更优秀的表现，但这里我们只能用于一个目的；由于我平时主要使用电脑上网，而电脑是通过网线连接到路由器的，因此选择5G接入是更好的。实际上，这种情况下2.4G的表现也不差，宿舍面积小、干扰少，多次测试下来延迟在30ms以内，速度8-9MB&#x2F;s，可以满足1080P视频观看和正常游戏。</em></p><h3 id="修改网络配置"><a href="#修改网络配置" class="headerlink" title="修改网络配置"></a>修改网络配置</h3><p>如果对内网网段不敏感（例如你只想要正常上网，平时不开发网页、软件、游戏、不做任何测试，那么这一段可以跳过）<br>在左侧选择外部网络（WAN），可参考下图配置：<br><img src="/../_resources/e613ab56c89c86b939bf67ab5601fc42.png" alt="e613ab56c89c86b939bf67ab5601fc42.png"></p><p>LAN配置同理，设置想要的网段、DNS、静态路由等。</p><h2 id="通过NAT连接ipv6"><a href="#通过NAT连接ipv6" class="headerlink" title="通过NAT连接ipv6"></a>通过NAT连接ipv6</h2><p>由于我希望使用到正常的ipv6，故单独在此写出方案；对于绝大多数日常网络而言，关闭ipv6可能反而有助于提高稳定性。<br>参考文章：<a href="https://post.smzdm.com/p/ad9qkz9k/">校园网环境下Openwrt配置ipv6教程——以nat6为例</a></p><ul><li><p>NAT是什么？<br>NAT是最早出现在ipv4中的技术；由于ipv4地址空间有限（总约42亿个），无法满足爆炸式增长的网络设备入网需求，因此出现了网络地址转换（Network Address Translation）技术；它的作用就是缓解ipv4地址消耗，尽量在ipv6部署完全之前满足原有上网需求。<br>它的工作原理很简单，我们平时使用路由器上网的时候就至少会有一次NAT过程，路由器将一个外网（全球唯一）的地址映射到多个内网地址（通常为192.168.x.x或10.x.x.x），这样一个路由器下的设备就可以共用一个外网IP，大幅缓解了地址消耗，同时解决了耗尽的影响。<br>NAT有助于提高网络安全性，因为路由器上可以部署非常高效的防火墙，也可以天然阻断所有传入连接，但这样的技术也会带来问题；最大的问题无疑就是点对点连接变得不可能，因此游戏联机、网站建设等都会变得很困难。<br>在我的使用场景下，Minecraft联机是最常见的点对点连接应用，此前的解决方案均为FRP内网穿透（见前文章）。</p></li><li><p>为什么我一定要有ipv6连接？<br>很简单，ipv6地址池极大，运营商也并未刻意限制用户的ipv6访问（至少我没有遇到过哪个运营商在ipv6上用NAT的）<strong>（但是教育网除外）</strong>。<br>因此，大多数用户只要开启了ipv6，就能获取到公网IP。这对于点对点连接来说无疑是非常有帮助的。</p></li><li><p>教育网干了什么？<br>一般运营商在家用、商用宽带里分配的ipv6都带有一个&#x2F;64的前缀，这意味着路由器拿到的地址里面还包含了大量的可用地址（约1800万兆个地址；1兆&#x3D;1万亿（也就是18446744073709551616）），用于给后续设备分配ipv6地址；<br>但教育网的ipv6则直接分配了&#x2F;128的地址，这就意味着它给你的地址只能用于一台设备。也就是说，想要共享ipv6，必须使用NAT。</p></li></ul><h3 id="如何使用NAPT66"><a href="#如何使用NAPT66" class="headerlink" title="如何使用NAPT66"></a>如何使用NAPT66</h3><p>NAPT66模块是padavan使用的一个解决方案，所谓NAPT其实是现在NAT的正确称呼，也就是Network Address Port Translation。因为一对多NAT的情况下涉及到端口转换，相当于用端口数换IP数，所以NAPT才是准确的说法。<br>请按照你的路由器型号查找最新的padavan固件，并进行固件更新；在新版PDCN固件中直接内置了NAPT66的一键开关和配置，只需在ipv6设置页面底部点击一键填写配置，然后重启路由器和电脑网卡即可使用。</p><hr><h2 id="更多参考信息"><a href="#更多参考信息" class="headerlink" title="更多参考信息"></a>更多参考信息</h2><p>如果你的路由器使用的固件特殊，没有内置一键NAPT66，则可参考：<a href="https://doge.uk/coding/padavan-ipv6-napt66.html">Padavan路由下使用NAPT66模块访问移动IPV6网络</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="本文内容已过时"><a href="#本文内容已过时" class="headerlink" title="本文内容已过时"></a>本文内容已过时</h1><h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>本文大部分内容可参考：<br><a href="https://www.mr-cn.net/2021/06/15/Share-your-network-in-CSUST/">长沙理工大学：校园网解除共享限制</a><br>路由器刷机参考教程（非本次使用）：<br><a href="https://www.right.com.cn/FORUM/thread-489907-1-1.html">极路由Enjoy 1200  HC5861B OpenWRT 固件 Rosy主题</a><br>如何下载固件：<br><a href="http://opt.cn2qq.com/padavan/">padavan固件下载列表</a></p><h2 id="原因与现象"><a href="#原因与现象" class="headerlink" title="原因与现象"></a>原因与现象</h2><p>为了维护运营商利益，校园网设置了一些检测与规则，对同时登录校园网的设备数量作出了严格的限制，并且不允许终端用户进行网络共享。<br>具体表现为，当用户使用电脑、手机等的热点、无线信号桥等方法时，只要有第二台设备联网，就会在一定条件下被检测发现，随后此账号将无法访问网络，并自动将网页重定向到登录界面（或1.1.1.3，但这个页面不能加载出来）。</p><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>根据引用文章，可以得知共享检测主要通过80端口下的HTTP报文中浏览器UA的区别来实现，可以看到这个限制条件比较多，而且检测周期并不短；因此会出现稳定共享的时间时长时短的现象。<br>此外，还可能会通过其他方法检测，包括但不限于TTL、IPID、侵入式检测等等。</p><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>为实现稳定的校园网共享，首先需要选择正确的系统：必须使用OpenWRT或Pavanda等软路由系统。<br>本文基于Pavanda操作。</p><h3 id="路由选型"><a href="#路由选型" class="headerlink" title="路由选型"></a>路由选型</h3><p>如果你还没有软路由或者合适的路由器，那么选购路由器就是第一步了。我最终的选择是二手极路由Enjoy 1200，型号HC5861B。极路由虽然已经倒闭，但它的产品可玩性和性价比确实是相对较好的。<br>淘宝入手价格40元，由商家代刷Breed。<br>需要注意的是，这一款路由器不支持USB，电源接口也是12V DC而非5V Micro-USB，如果有这两个功能需求的话可以考虑极路由3或其他产品。</p><h3 id="检查与刷机"><a href="#检查与刷机" class="headerlink" title="检查与刷机"></a>检查与刷机</h3><p>收货后先简单清理积灰，检查网口是否有积聚大量灰尘，天线是否正常连接、旋转。<br>随后插入电源开机，连接电脑网口到路由器LAN 1口，等待IP自动配置完成，进入默认网关的地址（本次为192.168.132.1，极路由原厂固件可能为192.168.199.1）<br>使用默认的管理员账号密码（admin）登录后，发现这台机器已经刷好了老毛子固件（Padavan）了：<br><img src="/../_resources/54de7cdf47ce563bb65d5c42e282e331.png" alt="54de7cdf47ce563bb65d5c42e282e331.png"><br>所以省下了很多时间，虽然我的计划是使用OpenWrt，但Padavan本质上是一样的。<br>如果需要刷机教程，请参考引用文章，或直接搜索路由型号+OpenWrt，即可找到一些刷机教程。</p><h2 id="网络拓扑"><a href="#网络拓扑" class="headerlink" title="网络拓扑"></a>网络拓扑</h2><p><img src="/../_resources/15828e53952c884a9b9f9f1cc11b7c77.png" alt="15828e53952c884a9b9f9f1cc11b7c77.png"><br>我的目标是达成这样的拓扑，实际上就是一个无线“路由”，也就是将无线信号作为WAN，执行NAT和防火墙规则后建立子网，设备均接入子网中。</p><h2 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h2><h3 id="路由器接入无线网络"><a href="#路由器接入无线网络" class="headerlink" title="路由器接入无线网络"></a>路由器接入无线网络</h3><p>直接参考这张图即可：<br><img src="/../_resources/d6035076edef8fc78299e3af690eea62.png" alt="d6035076edef8fc78299e3af690eea62.png"><br>2.4G和5G只能有一个用于AP-Client，另一个必须禁用桥接。<br>需要注意的是，路由器需要用一个频段接入校园网，另一个频段用于发射信号；虽然可以选择client+AP来实现单频复用，实际上只用5GHz的话效果也不错，但我收到的这台路由器不知道为何5G能力极其孱弱（无遮挡50cm距离下client都不能跑满协商速率），而2.4G能力极强（对周围的无线鼠标、蓝牙手柄等造成严重干扰），因此这里不使用这种方法。<br><strong>补充：后面换了一台JCG Q20，TB到手60块，不仅支持WiFi6而且性能远强于前面买的极路由，有需要的同学可以参考购买。这玩意就完全可以5GHz同时用于client和AP了，2.4GHz只用来保留兼容性即可。</strong></p><p><strong>懒得删改的原文：</strong><br><em>这里还涉及到频段的选择，最开始我使用2.4G接入校园网、5G用于共享，但随后我发现无线鼠标的工作会受到较严重的干扰（接收器也工作在2.4G频率上），因此后续改为5G接入、2.4G共享。<br>此外，网络性能也是一个需要关心的重点，5GHz总能提供更优秀的表现，但这里我们只能用于一个目的；由于我平时主要使用电脑上网，而电脑是通过网线连接到路由器的，因此选择5G接入是更好的。实际上，这种情况下2.4G的表现也不差，宿舍面积小、干扰少，多次测试下来延迟在30ms以内，速度8-9MB&#x2F;s，可以满足1080P视频观看和正常游戏。</em></p><h3 id="修改网络配置"><a href="#修改网络配置" class="headerlink" title="修改网络配置"></a>修改网络配置</h3><p>如果对内网网段不敏感（例如你只想要正常上网，平时不开发网页、软件、游戏、不做任何测试，那么这一段可以跳过）<br>在左侧选择外部网络（WAN），可参考下图配置：<br><img src="/../_resources/e613ab56c89c86b939bf67ab5601fc42.png" alt="e613ab56c89c86b939bf67ab5601fc42.png"></p><p>LAN配置同理，设置想要的网段、DNS、静态路由等。</p><h2 id="通过NAT连接ipv6"><a href="#通过NAT连接ipv6" class="headerlink" title="通过NAT连接ipv6"></a>通过NAT连接ipv6</h2><p>由于我希望使用到正常的ipv6，故单独在此写出方案；对于绝大多数日常网络而言，关闭ipv6可能反而有助于提高稳定性。<br>参考文章：<a href="https://post.smzdm.com/p/ad9qkz9k/">校园网环境下Openwrt配置ipv6教程——以nat6为例</a></p><ul><li><p>NAT是什么？<br>NAT是最早出现在ipv4中的技术；由于ipv4地址空间有限（总约42亿个），无法满足爆炸式增长的网络设备入网需求，因此出现了网络地址转换（Network Address Translation）技术；它的作用就是缓解ipv4地址消耗，尽量在ipv6部署完全之前满足原有上网需求。<br>它的工作原理很简单，我们平时使用路由器上网的时候就至少会有一次NAT过程，路由器将一个外网（全球唯一）的地址映射到多个内网地址（通常为192.168.x.x或10.x.x.x），这样一个路由器下的设备就可以共用一个外网IP，大幅缓解了地址消耗，同时解决了耗尽的影响。<br>NAT有助于提高网络安全性，因为路由器上可以部署非常高效的防火墙，也可以天然阻断所有传入连接，但这样的技术也会带来问题；最大的问题无疑就是点对点连接变得不可能，因此游戏联机、网站建设等都会变得很困难。<br>在我的使用场景下，Minecraft联机是最常见的点对点连接应用，此前的解决方案均为FRP内网穿透（见前文章）。</p></li><li><p>为什么我一定要有ipv6连接？<br>很简单，ipv6地址池极大，运营商也并未刻意限制用户的ipv6访问（至少我没有遇到过哪个运营商在ipv6上用NAT的）<strong>（但是教育网除外）</strong>。<br>因此，大多数用户只要开启了ipv6，就能获取到公网IP。这对于点对点连接来说无疑是非常有帮助的。</p></li><li><p>教育网干了什么？<br>一般运营商在家用、商用宽带里分配的ipv6都带有一个&#x2F;64的前缀，这意味着路由器拿到的地址里面还包含了大量的可用地址（约1800万兆个地址；1兆&#x3D;1万亿（也就是18446744073709551616）），用于给后续设备分配ipv6地址；<br>但教育网的ipv6则直接分配了&#x2F;128的地址，这就意味着它给你的地址只能用于一台设备。也就是说，想要共享ipv6，必须使用NAT。</p></li></ul><h3 id="如何使用NAPT66"><a href="#如何使用NAPT66" class="headerlink" title="如何使用NAPT66"></a>如何使用NAPT66</h3><p>NAPT66模块是padavan使用的一个解决方案，所谓NAPT其实是现在NAT的正确称呼，也就是Network Address Port Translation。因为一对多NAT的情况下涉及到端口转换，相当于用端口数换IP数，所以NAPT才是准确的说法。<br>请按照你的路由器型号查找最新的padavan固件，并进行固件更新；在新版PDCN固件中直接内置了NAPT66的一键开关和配置，只需在ipv6设置页面底部点击一键填写配置，然后重启路由器和电脑网卡即可使用。</p><hr><h2 id="更多参考信息"><a href="#更多参考信息" class="headerlink" title="更多参考信息"></a>更多参考信息</h2><p>如果你的路由器使用的固件特殊，没有内置一键NAPT66，则可参考：<a href="https://doge.uk/coding/padavan-ipv6-napt66.html">Padavan路由下使用NAPT66模块访问移动IPV6网络</a></p>]]></content>
     
     
     <categories>

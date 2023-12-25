@@ -18,7 +18,7 @@
   <meta name="author" content="zjxdiu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本文内容已过时，请查看新版解决方案引用本文大部分内容可参考：长沙理工大学：校园网解除共享限制路由器刷机参考教程（非本次使用）：极路由Enjoy 1200  HC5861B OpenWRT 固件 Rosy主题如何下载固件：padavan固件下载列表 原因与现象为了维护运营商利益，校园网设置了一些检测与规则，对同时登录校园网的设备数量作出了严格的限制，并且不允许终端用户进行网络共享。具体表现为，当用户">
+    <meta name="description" content="本文内容已过时引用本文大部分内容可参考：长沙理工大学：校园网解除共享限制路由器刷机参考教程（非本次使用）：极路由Enjoy 1200  HC5861B OpenWRT 固件 Rosy主题如何下载固件：padavan固件下载列表 原因与现象为了维护运营商利益，校园网设置了一些检测与规则，对同时登录校园网的设备数量作出了严格的限制，并且不允许终端用户进行网络共享。具体表现为，当用户使用电脑、手机等的热">
   
   
   
@@ -300,7 +300,7 @@
         aria-expanded="true"
       >
         学习
-        <span class="list-group-count">(7)</span>
+        <span class="list-group-count">(8)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -327,7 +327,7 @@
         aria-expanded="true"
       >
         网络工程
-        <span class="list-group-count">(3)</span>
+        <span class="list-group-count">(4)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -363,6 +363,15 @@
            class="list-group-item list-group-item-action
            active">
           <span class="category-post">长沙理工大学无线网络多设备共享解决方案</span>
+        </a>
+      
+    
+      
+      
+        <a href="/blog/CSUST_network_sharing/" title="长沙理工大学校园网共享观察与方案"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">长沙理工大学校园网共享观察与方案</span>
         </a>
       
     
@@ -485,7 +494,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="本文内容已过时，请查看新版解决方案"><a href="#本文内容已过时，请查看新版解决方案" class="headerlink" title="本文内容已过时，请查看新版解决方案"></a>本文内容已过时，请查看<a href="openclash_80_proxy.html">新版解决方案</a></h1><h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>本文大部分内容可参考：<br><a target="_blank" rel="noopener" href="https://www.mr-cn.net/2021/06/15/Share-your-network-in-CSUST/">长沙理工大学：校园网解除共享限制</a><br>路由器刷机参考教程（非本次使用）：<br><a target="_blank" rel="noopener" href="https://www.right.com.cn/FORUM/thread-489907-1-1.html">极路由Enjoy 1200  HC5861B OpenWRT 固件 Rosy主题</a><br>如何下载固件：<br><a target="_blank" rel="noopener" href="http://opt.cn2qq.com/padavan/">padavan固件下载列表</a></p>
+                <h1 id="本文内容已过时"><a href="#本文内容已过时" class="headerlink" title="本文内容已过时"></a>本文内容已过时</h1><h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>本文大部分内容可参考：<br><a target="_blank" rel="noopener" href="https://www.mr-cn.net/2021/06/15/Share-your-network-in-CSUST/">长沙理工大学：校园网解除共享限制</a><br>路由器刷机参考教程（非本次使用）：<br><a target="_blank" rel="noopener" href="https://www.right.com.cn/FORUM/thread-489907-1-1.html">极路由Enjoy 1200  HC5861B OpenWRT 固件 Rosy主题</a><br>如何下载固件：<br><a target="_blank" rel="noopener" href="http://opt.cn2qq.com/padavan/">padavan固件下载列表</a></p>
 <h2 id="原因与现象"><a href="#原因与现象" class="headerlink" title="原因与现象"></a>原因与现象</h2><p>为了维护运营商利益，校园网设置了一些检测与规则，对同时登录校园网的设备数量作出了严格的限制，并且不允许终端用户进行网络共享。<br>具体表现为，当用户使用电脑、手机等的热点、无线信号桥等方法时，只要有第二台设备联网，就会在一定条件下被检测发现，随后此账号将无法访问网络，并自动将网页重定向到登录界面（或1.1.1.3，但这个页面不能加载出来）。</p>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>根据引用文章，可以得知共享检测主要通过80端口下的HTTP报文中浏览器UA的区别来实现，可以看到这个限制条件比较多，而且检测周期并不短；因此会出现稳定共享的时间时长时短的现象。<br>此外，还可能会通过其他方法检测，包括但不限于TTL、IPID、侵入式检测等等。</p>
 <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>为实现稳定的校园网共享，首先需要选择正确的系统：必须使用OpenWRT或Pavanda等软路由系统。<br>本文基于Pavanda操作。</p>
