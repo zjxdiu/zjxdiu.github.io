@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>唤境引擎源程序下载 分享</title>
+    <link href="/blog/evkworld_prog_share/"/>
+    <url>/blog/evkworld_prog_share/</url>
+    
+    <content type="html"><![CDATA[<h2 id="唤境引擎源程序下载-分享"><a href="#唤境引擎源程序下载-分享" class="headerlink" title="唤境引擎源程序下载 分享"></a>唤境引擎源程序下载 分享</h2><p>唤境引擎已经在官网和steam下架，目前无法找到官方安装包；我手上暂时也没有，不过刚才发现唤境主程序是独立程序，无需安装也能运行。<br>使用方法：下载文件，解压全部内容，打开<code>evkworld\hub</code>文件夹，双击运行<code>evkhub.exe</code>。将此文件在桌面创建一个快捷方式，可方便后续使用。</p><h3 id="下载链接："><a href="#下载链接：" class="headerlink" title="下载链接："></a>下载链接：</h3><p>百度网盘：<a href="https://pan.baidu.com/s/1I6WBMkTD6DUpd1wPG7pPIA?pwd=nr4a">https://pan.baidu.com/s/1I6WBMkTD6DUpd1wPG7pPIA?pwd=nr4a</a>  提取码：nr4a<br>自建站点直接下载：<a href="https://gljqsz.v6.navy:4921/chfs/shared/SHARE/evkworld.zip?download=1">https://gljqsz.v6.navy:4921/chfs/shared/SHARE/evkworld.zip?download=1</a><br>（由于使用的是自签名证书，浏览器可能会提示连接不安全；通常情况下在详细信息中点击继续前往即可，但不保证传输一定安全）</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>杂项</category>
+      
+      <category>未分类</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>开发</tag>
+      
+      <tag>游戏引擎</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>长沙理工大学校园网共享观察与方案</title>
     <link href="/blog/CSUST_network_sharing/"/>
     <url>/blog/CSUST_network_sharing/</url>
@@ -37,7 +66,7 @@
     <link href="/blog/HEII_high_fps/"/>
     <url>/blog/HEII_high_fps/</url>
     
-    <content type="html"><![CDATA[<h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><p>不想看前面的内容直接跳转到页面底部即可。</p><h2 id="关于游戏"><a href="#关于游戏" class="headerlink" title="关于游戏"></a>关于游戏</h2><p>游戏官网：<a href="https://game.bilibili.com/ylxe/">https://game.bilibili.com/ylxe/</a><br>《依露希尔: 星晓》，b站游戏，类自走棋&#x2F;SRPG（不知道怎么说，但很多同类游戏，总之就是放几个角色上去它会自己打，然后你可以控制放技能啥的）。<br>我11月中旬在tap上看到的，当时抱着试一试的想法玩，然后目前已经加入我的快餐手游每日豪华套餐（</p><p>这游戏让我玩下来的直接原因是游戏素质，虽然跟市场前列肯定有不少差距，但这游戏的硬素质是过关的。这个玩法本身没啥新意，同类游戏随手找一堆；但其他游戏基本上都是Live2D或者spine平面动画，战斗也是Q版（chibi）小人，而这个则是全3D的设计；因此用3D来玩2D玩法，就会给人一种厚积薄发的感觉，在剧情CG、角色表现张力等方面就会更深入。<br>不过，要说的话，能让我坚持玩下来的根本原因还得是PC端。现在的市场大家也清楚，各路国内厂商全都在做手游，而我刚好又是那批只会用电脑的迂腐的人。所以我选手游的一大标准就是有没有PC端，如果没有，大概率就不会继续玩下去了。<br>好在这个问题其实也没有我想象中的那么明显，近期找的五六个游戏里只要有官网的，基本都会提供PC端。虽然官网都自降身份说是“官方模拟器”，但实际上都是原生打包的PC程序。</p><h2 id="游戏文件分析"><a href="#游戏文件分析" class="headerlink" title="游戏文件分析"></a>游戏文件分析</h2><p>因为这些都是unity游戏，所以游戏本体就不分析了，unity打包出来基本大同小异，这里主要分析启动器行为。<br>游戏安装后的文件夹内容如下：<br><img src="/../_resources/169637a25f93cc558eb9da00fa95397d.png" alt="169637a25f93cc558eb9da00fa95397d.png"><br>其中Games就是unity打包的文件夹，License是一些开源许可证，里面包含了7zip、curl和dulilib（网易 开发的UI框架）。<br>根目录中直接存在的也有7z和sqlite3.dll，前者用于解压文件，后者是一个数据库，估计是用来跟踪和校验下载文件的。下面两个就是启动器主程序和其卸载程序。</p><p>打开启动器，看到如下界面：<br><img src="/../_resources/627279705c50fdb3a840264a2f8bcc9a.png" alt="627279705c50fdb3a840264a2f8bcc9a.png"><br>右上角的设置按钮没有用，点开是配置要求。<br>（吐槽一下，这游戏的性能优化做得很差，我的残血3060在大厅界面只能跑63-67帧，游戏界面虽然90fps但占用率也是满的，就离谱）</p><p>这个启动器也没啥可看的，左下角的版本号只会在游戏大更新时更换，右下角一个开始游戏的按钮，实际上就是一个start命令。跟米家游戏一样，除了大更新时游戏无法完成热更新才需要启动器，平时这玩意就是一摆设。</p><h2 id="游戏设置界面"><a href="#游戏设置界面" class="headerlink" title="游戏设置界面"></a>游戏设置界面</h2><p><img src="/../_resources/bbbe9525657e884da09ab6aa27efb574.png" alt="bbbe9525657e884da09ab6aa27efb574.png"><br>真正有用的就这几个，图像质量只能在这几个选项里全局控制，下面的帧率只有30、45和60，垂直同步的性能很差不建议使用（但不开会撕裂，建议在显卡控制面板里启用“快速”垂直同步）。</p><h2 id="如何设置高帧率"><a href="#如何设置高帧率" class="headerlink" title="如何设置高帧率"></a>如何设置高帧率</h2><p>由于启动器与米家游戏的高度相似性，以及游戏都是unity引擎，因此参考隔壁某铁路建设游戏的做法，直接进注册表找。<br>注册表路径非常简单，直接进入<code>计算机\HKEY_CURRENT_USER\SOFTWARE\bilibili\依露希尔：星晓</code>，里面就是游戏的注册表位置了。<br>按下图，找到PCFrameRate开头的表项，改成十进制然后将60修改成你的目标帧率（不建议超过显示器刷新率）<br><img src="/../_resources/e635115d8d5b024a666d9cc8299cee6e.png" alt="e635115d8d5b024a666d9cc8299cee6e.png"><br>改完后点确定，重启游戏，游戏应该已经能在高帧率下运行。如果没有，检查游戏设置里的帧率选项。</p><p>好了，本期的教程就到这里，大家有什么想对小编说的都可以在评论区留言，我们下期再见（？</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><p>不想看前面的内容直接跳转到页面底部即可。</p><h2 id="关于游戏"><a href="#关于游戏" class="headerlink" title="关于游戏"></a>关于游戏</h2><p>游戏官网：<a href="https://game.bilibili.com/ylxe/">https://game.bilibili.com/ylxe/</a><br>《依露希尔: 星晓》，b站游戏，类自走棋&#x2F;SRPG（不知道怎么说，但很多同类游戏，总之就是放几个角色上去它会自己打，然后你可以控制放技能啥的）。<br>我11月中旬在tap上看到的，当时抱着试一试的想法玩，然后目前已经加入我的快餐手游每日豪华套餐（</p><p>这游戏让我玩下来的直接原因是游戏素质，虽然跟市场前列肯定有不少差距，但这游戏的硬素质是过关的。这个玩法本身没啥新意，同类游戏随手找一堆；但其他游戏基本上都是Live2D或者spine平面动画，战斗也是Q版（chibi）小人，而这个则是全3D的设计；因此用3D来玩2D玩法，就会给人一种厚积薄发的感觉，在剧情CG、角色表现张力等方面就会更深入。<br>不过，要说的话，能让我坚持玩下来的根本原因还得是PC端。现在的市场大家也清楚，各路国内厂商全都在做手游，而我刚好又是那批只会用电脑的迂腐的人。所以我选手游的一大标准就是有没有PC端，如果没有，大概率就不会继续玩下去了。<br>好在这个问题其实也没有我想象中的那么明显，近期找的五六个游戏里只要有官网的，基本都会提供PC端。虽然官网都自降身份说是“官方模拟器”，但实际上都是原生打包的PC程序。</p><h2 id="游戏文件分析"><a href="#游戏文件分析" class="headerlink" title="游戏文件分析"></a>游戏文件分析</h2><p>因为这些都是unity游戏，所以游戏本体就不分析了，unity打包出来基本大同小异，这里主要分析启动器行为。<br>游戏安装后的文件夹内容如下：<br><img src="/../_resources/169637a25f93cc558eb9da00fa95397d.png" alt="169637a25f93cc558eb9da00fa95397d.png"><br>其中Games就是unity打包的文件夹，License是一些开源许可证，里面包含了7zip、curl和dulilib（网易开发的UI框架）。<br>根目录中直接存在的也有7z和sqlite3.dll，前者用于解压文件，后者是一个数据库，估计是用来跟踪和校验下载文件的。下面两个就是启动器主程序和其卸载程序。</p><p>打开启动器，看到如下界面：<br><img src="/../_resources/627279705c50fdb3a840264a2f8bcc9a.png" alt="627279705c50fdb3a840264a2f8bcc9a.png"><br>右上角的设置按钮没有用，点开是配置要求。<br>（吐槽一下，这游戏的性能优化做得很差，我的残血3060在大厅界面只能跑63-67帧，游戏界面虽然90fps但占用率也是满的，就离谱）</p><p>这个启动器也没啥可看的，左下角的版本号只会在游戏大更新时更换，右下角一个开始游戏的按钮，实际上就是一个start命令。跟米家游戏一样，除了大更新时游戏无法完成热更新才需要启动器，平时这玩意就是一摆设。</p><h2 id="游戏设置界面"><a href="#游戏设置界面" class="headerlink" title="游戏设置界面"></a>游戏设置界面</h2><p><img src="/../_resources/bbbe9525657e884da09ab6aa27efb574.png" alt="bbbe9525657e884da09ab6aa27efb574.png"><br>真正有用的就这几个，图像质量只能在这几个选项里全局控制，下面的帧率只有30、45和60，垂直同步的性能很差不建议使用（但不开会撕裂，建议在显卡控制面板里启用“快速”垂直同步）。</p><h2 id="如何设置高帧率"><a href="#如何设置高帧率" class="headerlink" title="如何设置高帧率"></a>如何设置高帧率</h2><p>由于启动器与米家游戏的高度相似性，以及游戏都是unity引擎，因此参考隔壁某铁路建设游戏的做法，直接进注册表找。<br>注册表路径非常简单，直接进入<code>计算机\HKEY_CURRENT_USER\SOFTWARE\bilibili\依露希尔：星晓</code>，里面就是游戏的注册表位置了。<br>按下图，找到PCFrameRate开头的表项，改成十进制然后将60修改成你的目标帧率（不建议超过显示器刷新率）<br><img src="/../_resources/e635115d8d5b024a666d9cc8299cee6e.png" alt="e635115d8d5b024a666d9cc8299cee6e.png"><br>改完后点确定，重启游戏，游戏应该已经能在高帧率下运行。如果没有，检查游戏设置里的帧率选项。</p><p>好了，本期的教程就到这里，大家有什么想对小编说的都可以在评论区留言，我们下期再见（？</p>]]></content>
     
     
     <categories>
