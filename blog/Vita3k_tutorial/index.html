@@ -1,0 +1,863 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zjxdiu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文未完成前言最近想玩PSV游戏了，但是一来手上没有设备，二是PSV原生的游戏体验不见得就很好（分辨率544P）。那么看着手上的Windows PC，自然是来折腾模拟器了。 vita3k入门vita3k是一个开源、免费的PS Vita模拟器，是目前市面上（大概）唯一真正可用的PSV模拟器。 相关网址官方网站：https://vita3k.org/游戏兼容性列表：https://vita3k.org">
+  
+  
+  
+  <title>PSV模拟器vita3k完全教程 - zjxdiu~Enchanted Room</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zjxdiu.github.io","root":"/","version":"1.9.6","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"ZkMCrUSQDneRSAnbRh5WaJry-gzGzoHsz","app_key":"zUZV2LcazrzxOePqSCJPsWEK","server_url":"https://zkmcrusq.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zjxdiu Enchanted room</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>链接</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">PSV模拟器vita3k完全教程</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-07 18:37" pubdate>
+          2023年7月7日晚上6点37分
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="娱乐"
+        id="heading-9acf9c6f117a4c2d02de30294ec29da9" role="tab" data-toggle="collapse" href="#collapse-9acf9c6f117a4c2d02de30294ec29da9"
+        aria-expanded="true"
+      >
+        娱乐
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-9acf9c6f117a4c2d02de30294ec29da9"
+           role="tabpanel" aria-labelledby="heading-9acf9c6f117a4c2d02de30294ec29da9">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="其他游戏"
+        id="heading-eba477495eb063ed37ed57e2f2c6d058" role="tab" data-toggle="collapse" href="#collapse-eba477495eb063ed37ed57e2f2c6d058"
+        aria-expanded="false"
+      >
+        其他游戏
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-eba477495eb063ed37ed57e2f2c6d058"
+           role="tabpanel" aria-labelledby="heading-eba477495eb063ed37ed57e2f2c6d058">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/blog/HEII_high_fps/" title="【依露希尔：星晓】PC端如何设置高帧率（和性能优化）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">【依露希尔：星晓】PC端如何设置高帧率（和性能优化）</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="模拟器"
+        id="heading-61febe767e3413b23cc203f4d9bcd07c" role="tab" data-toggle="collapse" href="#collapse-61febe767e3413b23cc203f4d9bcd07c"
+        aria-expanded="true"
+      >
+        模拟器
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-61febe767e3413b23cc203f4d9bcd07c"
+           role="tabpanel" aria-labelledby="heading-61febe767e3413b23cc203f4d9bcd07c">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/blog/Vita3k_tutorial/" title="PSV模拟器vita3k完全教程"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">PSV模拟器vita3k完全教程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">PSV模拟器vita3k完全教程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="本文未完成"><a href="#本文未完成" class="headerlink" title="本文未完成"></a>本文未完成</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近想玩PSV游戏了，但是一来手上没有设备，二是PSV原生的游戏体验不见得就很好（分辨率544P）。那么看着手上的Windows PC，自然是来折腾模拟器了。</p>
+<h2 id="vita3k入门"><a href="#vita3k入门" class="headerlink" title="vita3k入门"></a>vita3k入门</h2><p>vita3k是一个开源、免费的PS Vita模拟器，是目前市面上（大概）唯一真正可用的PSV模拟器。</p>
+<h3 id="相关网址"><a href="#相关网址" class="headerlink" title="相关网址"></a>相关网址</h3><p>官方网站：<a target="_blank" rel="noopener" href="https://vita3k.org/">https://vita3k.org/</a><br>游戏兼容性列表：<a target="_blank" rel="noopener" href="https://vita3k.org/compatibility.html">https://vita3k.org/compatibility.html</a><br><em>以上两个网站似乎使用了谷歌的ajax，国内可能直连不上，会导致文字和内容无法加载等问题；使用魔法可以解决</em></p>
+<p>下载链接：<br>Windows：<a target="_blank" rel="noopener" href="https://github.com/Vita3K/Vita3K/releases/download/continuous/windows-latest.zip?time=1688728168579">Github Release</a><br>安卓：<a target="_blank" rel="noopener" href="https://github.com/Vita3K/Vita3K-Android/releases/">Github Release</a></p>
+<p>Github仓库：<a target="_blank" rel="noopener" href="https://github.com/Vita3K/Vita3K">https://github.com/Vita3K/Vita3K</a><br>Github兼容性报告页（issue）：<a target="_blank" rel="noopener" href="https://github.com/Vita3K/compatibility/issues">https://github.com/Vita3K/compatibility/issues</a><br><em>提示：在vita3k程序内可以快速创建兼容性报告，无需自己创建issue</em></p>
+<h3 id="游戏ROM资源下载处："><a href="#游戏ROM资源下载处：" class="headerlink" title="游戏ROM资源下载处："></a>游戏ROM资源下载处：</h3><ul>
+<li><p>国内整理</p>
+<ul>
+<li>都是百度网盘下载，如果只下汉化游戏的话开一个优化速率模式其实很快（百兆跑满），但是其他语言的大多很慢</li>
+<li>老男人游戏网（需要付费注册，价格非常低可以考虑购买）：<a target="_blank" rel="noopener" href="https://www.oldmanemu.net/%e6%8e%8c%e6%9c%ba%e6%b8%b8%e6%88%8f/psv">www.oldmanemu.net/掌机游戏/psv</a></li>
+<li>ROM猎人：<a target="_blank" rel="noopener" href="https://www.yang2000ling.com/#/">www.yang2000ling.com/#/</a></li>
+<li>ROMS乐园：<a target="_blank" rel="noopener" href="https://www.roms.fun/vita/">www.roms.fun/vita</a></li>
+<li>其他各种贴吧论坛等零散位置不一一列举</li>
+</ul>
+</li>
+<li><p>NoPayStation（推荐）</p>
+<ul>
+<li>无需科学上网；</li>
+<li>这个网站的原理是从PS官方服务器里直接获取下载链接，因此不会受到网盘限速的影响，同时也无需依赖其他用户上传，因此资源非常全面；缺点就是没有自制游戏和民间汉化版等</li>
+<li>网址：<a target="_blank" rel="noopener" href="https://nopaystation.com/browse">nopaystation.com&#x2F;browse</a></li>
+<li><strong>下载时，pkg和work.bin文件都要下载</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="安装前提示"><a href="#安装前提示" class="headerlink" title="安装前提示"></a>安装前提示</h3><p>vita3k确实支持安卓设备，但不要指望它能正常工作；基本上能正常运行的游戏只有5%甚至更少，每个设备的表现也不一致，因此<strong>不建议使用安卓设备</strong>模拟PSV。如果有这个需求，可以考虑用电脑串流游玩。<br>因此，以下教程完全基于Windows版本。<br>在Windows上，vita3k需要的配置也不低；虽然官网没说需要vulkan，但根据实际体验来说<strong>vulkan是必须的</strong>（不用指望OpenGL能跑成啥样，兼容性和性能都有很大问题）。此外，AVX指令集和4-8G内存也是需要的。</p>
+<h2 id="安装软件和固件"><a href="#安装软件和固件" class="headerlink" title="安装软件和固件"></a>安装软件和固件</h2><p>从上面的下载链接、官网或者GitHub里直接下载安装。软件安装也很简单，一路next就行。不过需要注意安装路径里不要带空格和中文，防止出现问题。<br>软件启动后需要安装psv环境，以及需要下载固件；这里直接跟随这篇教程即可（固件也在里面可以下载）：<a target="_blank" rel="noopener" href="https://croden1999.github.io/Vita3K-quick-guide/README_USE_VITA3K">croden1999.github.io</a><br>（这个教程其实是挺完整的，但有些地方说明不清晰，所以我写了这篇文章）</p>
+<h2 id="初次启动配置"><a href="#初次启动配置" class="headerlink" title="初次启动配置"></a>初次启动配置</h2><p>安装完成后，打开软件；Vita3K会同时创建两个窗口，一个是命令行终端，另一个是GUI本体。<br><img src="/../_resources/d47d50677f42c898131ec169136675ef.png" srcset="/img/loading.gif" lazyload alt="d47d50677f42c898131ec169136675ef.png"><br>GUI界面在几十秒不操作就会进入锁屏界面，点一下就能恢复。<br>命令行窗口可以直接最小化不管，但开着可以方便检查运行是否出错。</p>
+<h3 id="自动更新"><a href="#自动更新" class="headerlink" title="自动更新"></a>自动更新</h3><p>软件启动后，首先会自动检查更新，包括兼容性数据库更新和软件本体更新。它们需要连接到GitHub的服务器才能进行，并且<strong>无法通过steamcommunity 302、FastGithub等程序进行加速（如果开着则可能直接失败，因为这些软件是在本地搭建代理服务器，因此没有可信证书）</strong>。<br>当然你可以不管更新，但是软件本体建议要尽量保持最新（可以手动下载然后覆盖文件），因为Vita3K仍然是一个正在积极开发的模拟器，每次更新都可能带来更好的兼容性。<br>兼容性列表更新失败可以忽略，但如果你像我一样有强迫症的话，可以用UsbEAm Hosts Editor找到最佳hosts，然后就可以正常更新了（如图，选raw及用户头像；具体教程网上可以查）<br><img src="/../_resources/9392d904053ae7a67590237d60b5f269.png" srcset="/img/loading.gif" lazyload alt="9392d904053ae7a67590237d60b5f269.png"><br>最后，如果你的网络环境实在太差，也可以手动更新；<br>兼容性数据库：在<a target="_blank" rel="noopener" href="https://objects.githubusercontent.com/github-production-release-asset-2e65be/130765034/0fed046f-f0ef-48ea-91c6-eb46c895dbcb?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A/20230728/us-east-1/s3/aws4_request&X-Amz-Date=20230728T081329Z&X-Amz-Expires=300&X-Amz-Signature=33e26dc786a9f8c9b62494bfe29576442d0b802491dd1bf84c27c67b7ab2c6e0&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=130765034&response-content-disposition=attachment;%20filename=app_compat_db.xml&response-content-type=application/octet-stream">这里下载</a>兼容性列表，然后手动放到<code>vita3k\cache</code>里面，替换掉原有文件即可。<br>软件本体：在<a target="_blank" rel="noopener" href="https://github.com/Vita3K/Vita3K/releases/download/continuous/windows-latest.zip">这里下载</a>最新版本的vita3k，把其中所有内容解压到安装目录，替换所有需要替换的文件即可。</p>
+<h3 id="软件界面"><a href="#软件界面" class="headerlink" title="软件界面"></a>软件界面</h3><p><img src="/../_resources/da2c007f9a1c13395a1d1a822800b027.png" srcset="/img/loading.gif" lazyload alt="da2c007f9a1c13395a1d1a822800b027.png"><br>上方有一排选项按钮，这里就是我们需要主要进行配置的地方。</p>
+<p><img src="/../_resources/f0af051c93c4acb47726e4c4a4e58806.png" srcset="/img/loading.gif" lazyload alt="f0af051c93c4acb47726e4c4a4e58806.png"><br>下面都是游戏和应用程序列表；如果显示为图中这样的网格模式，则点击<strong>配置-&gt;设置-&gt;GUI，取消勾选Grid Mode即可</strong></p>
+<p>对于列表模式，这里会显示很多信息；从左到右分别是：游戏图标、兼容性指示、ID、版本、类型、最后使用时间、标题名称。（看顶上的那一排按钮，点哪个就可以按哪个排序）<br>兼容性指示是通过颜色进行的，绿色代表可玩，黄色代表可以进游戏但不能正常游戏或通关，灰色表示这个游戏在数据库里没有兼容性信息（也就是未知）。<br>需要注意的是，很多游戏都具有多个区域，例如日版、美版、欧版等，而它们的ID是不一样的；但测试兼容性的用户可能测试的是另一个区域的版本，因此这里显示灰色不代表就一定没有人测试过。<br>因此，对于游戏兼容性，<strong>去官方的兼容性网站里搜索</strong>才是最佳选择。<br><em>剧透：这个兼容性列表的准确性也不高，有些游戏即使说可玩也不见得一定能玩；但更多时候是显示不可玩但实际可以玩，这一般是因为软件更新太快了，测试用户可能是之前的版本</em></p>
+<p>右上角有个刷新按钮，如果是MAI方式安装游戏或手动删除游戏则需要手动刷新列表。</p>
+<h3 id="设置核心内容"><a href="#设置核心内容" class="headerlink" title="设置核心内容"></a>设置核心内容</h3><p>点击配置-&gt;设置，这里有几个地方需要重点关注。<br><img src="/../_resources/290d4db020ec22c325ab4355145752fb.png" srcset="/img/loading.gif" lazyload alt="290d4db020ec22c325ab4355145752fb.png"></p>
+<ol>
+<li><p>Core<br> 里面是一些模块列表，不用管。</p>
+</li>
+<li><p>CPU<br> 这里可以选择模拟器的CPU后端，Windows上支持Dynarmic和Unicorn两种。前者是默认值；由于Dynarmic的性能和兼容性都比unicorn好很多，不建议修改。<br> 下面还有一个Enable optimizations的选项，这一项通常情况下可以勾选，能提供好一点的性能；但在某些游戏里可能需要关闭才能正常游戏（例如Entwined）。</p>
+</li>
+<li><p>GPU<br> 这里是最重要的设置。<br> 首先可以选择使用哪个API，直接无脑vulkan就行。（即使有些游戏只能在OpenGL下运行，我也不建议妥协，这里的OpenGL性能很差并且有很多bug）。<br> 如果使用vulkan，则可以选择用哪个显卡；这里有独显的选择你的独显。还有一个Disable surface sync，如果勾选则会禁用CPU和GPU之间的同步，能给性能带来很大提升；但少数游戏可能无法运行（实际测试没有发现它影响了任何一个游戏，至少我安装过的没有）<br> Screen Filter里是屏幕缩放方法，Bilinear是双线性缩放，会导致一些像素风游戏失去像素感；换成Nearest（邻近）即可解决。如果需要更好的缩放，可以选择Bicubic（双立方）、FXAA（快速近似抗锯齿）或FSR（这个是我比较喜欢的）。<br> 下面两个滑块，第一个是控制渲染分辨率；默认1x就是原生分辨率960x544，原生的好处就是更不容易出现渲染错误，但画面也比较模糊；使用2x就是1920x1088，在1080P显示器上效果很不错，性能也不会降低太多。第二个滑块是各向异性过滤，这个一般只影响3D游戏，而且比较看个人习惯；我平时开4x，但说实话我的眼睛完全看不出来它有啥用（至少在我玩过的几个PSV游戏里看不出）。<br> 下面还有Use shader cache（使用着色器缓存），启用可以提高性能，但如果游戏渲染有问题可以尝试禁用。最底下是Clean shader Cache and log，点击可以清除着色器缓存，这对于一些兼容性不佳、需要反复尝试各种配置并重启的游戏来说很重要。</p>
+</li>
+<li><p>System<br>  没啥设置，前面是选游戏机的“确认”按钮是用❌键（Cross）还是⚪（Circle），后面的PS TV mode是启用PS TV模式，这个完全不用管。</p>
+</li>
+<li><p>Emulator<br> 另一个比较关键的设置。<br> 第一个选项是游戏以全屏启动，这个对于确认可玩的游戏来说挺方便的，不用每次手动全屏了。<br> 第二个是选择音频后端，可以使用Cubeb或SDL，同时还能选择是否启用NGS支持；这里的配置没有最好一说，不同的游戏可能会需要不同的配置。<br> 下面是一些日志级别、帧率显示、更改模拟目录等，一般不用管。</p>
+</li>
+<li><p>GUI<br> 没啥好调的，就是一些主页显示上的设置。</p>
+</li>
+<li><p>Network和debug<br> 也不用管，Network可能会在联机游戏的时候需要配置，但我确实不想尝试在这上面联网玩游戏（Vita3K官网也说了联机和登录PSN账号是不太可能的）。</p>
+</li>
+</ol>
+<h3 id="游戏独立配置"><a href="#游戏独立配置" class="headerlink" title="游戏独立配置"></a>游戏独立配置</h3><p>右键任意游戏即可打开菜单，里面可以检查兼容性、卸载等。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A8%B1%E4%B9%90/" class="category-chain-item">娱乐</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%A8%B1%E4%B9%90/%E6%A8%A1%E6%8B%9F%E5%99%A8/" class="category-chain-item">模拟器</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B8%B8%E6%88%8F/" class="print-no-link">#游戏</a>
+      
+        <a href="/tags/%E6%95%99%E7%A8%8B/" class="print-no-link">#教程</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>PSV模拟器vita3k完全教程</div>
+      <div>https://zjxdiu.github.io/blog/Vita3k_tutorial/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>zjxdiu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"ZkMCrUSQDneRSAnbRh5WaJry-gzGzoHsz","appKey":"zUZV2LcazrzxOePqSCJPsWEK","path":"window.location.pathname","placeholder":"头像暂不可用，但建议填写邮箱以便通知回复ヾ(^▽^*)))","avatar":"","meta":["nick","mail"],"requiredFields":["nick"],"pageSize":20,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":"https://i0.hdslb.com/bfs/emote/,","emojiMaps":{"脱单doge":"https://i0.hdslb.com/bfs/emote/bf7e00ecab02171f8461ee8cf439c73db9797748.png","微笑":"https://i0.hdslb.com/bfs/emote/685612eadc33f6bc233776c6241813385844f182.png","口罩":"https://i0.hdslb.com/bfs/emote/3ad2f66b151496d2a5fb0a8ea75f32265d778dd3.png","doge":"https://i0.hdslb.com/bfs/emote/3087d273a78ccaff4bb1e9972e2ba2a7583c9f11.png","doge-圣诞":"https://i0.hdslb.com/bfs/emote/1afb5eb96846e0876071eeecb47be95dbf55f08d.png","妙啊":"https://i0.hdslb.com/bfs/emote/b4cb77159d58614a9b787b91b1cd22a81f383535.png","妙啊-圣诞":"https://i0.hdslb.com/bfs/emote/1cdb10e4b6c6743a1ec96f1579e3ef3045a8f225.png","OK":"https://i0.hdslb.com/bfs/emote/4683fd9ffc925fa6423110979d7dcac5eda297f4.png","OK-圣诞":"https://i0.hdslb.com/bfs/emote/75d1c99cce001d6d103a8fd406616be9f51621ab.png","星星眼":"https://i0.hdslb.com/bfs/emote/63c9d1a31c0da745b61cdb35e0ecb28635675db2.png","星星眼-圣诞":"https://i0.hdslb.com/bfs/emote/195641c30c55f34f9cd82c5e5c32d66a425c7723.png","辣眼睛":"https://i0.hdslb.com/bfs/emote/35d62c496d1e4ea9e091243fa812866f5fecc101.png","辣眼睛-圣诞":"https://i0.hdslb.com/bfs/emote/8080adfe5acdfd0b6b09bd91db24ea7334ac7b44.png","吃瓜":"https://i0.hdslb.com/bfs/emote/4191ce3c44c2b3df8fd97c33f85d3ab15f4f3c84.png","吃瓜-圣诞":"https://i0.hdslb.com/bfs/emote/aa6a3022e47b441c7f84d02cacc063a728a561e0.png","滑稽":"https://i0.hdslb.com/bfs/emote/d15121545a99ac46774f1f4465b895fe2d1411c3.png","滑稽-圣诞":"https://i0.hdslb.com/bfs/emote/5874276ea716d0e9797f827dcfca4332acf8f0de.png","呲牙":"https://i0.hdslb.com/bfs/emote/b5a5898491944a4268360f2e7a84623149672eb6.png","呲牙-圣诞":"https://i0.hdslb.com/bfs/emote/ae4395c1e29e9a2db0c9ccc4c0db05c414816e68.png","打call":"https://i0.hdslb.com/bfs/emote/431432c43da3ee5aab5b0e4f8931953e649e9975.png","打call-圣诞":"https://i0.hdslb.com/bfs/emote/2b04dd2d0e55d978ee485e1f7f3c5e355493ab78.png","调皮":"https://i0.hdslb.com/bfs/emote/8290b7308325e3179d2154327c85640af1528617.png","嗑瓜子":"https://i0.hdslb.com/bfs/emote/28a91da1685d90124cfeead74622e1ebb417c0eb.png","笑哭":"https://i0.hdslb.com/bfs/emote/c3043ba94babf824dea03ce500d0e73763bf4f40.png","捂脸-圣诞":"https://i0.hdslb.com/bfs/emote/9af59557383770c398daac81583e6c4d27d83da7.png","藏狐":"https://i0.hdslb.com/bfs/emote/ba0937ef6f3ccca85e2e0047e6263f3b4da37201.png","脸红":"https://i0.hdslb.com/bfs/emote/0922c375da40e6b69002bd89b858572f424dcfca.png","给心心":"https://i0.hdslb.com/bfs/emote/1597302b98827463f5b75c7cac1f29ea6ce572c4.png","嘟嘟":"https://i0.hdslb.com/bfs/emote/abd7404537d8162720ccbba9e0a8cdf75547e07a.png","哦呼":"https://i0.hdslb.com/bfs/emote/362bded07ea5434886271d23fa25f5d85d8af06c.png","喜欢":"https://i0.hdslb.com/bfs/emote/8a10a4d73a89f665feff3d46ca56e83dc68f9eb8.png","酸了":"https://i0.hdslb.com/bfs/emote/92b1c8cbceea3ae0e8e32253ea414783e8ba7806.png","嫌弃":"https://i0.hdslb.com/bfs/emote/de4c0783aaa60ec03de0a2b90858927bfad7154b.png","害羞":"https://i0.hdslb.com/bfs/emote/9d2ec4e1fbd6cb1b4d12d2bbbdd124ccb83ddfda.png","大哭":"https://i0.hdslb.com/bfs/emote/2caafee2e5db4db72104650d87810cc2c123fc86.png","疑惑":"https://i0.hdslb.com/bfs/emote/b7840db4b1f9f4726b7cb23c0972720c1698d661.png","喜极而泣":"https://i0.hdslb.com/bfs/emote/485a7e0c01c2d70707daae53bee4a9e2e31ef1ed.png","笑":"https://i0.hdslb.com/bfs/emote/81edf17314cea3b48674312b4364df44d5c01f17.png","偷笑":"https://i0.hdslb.com/bfs/emote/6c49d226e76c42cd8002abc47b3112bc5a92f66a.png","惊讶":"https://i0.hdslb.com/bfs/emote/f8e9a59cad52ae1a19622805696a35f0a0d853f3.png","捂脸":"https://i0.hdslb.com/bfs/emote/6921bb43f0c634870b92f4a8ad41dada94a5296d.png","阴险":"https://i0.hdslb.com/bfs/emote/ba8d5f8e7d136d59aab52c40fd3b8a43419eb03c.png","呆":"https://i0.hdslb.com/bfs/emote/33ad6000d9f9f168a0976bc60937786f239e5d8c.png","抠鼻":"https://i0.hdslb.com/bfs/emote/cb89184c97e3f6d50acfd7961c313ce50360d70f.png","大笑":"https://i0.hdslb.com/bfs/emote/ca94ad1c7e6dac895eb5b33b7836b634c614d1c0.png","惊喜":"https://i0.hdslb.com/bfs/emote/0afecaf3a3499479af946f29749e1a6c285b6f65.png","无语":"https://i0.hdslb.com/bfs/emote/44667b7d9349957e903b1b62cb91fb9b13720f04.png","点赞":"https://i0.hdslb.com/bfs/emote/1a67265993913f4c35d15a6028a30724e83e7d35.png","鼓掌":"https://i0.hdslb.com/bfs/emote/895d1fc616b4b6c830cf96012880818c0e1de00d.png","尴尬":"https://i0.hdslb.com/bfs/emote/cb321684ed5ce6eacdc2699092ab8fe7679e4fda.png","灵魂出窍":"https://i0.hdslb.com/bfs/emote/43d3db7d97343c01b47e22cfabeca84b4251f35a.png","委屈":"https://i0.hdslb.com/bfs/emote/d2f26cbdd6c96960320af03f5514c5b524990840.png","傲娇":"https://i0.hdslb.com/bfs/emote/010540d0f61220a0db4922e4a679a1d8eca94f4e.png","疼":"https://i0.hdslb.com/bfs/emote/905fd9a99ec316e353b9bd4ecd49a5f0a301eabf.png","冷":"https://i0.hdslb.com/bfs/emote/cb0ebbd0668640f07ebfc0e03f7a18a8cd00b4ed.png","热":"https://i0.hdslb.com/bfs/emote/4e58a2a6f5f1580ac33df2d2cf7ecad7d9ab3635.png","生病":"https://i0.hdslb.com/bfs/emote/0f25ce04ae1d7baf98650986454c634f6612cb76.png","捂眼":"https://i0.hdslb.com/bfs/emote/c5c6d6982e1e53e478daae554b239f2b227b172b.png","嘘声":"https://i0.hdslb.com/bfs/emote/e64af664d20716e090f10411496998095f62f844.png","思考":"https://i0.hdslb.com/bfs/emote/cfa9b7e89e4bfe04bbcd34ccb1b0df37f4fa905c.png","再见":"https://i0.hdslb.com/bfs/emote/fc510306bae26c9aec7e287cdf201ded27b065b9.png","翻白眼":"https://i0.hdslb.com/bfs/emote/eba54707c7168925b18f6f8b1f48d532fe08c2b1.png","哈欠":"https://i0.hdslb.com/bfs/emote/888d877729cbec444ddbd1cf4c9af155a7a06086.png","奋斗":"https://i0.hdslb.com/bfs/emote/bb2060c15dba7d3fd731c35079d1617f1afe3376.png","墨镜":"https://i0.hdslb.com/bfs/emote/3a03aebfc06339d86a68c2d893303b46f4b85771.png","难过":"https://i0.hdslb.com/bfs/emote/a651db36701610aa70a781fa98c07c9789b11543.png","撇嘴":"https://i0.hdslb.com/bfs/emote/531863568e5668c5ac181d395508a0eeb1f0cda4.png","抓狂":"https://i0.hdslb.com/bfs/emote/4c87afff88c22439c45b79e9d2035d21d5622eba.png","生气":"https://i0.hdslb.com/bfs/emote/3195714219c4b582a4fb02033dd1519913d0246d.png","干杯":"https://i0.hdslb.com/bfs/emote/8da12d5f55a2c7e9778dcc05b40571979fe208e6.png","爱心":"https://i0.hdslb.com/bfs/emote/ed04066ea7124106d17ffcaf75600700e5442f5c.png","胜利":"https://i0.hdslb.com/bfs/emote/b49fa9f4b1e7c3477918153b82c60b114d87347c.png","加油":"https://i0.hdslb.com/bfs/emote/c7aaeacb21e107292d3bb053e5abde4a4459ed30.png","抱拳":"https://i0.hdslb.com/bfs/emote/89516218158dbea18ab78e8873060bf95d33bbbe.png","响指":"https://i0.hdslb.com/bfs/emote/1b5c53cf14336903e1d2ae3527ca380a1256a077.png","保佑":"https://i0.hdslb.com/bfs/emote/fafe8d3de0dc139ebe995491d2dac458a865fb30.png","支持":"https://i0.hdslb.com/bfs/emote/3c210366a5585706c09d4c686a9d942b39feeb50.png","拥抱":"https://i0.hdslb.com/bfs/emote/41780a4254750cdaaccb20735730a36044e98ef3.png","跪了":"https://i0.hdslb.com/bfs/emote/f2b3aee7e521de7799d4e3aa379b01be032698ac.png","怪我咯":"https://i0.hdslb.com/bfs/emote/07cc6077f7f7d75b8d2c722dd9d9828a9fb9e46d.png","囧":"https://i0.hdslb.com/bfs/emote/12e41d357a9807cc80ef1e1ed258127fcc791424.png","奸笑":"https://i0.hdslb.com/bfs/emote/bb84906573472f0a84cebad1e9000eb6164a6f5a.png","吓":"https://i0.hdslb.com/bfs/emote/9c10c5ebc7bef27ec641b8a1877674e0c65fea5d.png","画风突变":"https://i0.hdslb.com/bfs/emote/ba4de7a3f97644038b15195bdc9f82a8fd118e77.png","tv-白眼":"https://i0.hdslb.com/bfs/emote/c1d59f439e379ee50eef488bcb5e5378e5044ea4.png","tv-doge":"https://i0.hdslb.com/bfs/emote/6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png","tv-坏笑":"https://i0.hdslb.com/bfs/emote/1f0b87f731a671079842116e0991c91c2c88645a.png","tv-难过":"https://i0.hdslb.com/bfs/emote/87f46748d3f142ebc6586ff58860d0e2fc8263ba.png","tv-生气":"https://i0.hdslb.com/bfs/emote/26702dcafdab5e8225b43ffd23c94ac1ff932654.png","tv-委屈":"https://i0.hdslb.com/bfs/emote/d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png","tv-斜眼笑":"https://i0.hdslb.com/bfs/emote/911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png","tv-呆":"https://i0.hdslb.com/bfs/emote/fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png","tv-发怒":"https://i0.hdslb.com/bfs/emote/34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png","tv-惊吓":"https://i0.hdslb.com/bfs/emote/0d15c7e2ee58e935adc6a7193ee042388adc22af.png","tv-呕吐":"https://i0.hdslb.com/bfs/emote/9f996894a39e282ccf5e66856af49483f81870f3.png","tv-思考":"https://i0.hdslb.com/bfs/emote/90cf159733e558137ed20aa04d09964436f618a1.png","tv-微笑":"https://i0.hdslb.com/bfs/emote/70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png","tv-疑问":"https://i0.hdslb.com/bfs/emote/0793d949b18d7be716078349c202c15ff166f314.png","tv-大哭":"https://i0.hdslb.com/bfs/emote/23269aeb35f99daee28dda129676f6e9ea87934f.png","tv-鼓掌":"https://i0.hdslb.com/bfs/emote/1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png","tv-抠鼻":"https://i0.hdslb.com/bfs/emote/c666f55e88d471e51bbd9fab9bb308110824a6eb.png","tv-亲亲":"https://i0.hdslb.com/bfs/emote/a8111ad55953ef5e3be3327ef94eb4a39d535d06.png","tv-调皮":"https://i0.hdslb.com/bfs/emote/b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png","tv-笑哭":"https://i0.hdslb.com/bfs/emote/1abc628f6d4f4caf9d0e7800878f4697abbc8273.png","tv-晕":"https://i0.hdslb.com/bfs/emote/5443c22b4d07fb1907ccc610c8e6db254f2461b7.png","tv-点赞":"https://i0.hdslb.com/bfs/emote/f85c354995bd99e28fc76c869bfe42ba6438eff4.png","tv-害羞":"https://i0.hdslb.com/bfs/emote/a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png","tv-睡着":"https://i0.hdslb.com/bfs/emote/8b196675b53af58264f383c50ad0945048290b33.png","tv-色":"https://i0.hdslb.com/bfs/emote/61822c7e9aae5da76475e7892534545336b23a6f.png","tv-吐血":"https://i0.hdslb.com/bfs/emote/09dd16a7aa59b77baa1155d47484409624470c77.png","tv-无奈":"https://i0.hdslb.com/bfs/emote/ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png","tv-再见":"https://i0.hdslb.com/bfs/emote/180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png","tv-流汗":"https://i0.hdslb.com/bfs/emote/cead1c351ab8d79e9f369605beb90148db0fbed3.png","tv-偷笑":"https://i0.hdslb.com/bfs/emote/bb690d4107620f1c15cff29509db529a73aee261.png","tv-抓狂":"https://i0.hdslb.com/bfs/emote/fe31c08edad661d63762b04e17b8d5ae3c71a757.png","tv-黑人问号":"https://i0.hdslb.com/bfs/emote/45821a01f51bc867da9edbaa2e070410819a95b2.png","tv-困":"https://i0.hdslb.com/bfs/emote/241ee304e44c0af029adceb294399391e4737ef2.png","tv-打脸":"https://i0.hdslb.com/bfs/emote/56ab10b624063e966bfcb76ea5dc4794d87dfd47.png","tv-闭嘴":"https://i0.hdslb.com/bfs/emote/c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png","tv-鄙视":"https://i0.hdslb.com/bfs/emote/6e72339f346a692a495b123174b49e4e8e781303.png","tv-腼腆":"https://i0.hdslb.com/bfs/emote/89712c0d4af73e67f89e35cbc518420380a7f6f4.png","tv-馋":"https://i0.hdslb.com/bfs/emote/fc7e829b845c43c623c8b490ee3602b7f0e76a31.png","tv-可爱":"https://i0.hdslb.com/bfs/emote/9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png","tv-发财":"https://i0.hdslb.com/bfs/emote/34db290afd2963723c6eb3c4560667db7253a21a.png","tv-生病":"https://i0.hdslb.com/bfs/emote/8b0ec90e6b86771092a498c54f09fc94621c1900.png","tv-流鼻血":"https://i0.hdslb.com/bfs/emote/c32d39db2737f89b904ca32700d140a9241b0767.png","tv-尴尬":"https://i0.hdslb.com/bfs/emote/7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png","tv-大佬":"https://i0.hdslb.com/bfs/emote/093c1e2c490161aca397afc45573c877cdead616.png","tv-流泪":"https://i0.hdslb.com/bfs/emote/7e71cde7858f0cd50d74b0264aa26db612a8a167.png","tv-冷漠":"https://i0.hdslb.com/bfs/emote/b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png","tv-皱眉":"https://i0.hdslb.com/bfs/emote/72ccad6679fea0d14cce648b4d818e09b8ffea2d.png","tv-鬼脸":"https://i0.hdslb.com/bfs/emote/0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png","tv-调侃":"https://i0.hdslb.com/bfs/emote/4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png","tv-目瞪口呆":"https://i0.hdslb.com/bfs/emote/0b8cb81a68de5d5365212c99375e7ace3e7891b7.png","Cat-escort":"https://i0.hdslb.com/bfs/emote/81784f53f5ca7004a90d316c81889d8161dc05a6.png","Cat-coffeebath":"https://i0.hdslb.com/bfs/emote/f80cfd44e0f216f4171a549e869aab32d80d4c39.png","Cat-stealth":"https://i0.hdslb.com/bfs/emote/21f7d24b1e8de29f2c61f64e70af9f6aec14e394.png","Cat-hightouch":"https://i0.hdslb.com/bfs/emote/3d7264b8349bc1be6d45beebbcfab69e7b9895fc.png","Cat-lonely":"https://i0.hdslb.com/bfs/emote/72a9d2f20fb79883bbed3cac914187545ac3a0cc.png","Cat-heart":"https://i0.hdslb.com/bfs/emote/3f98c4debfe792a1969b99ae71f7f5d4bf00c3d5.png","Cat-slip":"https://i0.hdslb.com/bfs/emote/a6e45e065ed17e2af03f7263784bc36d94b25e74.png","Cat-chips":"https://i0.hdslb.com/bfs/emote/12d2d3ce0e72749c45706444cca580dc22148876.png","Cat-study":"https://i0.hdslb.com/bfs/emote/9f6d28ecd7e33c3f5e7cd74cc36f4feedb42e995.png","Cat-dash":"https://i0.hdslb.com/bfs/emote/0f2d1f99efd5df816c694da76e91a173fa643589.png","Cat-pressure":"https://i0.hdslb.com/bfs/emote/c6c270e9989e7152457b907595a6e34064d0c1b2.png","Cat-hibye":"https://i0.hdslb.com/bfs/emote/9e4955f479a1211d401fbaa71ceaf5186b9e57bd.png","Cat-confuse":"https://i0.hdslb.com/bfs/emote/107ebcbd4dd5895f4595ea6db963dc4566809c6e.png","Cat-ignore":"https://i0.hdslb.com/bfs/emote/94de4f63a5f965ee8312a88e4c57c07c0174acce.png","Cat-agree":"https://i0.hdslb.com/bfs/emote/48b00f75518a727d64c385fe8ca2fa49aeb08c77.png","Cat-fight":"https://i0.hdslb.com/bfs/emote/e39c491906d0fcd0176eede702305655d44044c5.png","Cat-splash":"https://i0.hdslb.com/bfs/emote/9513157fed2425ed2caa4eb9bc84a0bca80df9bc.png","Cat-calledme":"https://i0.hdslb.com/bfs/emote/aacb6fb852f6acbbc8386ecef76c98b77178e23e.png","Cat-sleep":"https://i0.hdslb.com/bfs/emote/39b964d10bde1634f136b662f5b624fcb3bcedb8.png","Cat-congrats":"https://i0.hdslb.com/bfs/emote/98f6e73340d9ed43403242fc842e42508d38bba6.png","原神-哇":"https://i0.hdslb.com/bfs/emote/8188ddf95bace929d382c7a83214afde79d83bfc.png","原神-哼":"https://i0.hdslb.com/bfs/emote/91ed33b74bc36873c3ac8b2648f70d7ab6d8ab78.png","原神-嗯":"https://i0.hdslb.com/bfs/emote/8b0a87e414f453a29730b6e0f45ca61f2f898688.png","原神-欸嘿":"https://i0.hdslb.com/bfs/emote/8fba438fcbe0550877b04efd768d857082307c5e.png","原神-喝茶":"https://i0.hdslb.com/bfs/emote/1de5789fbb3526ef7823c54db7081790a38e7044.png","原神-生气":"https://i0.hdslb.com/bfs/emote/90a38c34742899f8e84138ed55f56cad3ba611fb.png"},"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Powered by Hexo</span></a> <i class="iconfont icon-code"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Theme Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问次数 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        独立访问 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

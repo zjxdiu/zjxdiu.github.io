@@ -1,0 +1,971 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zjxdiu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言  显示器超频？显示器还能超频？  当然是可以的。从定义上来说，任何以时钟频率进行周期性工作的硬件都有超频的说法，只不过我们平时主要讨论的是CPU、显卡、内存等核心电脑硬件的超频。  某种意义上来说，显示器超频实际上是一个很古老的话题。在以前的“大屁股”显示器（即CRT技术的显示器）时代，超频就已经存在了。由于最开始的显示器都是纯模拟信号，输入的电压经过放大后直接作用于偏转电场，从而实现画面绘">
+  
+  
+  
+  <title>超频你的显示器，获得更佳的流畅体验 - zjxdiu~Enchanted Room</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zjxdiu.github.io","root":"/","version":"1.9.6","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"ZkMCrUSQDneRSAnbRh5WaJry-gzGzoHsz","app_key":"zUZV2LcazrzxOePqSCJPsWEK","server_url":"https://zkmcrusq.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zjxdiu Enchanted room</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>链接</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">超频你的显示器，获得更佳的流畅体验</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-02 14:33" pubdate>
+          2022年12月2日下午2点33分
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="学习"
+        id="heading-4ef520d6cd20ba4a727af08e17e4939e" role="tab" data-toggle="collapse" href="#collapse-4ef520d6cd20ba4a727af08e17e4939e"
+        aria-expanded="true"
+      >
+        学习
+        <span class="list-group-count">(9)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-4ef520d6cd20ba4a727af08e17e4939e"
+           role="tabpanel" aria-labelledby="heading-4ef520d6cd20ba4a727af08e17e4939e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="arduino"
+        id="heading-75f5750f6dd6afbec57b0928a0ec306b" role="tab" data-toggle="collapse" href="#collapse-75f5750f6dd6afbec57b0928a0ec306b"
+        aria-expanded="false"
+      >
+        arduino
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-75f5750f6dd6afbec57b0928a0ec306b"
+           role="tabpanel" aria-labelledby="heading-75f5750f6dd6afbec57b0928a0ec306b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/blog/arduino_batch_com_comm/" title="【arduino学习笔记】通过批处理向串口发送数据到arduino的坑"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">【arduino学习笔记】通过批处理向串口发送数据到arduino的坑</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="网络工程"
+        id="heading-6995c8b5c2802a8c2abbb8f2f33e5771" role="tab" data-toggle="collapse" href="#collapse-6995c8b5c2802a8c2abbb8f2f33e5771"
+        aria-expanded="false"
+      >
+        网络工程
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-6995c8b5c2802a8c2abbb8f2f33e5771"
+           role="tabpanel" aria-labelledby="heading-6995c8b5c2802a8c2abbb8f2f33e5771">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/blog/dynv6_notes/" title="dynv6使用技巧（如何添加多个地址 子域名 等）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">dynv6使用技巧（如何添加多个地址 子域名 等）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/blog/ipv6_toss/" title="记一次折腾电信ipv6中的各种问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">记一次折腾电信ipv6中的各种问题</span>
+        </a>
+      
+    
+      
+      
+        <a href="/blog/Network_progress_CSUST/" title="长沙理工大学无线网络多设备共享解决方案"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">长沙理工大学无线网络多设备共享解决方案</span>
+        </a>
+      
+    
+      
+      
+        <a href="/blog/CSUST_network_sharing/" title="长沙理工大学校园网共享观察与方案"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">长沙理工大学校园网共享观察与方案</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="计算机"
+        id="heading-8a2b56e293ee788f1057ad236e06559e" role="tab" data-toggle="collapse" href="#collapse-8a2b56e293ee788f1057ad236e06559e"
+        aria-expanded="true"
+      >
+        计算机
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-8a2b56e293ee788f1057ad236e06559e"
+           role="tabpanel" aria-labelledby="heading-8a2b56e293ee788f1057ad236e06559e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/blog/ML_emusic_classify/" title="一种基于神经网络的电子音乐风格分类算法思路"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">一种基于神经网络的电子音乐风格分类算法思路</span>
+        </a>
+      
+    
+      
+      
+        <a href="/blog/%E6%98%BE%E7%A4%BA%E5%99%A8%E8%B6%85%E9%A2%91/" title="超频你的显示器，获得更佳的流畅体验"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">超频你的显示器，获得更佳的流畅体验</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="软件"
+        id="heading-f0dfc65b71f0f4c075027ecbfe66ef7c" role="tab" data-toggle="collapse" href="#collapse-f0dfc65b71f0f4c075027ecbfe66ef7c"
+        aria-expanded="false"
+      >
+        软件
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-f0dfc65b71f0f4c075027ecbfe66ef7c"
+           role="tabpanel" aria-labelledby="heading-f0dfc65b71f0f4c075027ecbfe66ef7c">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/blog/WPS-word/" title="WPS word如何设置图片背景，如何解决图片变成平铺问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">WPS word如何设置图片背景，如何解决图片变成平铺问题</span>
+        </a>
+      
+    
+      
+      
+        <a href="/blog/%E6%89%B9%E5%A4%84%E7%90%86%E4%BC%98%E5%8C%96Hexo%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/" title="使用批处理和Joplin执行并优化Hexo博客工作流程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用批处理和Joplin执行并优化Hexo博客工作流程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">超频你的显示器，获得更佳的流畅体验</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>  显示器超频？显示器还能超频？<br>  当然是可以的。从定义上来说，任何以时钟频率进行周期性工作的硬件都有超频的说法，只不过我们平时主要讨论的是CPU、显卡、内存等核心电脑硬件的超频。<br>  某种意义上来说，显示器超频实际上是一个很古老的话题。在以前的“大屁股”显示器（即CRT技术的显示器）时代，超频就已经存在了。由于最开始的显示器都是纯模拟信号，输入的电压经过放大后直接作用于偏转电场，从而实现画面绘制，那时候的显示器超频是真正意义上的物理超频。只要阴极射线管的水平够好、电场板的素质优秀，显示器的各项工作参数完全可以自定义。<br>  后来用了LCD和纯数字信号传输，超频的内容发生了一些变化；不过多数面板仍然会有超频能力，这取决于厂家的配置与面板本身的素质。<br><img src="/../_resources/95a04f46fce4449551b3b11e14510900.png" srcset="/img/loading.gif" lazyload alt="95a04f46fce4449551b3b11e14510900.png"><br><em>图：LCD与CRT显示器原理对比</em></p>
+<h2 id="什么是显示器超频"><a href="#什么是显示器超频" class="headerlink" title="什么是显示器超频"></a>什么是显示器超频</h2><p>  所谓的显示器超频，实际上是针对其运行参数<strong>垂直刷新率</strong>而言的。<br>  在以前的CRT显示器上，显示画面需要电子枪从左往右依次发射电子、扫描一行，点亮一行的荧光像素，随后在垂直同步信号的作用下迅速回到左侧，同时跳转到下一行，重新进行下一行的扫描。以此类推，直到整个荧幕被扫描完成后，电场会使电子偏转到左上角，重复这个过程。（此处还有水平同步信号在起作用，不详细说明）<br>  玩过模拟示波器的朋友肯定能理解垂直信号的作用，实际上就是示波器中的扫描电路，选择合适的扫描信号就能使波形稳定。<br>  因此，如果能调节垂直（和水平）同步信号，使其可以在更短的时间内完成一次完整的扫描，则显示器的<strong>刷新率</strong>就能得到提升。<br>  这就是显示器超频，我们希望提升其垂直刷新率，使其比标称值更高，这样才会有更好的体验。</p>
+<h2 id="显示器超频的影响因素"><a href="#显示器超频的影响因素" class="headerlink" title="显示器超频的影响因素"></a>显示器超频的影响因素</h2><p>  要完成一次好的显示器超频，我们通常认为有以下几点因素会影响结果。</p>
+<ul>
+<li>面板类型与素质</li>
+<li>厂商限制</li>
+<li>接口类型与传输质量</li>
+<li>合适的配置</li>
+<li>其它因素</li>
+</ul>
+<p>以上因素中，面板和厂商在购买后就固定了，无法更改。<br>接口类型以DP、HDMI（高版本）为优。</p>
+<p><strong>请不要将显示器的超频能力纳入选购的考虑范围之中，如果想获得高刷屏的体验，那么建议选购原生的高刷显示器。本文的核心目的是科普，而不是鼓励大家要求厂商提供超频能力。</strong></p>
+<h2 id="如何超频"><a href="#如何超频" class="headerlink" title="如何超频"></a>如何超频</h2><h3 id="超频前的准备"><a href="#超频前的准备" class="headerlink" title="超频前的准备"></a>超频前的准备</h3><ol>
+<li>检查接口协议与传输质量<br> 请使用优质DP或HDMI线连接电脑与显示器，以获得更佳的超频能力。<br> 该项主要影响传输带宽，对于特定版本的DP或HDMI接口而言，其能提供的带宽是有限的。详情可查阅百度。<br> 只需要记得一点，如果带宽受限，那么降低分辨率有助于获得更高的刷新率。但是对于多数平民显示器而言，即使使用最高分辨率，也不太会出现带宽不足的问题。</li>
+<li>检查视频信号源<br> 目前来说，英特尔核心显卡并不支持显示器超频（至少笔记本的不行）。如果您使用台式机，请确保视频信号是独立显卡输出的。如果使用笔记本，请连接到笔记本上的type-c接口，一般而言这个接口的显示输出是直接连接独立显卡的。<br> 如果使用不支持独显直连输出的笔记本（或者没有独显），则大概率不能成功。<br> 不过，即便如此，您还是可以进行尝试。大多数出厂60Hz的显示器都可以直接提升到75Hz，带来一定程度上的体验提升。不过有一个例外，笔记本自带的屏幕完全不支持超频。</li>
+<li>环境条件<br> 尽管现代显示器对工作环境的承受范围极大，环境因素的影响极其小，合适的环境仍然有助于提高超频成功率。<br> 主要包括合适的工作温度（尤其是不能过低），湿度，电压值与稳定性，甚至摆放方向等。</li>
+</ol>
+<h3 id="开始超频"><a href="#开始超频" class="headerlink" title="开始超频"></a>开始超频</h3><ul>
+<li>对于非独立显卡、英特尔核心显卡：<br>  请进入显卡控制面板（以下以新版英特尔核心显卡为例）<br>  <img src="/../_resources/ce3133202184eb787a2034f31476db94.png" srcset="/img/loading.gif" lazyload alt="ce3133202184eb787a2034f31476db94.png"><br>  点击<strong>显示器</strong>，<strong>分辨率旁边的加号</strong><br>  <img src="/../_resources/245a61028b5e9c9e71d6d6abb786ff57.png" srcset="/img/loading.gif" lazyload alt="245a61028b5e9c9e71d6d6abb786ff57.png"><br>  检查是否有刷新率的选项。如果有，可以尝试输入目标刷新率，然后单击确定。<br>  若不成功或没有输入刷新率的地方，则您的显卡不支持硬超频。<br>  请尝试点击<strong>刷新率</strong>旁的下拉框<br>  <img src="/../_resources/319d41963a5966fc42fe60ac72c0cb2f.png" srcset="/img/loading.gif" lazyload alt="319d41963a5966fc42fe60ac72c0cb2f.png"><br>  若有多个选项，选择最高的。若有I和P两种，请选择P。<br>  至此，显示器超频结束。</li>
+</ul>
+<hr>
+<ul>
+<li>对于英伟达、AMD独立显卡：<br>  请进入显卡控制面板（以下以英伟达显卡为例）；应该能在[开始]菜单里找到。<br>  若电脑里找不到该软件，请重装显卡驱动程序。<br>  <img src="/../_resources/345495b609471f763f8ec8bfc8df62df.png" srcset="/img/loading.gif" lazyload alt="345495b609471f763f8ec8bfc8df62df.png"><br>  在屏幕左侧，单击[更改分辨率]。<br>  如果没有此选项，则说明显示器没有连接到独立显卡上。<br>  <img src="/../_resources/2e632685ea988d1cf03dc6d60b7493ac.png" srcset="/img/loading.gif" lazyload alt="2e632685ea988d1cf03dc6d60b7493ac.png"><br>  点击[自定义]。<br>  <img src="/../_resources/ec04c76fa5c31fbee854410f0c96b663.png" srcset="/img/loading.gif" lazyload alt="ec04c76fa5c31fbee854410f0c96b663.png"><br>  勾选[启用显示器未显示的分辨率]，然后点击[创建自定义分辨率]。<br>  <img src="/../_resources/ed628697647b0ae7a7af0b97615d93e1.png" srcset="/img/loading.gif" lazyload alt="ed628697647b0ae7a7af0b97615d93e1.png"><br>  在[刷新率]中输入目标刷新率，然后可以点击[测试]按钮进行测试。<br>  在[计时 - 标准]选项中选择[协同视频计时标准（CVT）降低清屏时间]，可能有助于提高成功率。<br>  <img src="/../_resources/79a358cee11fbd4de054a918720205a4.png" srcset="/img/loading.gif" lazyload alt="79a358cee11fbd4de054a918720205a4.png"><br>  单击[测试]按钮，显示器将黑屏进行切换。<br>  如果成功，则您将很快看到电脑画面。如果半成功，则可能会看到画面上出现抖动、条纹、异常颜色等。<br>  如果失败，显示器提示不支持或一直黑屏，等待15s后会自动退出测试状态。或者，可以按Esc键快速返回。<br>  当测试到稳定的刷新率后，在提示框中点击[是]，即可保存该分辨率。<br>  返回上一步的[更改刷新率]，应该能在列表最顶上看到刚刚创建的分辨率。<br>  选中后，单击软件右下角的[应用]，超频结束。</li>
+</ul>
+<hr>
+<h3 id="超频提示"><a href="#超频提示" class="headerlink" title="超频提示"></a>超频提示</h3><ul>
+<li>尽管超频一般不会造成伤害，仍可能导致面板发热加剧、液晶老化速率提高等问题。因此，从理论上讲，不建议长时间超频。</li>
+<li>在超频过程中，可以使用以下方法先确定显示器能承受的最大刷新率：<ul>
+<li>先将刷新率定到目标值</li>
+<li>若成功，则进一步定到下个目标值；否则，应选择当前刷新率与目标值的中间值。</li>
+<li>重复以上取中值的过程，通过二分法可以快速定位到最大刷新率。</li>
+<li>确定了最大值后，请适当降低到附近合适的数值使用。例如，若最大刷新率为96Hz，请保持在90Hz即可。</li>
+</ul>
+</li>
+<li>若超频过程中显示器出现严重事故（如一直黑屏、闪屏等），请断开视频连接线，然后断开显示器电源；等待几分钟或使其完全放电后重新接入电源，检查显示器是否能正常开机，然后再接入电脑。由于现代显示器的保护功能极佳，真正发生无法挽回事故的可能性极低，近乎不存在，但并不为0。</li>
+</ul>
+<h3 id="超频经验"><a href="#超频经验" class="headerlink" title="超频经验"></a>超频经验</h3><p>对于一般的1080P、60Hz显示器而言，75Hz是日常使用的较佳水平。某些素质较高的显示器可能会一路支持到80、90甚至110Hz，全看厂商良心与运气。<br>对于2K、60Hz的显示器，一般也可以使用75Hz。我自己的2K60显示器最大支持98Hz，稳定值是96Hz，最终保持在90Hz使用。<br>对于144Hz的显示器，一般直接上165Hz是没有问题的。较好的面板可以尝试180Hz。<br>更高的不知道，我没钱（</p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>  没啥可总结的，超个频，获得更好的体验和更高的风险，这是一种交易。权衡结果全由你自己掌控。<br>  任何问题欢迎留言！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="category-chain-item">计算机</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%B6%85%E9%A2%91/" class="print-no-link">#超频</a>
+      
+        <a href="/tags/%E7%A1%AC%E4%BB%B6/" class="print-no-link">#硬件</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>超频你的显示器，获得更佳的流畅体验</div>
+      <div>https://zjxdiu.github.io/blog/显示器超频/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>zjxdiu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"ZkMCrUSQDneRSAnbRh5WaJry-gzGzoHsz","appKey":"zUZV2LcazrzxOePqSCJPsWEK","path":"window.location.pathname","placeholder":"头像暂不可用，但建议填写邮箱以便通知回复ヾ(^▽^*)))","avatar":"","meta":["nick","mail"],"requiredFields":["nick"],"pageSize":20,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":"https://i0.hdslb.com/bfs/emote/,","emojiMaps":{"脱单doge":"https://i0.hdslb.com/bfs/emote/bf7e00ecab02171f8461ee8cf439c73db9797748.png","微笑":"https://i0.hdslb.com/bfs/emote/685612eadc33f6bc233776c6241813385844f182.png","口罩":"https://i0.hdslb.com/bfs/emote/3ad2f66b151496d2a5fb0a8ea75f32265d778dd3.png","doge":"https://i0.hdslb.com/bfs/emote/3087d273a78ccaff4bb1e9972e2ba2a7583c9f11.png","doge-圣诞":"https://i0.hdslb.com/bfs/emote/1afb5eb96846e0876071eeecb47be95dbf55f08d.png","妙啊":"https://i0.hdslb.com/bfs/emote/b4cb77159d58614a9b787b91b1cd22a81f383535.png","妙啊-圣诞":"https://i0.hdslb.com/bfs/emote/1cdb10e4b6c6743a1ec96f1579e3ef3045a8f225.png","OK":"https://i0.hdslb.com/bfs/emote/4683fd9ffc925fa6423110979d7dcac5eda297f4.png","OK-圣诞":"https://i0.hdslb.com/bfs/emote/75d1c99cce001d6d103a8fd406616be9f51621ab.png","星星眼":"https://i0.hdslb.com/bfs/emote/63c9d1a31c0da745b61cdb35e0ecb28635675db2.png","星星眼-圣诞":"https://i0.hdslb.com/bfs/emote/195641c30c55f34f9cd82c5e5c32d66a425c7723.png","辣眼睛":"https://i0.hdslb.com/bfs/emote/35d62c496d1e4ea9e091243fa812866f5fecc101.png","辣眼睛-圣诞":"https://i0.hdslb.com/bfs/emote/8080adfe5acdfd0b6b09bd91db24ea7334ac7b44.png","吃瓜":"https://i0.hdslb.com/bfs/emote/4191ce3c44c2b3df8fd97c33f85d3ab15f4f3c84.png","吃瓜-圣诞":"https://i0.hdslb.com/bfs/emote/aa6a3022e47b441c7f84d02cacc063a728a561e0.png","滑稽":"https://i0.hdslb.com/bfs/emote/d15121545a99ac46774f1f4465b895fe2d1411c3.png","滑稽-圣诞":"https://i0.hdslb.com/bfs/emote/5874276ea716d0e9797f827dcfca4332acf8f0de.png","呲牙":"https://i0.hdslb.com/bfs/emote/b5a5898491944a4268360f2e7a84623149672eb6.png","呲牙-圣诞":"https://i0.hdslb.com/bfs/emote/ae4395c1e29e9a2db0c9ccc4c0db05c414816e68.png","打call":"https://i0.hdslb.com/bfs/emote/431432c43da3ee5aab5b0e4f8931953e649e9975.png","打call-圣诞":"https://i0.hdslb.com/bfs/emote/2b04dd2d0e55d978ee485e1f7f3c5e355493ab78.png","调皮":"https://i0.hdslb.com/bfs/emote/8290b7308325e3179d2154327c85640af1528617.png","嗑瓜子":"https://i0.hdslb.com/bfs/emote/28a91da1685d90124cfeead74622e1ebb417c0eb.png","笑哭":"https://i0.hdslb.com/bfs/emote/c3043ba94babf824dea03ce500d0e73763bf4f40.png","捂脸-圣诞":"https://i0.hdslb.com/bfs/emote/9af59557383770c398daac81583e6c4d27d83da7.png","藏狐":"https://i0.hdslb.com/bfs/emote/ba0937ef6f3ccca85e2e0047e6263f3b4da37201.png","脸红":"https://i0.hdslb.com/bfs/emote/0922c375da40e6b69002bd89b858572f424dcfca.png","给心心":"https://i0.hdslb.com/bfs/emote/1597302b98827463f5b75c7cac1f29ea6ce572c4.png","嘟嘟":"https://i0.hdslb.com/bfs/emote/abd7404537d8162720ccbba9e0a8cdf75547e07a.png","哦呼":"https://i0.hdslb.com/bfs/emote/362bded07ea5434886271d23fa25f5d85d8af06c.png","喜欢":"https://i0.hdslb.com/bfs/emote/8a10a4d73a89f665feff3d46ca56e83dc68f9eb8.png","酸了":"https://i0.hdslb.com/bfs/emote/92b1c8cbceea3ae0e8e32253ea414783e8ba7806.png","嫌弃":"https://i0.hdslb.com/bfs/emote/de4c0783aaa60ec03de0a2b90858927bfad7154b.png","害羞":"https://i0.hdslb.com/bfs/emote/9d2ec4e1fbd6cb1b4d12d2bbbdd124ccb83ddfda.png","大哭":"https://i0.hdslb.com/bfs/emote/2caafee2e5db4db72104650d87810cc2c123fc86.png","疑惑":"https://i0.hdslb.com/bfs/emote/b7840db4b1f9f4726b7cb23c0972720c1698d661.png","喜极而泣":"https://i0.hdslb.com/bfs/emote/485a7e0c01c2d70707daae53bee4a9e2e31ef1ed.png","笑":"https://i0.hdslb.com/bfs/emote/81edf17314cea3b48674312b4364df44d5c01f17.png","偷笑":"https://i0.hdslb.com/bfs/emote/6c49d226e76c42cd8002abc47b3112bc5a92f66a.png","惊讶":"https://i0.hdslb.com/bfs/emote/f8e9a59cad52ae1a19622805696a35f0a0d853f3.png","捂脸":"https://i0.hdslb.com/bfs/emote/6921bb43f0c634870b92f4a8ad41dada94a5296d.png","阴险":"https://i0.hdslb.com/bfs/emote/ba8d5f8e7d136d59aab52c40fd3b8a43419eb03c.png","呆":"https://i0.hdslb.com/bfs/emote/33ad6000d9f9f168a0976bc60937786f239e5d8c.png","抠鼻":"https://i0.hdslb.com/bfs/emote/cb89184c97e3f6d50acfd7961c313ce50360d70f.png","大笑":"https://i0.hdslb.com/bfs/emote/ca94ad1c7e6dac895eb5b33b7836b634c614d1c0.png","惊喜":"https://i0.hdslb.com/bfs/emote/0afecaf3a3499479af946f29749e1a6c285b6f65.png","无语":"https://i0.hdslb.com/bfs/emote/44667b7d9349957e903b1b62cb91fb9b13720f04.png","点赞":"https://i0.hdslb.com/bfs/emote/1a67265993913f4c35d15a6028a30724e83e7d35.png","鼓掌":"https://i0.hdslb.com/bfs/emote/895d1fc616b4b6c830cf96012880818c0e1de00d.png","尴尬":"https://i0.hdslb.com/bfs/emote/cb321684ed5ce6eacdc2699092ab8fe7679e4fda.png","灵魂出窍":"https://i0.hdslb.com/bfs/emote/43d3db7d97343c01b47e22cfabeca84b4251f35a.png","委屈":"https://i0.hdslb.com/bfs/emote/d2f26cbdd6c96960320af03f5514c5b524990840.png","傲娇":"https://i0.hdslb.com/bfs/emote/010540d0f61220a0db4922e4a679a1d8eca94f4e.png","疼":"https://i0.hdslb.com/bfs/emote/905fd9a99ec316e353b9bd4ecd49a5f0a301eabf.png","冷":"https://i0.hdslb.com/bfs/emote/cb0ebbd0668640f07ebfc0e03f7a18a8cd00b4ed.png","热":"https://i0.hdslb.com/bfs/emote/4e58a2a6f5f1580ac33df2d2cf7ecad7d9ab3635.png","生病":"https://i0.hdslb.com/bfs/emote/0f25ce04ae1d7baf98650986454c634f6612cb76.png","捂眼":"https://i0.hdslb.com/bfs/emote/c5c6d6982e1e53e478daae554b239f2b227b172b.png","嘘声":"https://i0.hdslb.com/bfs/emote/e64af664d20716e090f10411496998095f62f844.png","思考":"https://i0.hdslb.com/bfs/emote/cfa9b7e89e4bfe04bbcd34ccb1b0df37f4fa905c.png","再见":"https://i0.hdslb.com/bfs/emote/fc510306bae26c9aec7e287cdf201ded27b065b9.png","翻白眼":"https://i0.hdslb.com/bfs/emote/eba54707c7168925b18f6f8b1f48d532fe08c2b1.png","哈欠":"https://i0.hdslb.com/bfs/emote/888d877729cbec444ddbd1cf4c9af155a7a06086.png","奋斗":"https://i0.hdslb.com/bfs/emote/bb2060c15dba7d3fd731c35079d1617f1afe3376.png","墨镜":"https://i0.hdslb.com/bfs/emote/3a03aebfc06339d86a68c2d893303b46f4b85771.png","难过":"https://i0.hdslb.com/bfs/emote/a651db36701610aa70a781fa98c07c9789b11543.png","撇嘴":"https://i0.hdslb.com/bfs/emote/531863568e5668c5ac181d395508a0eeb1f0cda4.png","抓狂":"https://i0.hdslb.com/bfs/emote/4c87afff88c22439c45b79e9d2035d21d5622eba.png","生气":"https://i0.hdslb.com/bfs/emote/3195714219c4b582a4fb02033dd1519913d0246d.png","干杯":"https://i0.hdslb.com/bfs/emote/8da12d5f55a2c7e9778dcc05b40571979fe208e6.png","爱心":"https://i0.hdslb.com/bfs/emote/ed04066ea7124106d17ffcaf75600700e5442f5c.png","胜利":"https://i0.hdslb.com/bfs/emote/b49fa9f4b1e7c3477918153b82c60b114d87347c.png","加油":"https://i0.hdslb.com/bfs/emote/c7aaeacb21e107292d3bb053e5abde4a4459ed30.png","抱拳":"https://i0.hdslb.com/bfs/emote/89516218158dbea18ab78e8873060bf95d33bbbe.png","响指":"https://i0.hdslb.com/bfs/emote/1b5c53cf14336903e1d2ae3527ca380a1256a077.png","保佑":"https://i0.hdslb.com/bfs/emote/fafe8d3de0dc139ebe995491d2dac458a865fb30.png","支持":"https://i0.hdslb.com/bfs/emote/3c210366a5585706c09d4c686a9d942b39feeb50.png","拥抱":"https://i0.hdslb.com/bfs/emote/41780a4254750cdaaccb20735730a36044e98ef3.png","跪了":"https://i0.hdslb.com/bfs/emote/f2b3aee7e521de7799d4e3aa379b01be032698ac.png","怪我咯":"https://i0.hdslb.com/bfs/emote/07cc6077f7f7d75b8d2c722dd9d9828a9fb9e46d.png","囧":"https://i0.hdslb.com/bfs/emote/12e41d357a9807cc80ef1e1ed258127fcc791424.png","奸笑":"https://i0.hdslb.com/bfs/emote/bb84906573472f0a84cebad1e9000eb6164a6f5a.png","吓":"https://i0.hdslb.com/bfs/emote/9c10c5ebc7bef27ec641b8a1877674e0c65fea5d.png","画风突变":"https://i0.hdslb.com/bfs/emote/ba4de7a3f97644038b15195bdc9f82a8fd118e77.png","tv-白眼":"https://i0.hdslb.com/bfs/emote/c1d59f439e379ee50eef488bcb5e5378e5044ea4.png","tv-doge":"https://i0.hdslb.com/bfs/emote/6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png","tv-坏笑":"https://i0.hdslb.com/bfs/emote/1f0b87f731a671079842116e0991c91c2c88645a.png","tv-难过":"https://i0.hdslb.com/bfs/emote/87f46748d3f142ebc6586ff58860d0e2fc8263ba.png","tv-生气":"https://i0.hdslb.com/bfs/emote/26702dcafdab5e8225b43ffd23c94ac1ff932654.png","tv-委屈":"https://i0.hdslb.com/bfs/emote/d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png","tv-斜眼笑":"https://i0.hdslb.com/bfs/emote/911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png","tv-呆":"https://i0.hdslb.com/bfs/emote/fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png","tv-发怒":"https://i0.hdslb.com/bfs/emote/34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png","tv-惊吓":"https://i0.hdslb.com/bfs/emote/0d15c7e2ee58e935adc6a7193ee042388adc22af.png","tv-呕吐":"https://i0.hdslb.com/bfs/emote/9f996894a39e282ccf5e66856af49483f81870f3.png","tv-思考":"https://i0.hdslb.com/bfs/emote/90cf159733e558137ed20aa04d09964436f618a1.png","tv-微笑":"https://i0.hdslb.com/bfs/emote/70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png","tv-疑问":"https://i0.hdslb.com/bfs/emote/0793d949b18d7be716078349c202c15ff166f314.png","tv-大哭":"https://i0.hdslb.com/bfs/emote/23269aeb35f99daee28dda129676f6e9ea87934f.png","tv-鼓掌":"https://i0.hdslb.com/bfs/emote/1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png","tv-抠鼻":"https://i0.hdslb.com/bfs/emote/c666f55e88d471e51bbd9fab9bb308110824a6eb.png","tv-亲亲":"https://i0.hdslb.com/bfs/emote/a8111ad55953ef5e3be3327ef94eb4a39d535d06.png","tv-调皮":"https://i0.hdslb.com/bfs/emote/b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png","tv-笑哭":"https://i0.hdslb.com/bfs/emote/1abc628f6d4f4caf9d0e7800878f4697abbc8273.png","tv-晕":"https://i0.hdslb.com/bfs/emote/5443c22b4d07fb1907ccc610c8e6db254f2461b7.png","tv-点赞":"https://i0.hdslb.com/bfs/emote/f85c354995bd99e28fc76c869bfe42ba6438eff4.png","tv-害羞":"https://i0.hdslb.com/bfs/emote/a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png","tv-睡着":"https://i0.hdslb.com/bfs/emote/8b196675b53af58264f383c50ad0945048290b33.png","tv-色":"https://i0.hdslb.com/bfs/emote/61822c7e9aae5da76475e7892534545336b23a6f.png","tv-吐血":"https://i0.hdslb.com/bfs/emote/09dd16a7aa59b77baa1155d47484409624470c77.png","tv-无奈":"https://i0.hdslb.com/bfs/emote/ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png","tv-再见":"https://i0.hdslb.com/bfs/emote/180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png","tv-流汗":"https://i0.hdslb.com/bfs/emote/cead1c351ab8d79e9f369605beb90148db0fbed3.png","tv-偷笑":"https://i0.hdslb.com/bfs/emote/bb690d4107620f1c15cff29509db529a73aee261.png","tv-抓狂":"https://i0.hdslb.com/bfs/emote/fe31c08edad661d63762b04e17b8d5ae3c71a757.png","tv-黑人问号":"https://i0.hdslb.com/bfs/emote/45821a01f51bc867da9edbaa2e070410819a95b2.png","tv-困":"https://i0.hdslb.com/bfs/emote/241ee304e44c0af029adceb294399391e4737ef2.png","tv-打脸":"https://i0.hdslb.com/bfs/emote/56ab10b624063e966bfcb76ea5dc4794d87dfd47.png","tv-闭嘴":"https://i0.hdslb.com/bfs/emote/c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png","tv-鄙视":"https://i0.hdslb.com/bfs/emote/6e72339f346a692a495b123174b49e4e8e781303.png","tv-腼腆":"https://i0.hdslb.com/bfs/emote/89712c0d4af73e67f89e35cbc518420380a7f6f4.png","tv-馋":"https://i0.hdslb.com/bfs/emote/fc7e829b845c43c623c8b490ee3602b7f0e76a31.png","tv-可爱":"https://i0.hdslb.com/bfs/emote/9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png","tv-发财":"https://i0.hdslb.com/bfs/emote/34db290afd2963723c6eb3c4560667db7253a21a.png","tv-生病":"https://i0.hdslb.com/bfs/emote/8b0ec90e6b86771092a498c54f09fc94621c1900.png","tv-流鼻血":"https://i0.hdslb.com/bfs/emote/c32d39db2737f89b904ca32700d140a9241b0767.png","tv-尴尬":"https://i0.hdslb.com/bfs/emote/7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png","tv-大佬":"https://i0.hdslb.com/bfs/emote/093c1e2c490161aca397afc45573c877cdead616.png","tv-流泪":"https://i0.hdslb.com/bfs/emote/7e71cde7858f0cd50d74b0264aa26db612a8a167.png","tv-冷漠":"https://i0.hdslb.com/bfs/emote/b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png","tv-皱眉":"https://i0.hdslb.com/bfs/emote/72ccad6679fea0d14cce648b4d818e09b8ffea2d.png","tv-鬼脸":"https://i0.hdslb.com/bfs/emote/0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png","tv-调侃":"https://i0.hdslb.com/bfs/emote/4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png","tv-目瞪口呆":"https://i0.hdslb.com/bfs/emote/0b8cb81a68de5d5365212c99375e7ace3e7891b7.png","Cat-escort":"https://i0.hdslb.com/bfs/emote/81784f53f5ca7004a90d316c81889d8161dc05a6.png","Cat-coffeebath":"https://i0.hdslb.com/bfs/emote/f80cfd44e0f216f4171a549e869aab32d80d4c39.png","Cat-stealth":"https://i0.hdslb.com/bfs/emote/21f7d24b1e8de29f2c61f64e70af9f6aec14e394.png","Cat-hightouch":"https://i0.hdslb.com/bfs/emote/3d7264b8349bc1be6d45beebbcfab69e7b9895fc.png","Cat-lonely":"https://i0.hdslb.com/bfs/emote/72a9d2f20fb79883bbed3cac914187545ac3a0cc.png","Cat-heart":"https://i0.hdslb.com/bfs/emote/3f98c4debfe792a1969b99ae71f7f5d4bf00c3d5.png","Cat-slip":"https://i0.hdslb.com/bfs/emote/a6e45e065ed17e2af03f7263784bc36d94b25e74.png","Cat-chips":"https://i0.hdslb.com/bfs/emote/12d2d3ce0e72749c45706444cca580dc22148876.png","Cat-study":"https://i0.hdslb.com/bfs/emote/9f6d28ecd7e33c3f5e7cd74cc36f4feedb42e995.png","Cat-dash":"https://i0.hdslb.com/bfs/emote/0f2d1f99efd5df816c694da76e91a173fa643589.png","Cat-pressure":"https://i0.hdslb.com/bfs/emote/c6c270e9989e7152457b907595a6e34064d0c1b2.png","Cat-hibye":"https://i0.hdslb.com/bfs/emote/9e4955f479a1211d401fbaa71ceaf5186b9e57bd.png","Cat-confuse":"https://i0.hdslb.com/bfs/emote/107ebcbd4dd5895f4595ea6db963dc4566809c6e.png","Cat-ignore":"https://i0.hdslb.com/bfs/emote/94de4f63a5f965ee8312a88e4c57c07c0174acce.png","Cat-agree":"https://i0.hdslb.com/bfs/emote/48b00f75518a727d64c385fe8ca2fa49aeb08c77.png","Cat-fight":"https://i0.hdslb.com/bfs/emote/e39c491906d0fcd0176eede702305655d44044c5.png","Cat-splash":"https://i0.hdslb.com/bfs/emote/9513157fed2425ed2caa4eb9bc84a0bca80df9bc.png","Cat-calledme":"https://i0.hdslb.com/bfs/emote/aacb6fb852f6acbbc8386ecef76c98b77178e23e.png","Cat-sleep":"https://i0.hdslb.com/bfs/emote/39b964d10bde1634f136b662f5b624fcb3bcedb8.png","Cat-congrats":"https://i0.hdslb.com/bfs/emote/98f6e73340d9ed43403242fc842e42508d38bba6.png","原神-哇":"https://i0.hdslb.com/bfs/emote/8188ddf95bace929d382c7a83214afde79d83bfc.png","原神-哼":"https://i0.hdslb.com/bfs/emote/91ed33b74bc36873c3ac8b2648f70d7ab6d8ab78.png","原神-嗯":"https://i0.hdslb.com/bfs/emote/8b0a87e414f453a29730b6e0f45ca61f2f898688.png","原神-欸嘿":"https://i0.hdslb.com/bfs/emote/8fba438fcbe0550877b04efd768d857082307c5e.png","原神-喝茶":"https://i0.hdslb.com/bfs/emote/1de5789fbb3526ef7823c54db7081790a38e7044.png","原神-生气":"https://i0.hdslb.com/bfs/emote/90a38c34742899f8e84138ed55f56cad3ba611fb.png"},"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Powered by Hexo</span></a> <i class="iconfont icon-code"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Theme Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问次数 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        独立访问 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
