@@ -1,0 +1,919 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zjxdiu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="背景此前我几乎所有的游戏开发经验都建立在唤境引擎之上，这是一款国产的图形化无代码2D游戏引擎，虽然是主打大众化、易上手，但实际上引擎提供的自由度非常高，可以完成任何类型的2D游戏开发。 引擎和游戏基于类似electron技术，将游戏打包在浏览器中，也可以直接在线运行，提供了较好的灵活性和跨平台兼容性，不过由于几乎不存在多核优化，性能上比较差。 然而，唤境自从我2020年关注开始就逐渐下滑，一开始还">
+  
+  
+  
+  <title>从唤境引擎迁移到其他游戏引擎 - zjxdiu~Enchanted Room</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zjxdiu.github.io","root":"/","version":"1.9.6","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"ZkMCrUSQDneRSAnbRh5WaJry-gzGzoHsz","app_key":"zUZV2LcazrzxOePqSCJPsWEK","server_url":"https://zkmcrusq.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zjxdiu Enchanted room</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>链接</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/4f987fc838ad09081ec8e680b4e57054.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">从唤境引擎迁移到其他游戏引擎</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-03 10:32" pubdate>
+          2024年7月3日上午10点32分
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.7k 字
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="爱好"
+        id="heading-1d32ab896499e23e2dce77440c02537f" role="tab" data-toggle="collapse" href="#collapse-1d32ab896499e23e2dce77440c02537f"
+        aria-expanded="true"
+      >
+        爱好
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-1d32ab896499e23e2dce77440c02537f"
+           role="tabpanel" aria-labelledby="heading-1d32ab896499e23e2dce77440c02537f">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="游戏开发"
+        id="heading-03af44dfb57651192e1e5ff490e35760" role="tab" data-toggle="collapse" href="#collapse-03af44dfb57651192e1e5ff490e35760"
+        aria-expanded="true"
+      >
+        游戏开发
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-03af44dfb57651192e1e5ff490e35760"
+           role="tabpanel" aria-labelledby="heading-03af44dfb57651192e1e5ff490e35760">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/blog/game_engine_chg/" title="从唤境引擎迁移到其他游戏引擎"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">从唤境引擎迁移到其他游戏引擎</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">从唤境引擎迁移到其他游戏引擎</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>此前我几乎所有的游戏开发经验都建立在唤境引擎之上，这是一款国产的图形化无代码2D游戏引擎，虽然是主打大众化、易上手，但实际上引擎提供的自由度非常高，可以完成任何类型的2D游戏开发。</p>
+<p>引擎和游戏基于类似electron技术，将游戏打包在浏览器中，也可以直接在线运行，提供了较好的灵活性和跨平台兼容性，不过由于几乎不存在多核优化，性能上比较差。</p>
+<p>然而，唤境自从我2020年关注开始就逐渐下滑，一开始还有不少更新、激励计划和热度，但是2021之后引擎就几乎没有过任何功能更新，官方也逐渐开始淡出视野，直到2023年7月最后发过一条动态就再也没有声响了。当然引擎更新方面我认为唤境已经很完善了，后续增加的多人联机、视频功能、云存档等都是非常有用的功能，也填补了之前存在的功能缺口；但引擎开发停滞、官网域名一再更换，直到最终完全下架引擎和app下载链接、关闭手机app服务，无不表明着唤境已经在濒临关闭的边缘了。</p>
+<p><img src="/../_resources/da1568250587099170364f483afddf5f.png" srcset="/img/loading.gif" lazyload alt="开发者论坛已近一个月没有任何动态"></p>
+<h3 id="为什么要更换引擎？"><a href="#为什么要更换引擎？" class="headerlink" title="为什么要更换引擎？"></a>为什么要更换引擎？</h3><ul>
+<li>唤境虽然是相对轻量化的引擎，但严重依赖在线服务；hub必须联网才能启动引擎，且游戏打包导出也必须通过唤境官方服务器进行，无法手动本地完成。</li>
+<li>多人联机完全依赖官方服务器，无法自建、无法局域网联机</li>
+<li>官方支持客服人员几乎完全无法联系，无法结算收益、获得推广</li>
+<li>手机app停止服务，无法通过app查找和推广游戏</li>
+</ul>
+<p>可以看出，如果唤境真的关停服务器，那么所有现有项目将完全被迫废弃，引擎都无法打开，遑论打包输出游戏和游玩（但对于单机已打包的游戏没有影响，显然）。</p>
+<h2 id="可以更换哪些引擎？"><a href="#可以更换哪些引擎？" class="headerlink" title="可以更换哪些引擎？"></a>可以更换哪些引擎？</h2><p>tip：前置内容很长，下面有个人推荐总结。</p>
+<p>2024年了，游戏引擎的数量非常之多，允许开发者个人免费使用、商用的引擎也越来越多，许多还都是开源引擎。我简单整理了一下开发者们大多可能选择的选项，并给出我自己的选择。</p>
+<h3 id="虚幻和unity"><a href="#虚幻和unity" class="headerlink" title="虚幻和unity"></a>虚幻和unity</h3><p>显然，每个接触过游戏开发的，乃至于大多数普通游戏玩家都知道这两个世界级的大型引擎。二者都同时为小型独立开发者和大型游戏公司提供良好的灵活性，且商用授权费用计价相对合理（unity前段时间有过这方面的作死行为，但个人认为总比那些一开始就要花很高价格买使用授权的还是要好）。</p>
+<p>虚幻引擎整体而言规模更庞大，完全针对3D进行优化和设计，由于内置的蓝图系统可以一定程度上减少代码编写工作量而被认为适合轻量化开发，但实际上由于引擎较为现代化，支持的各种功能繁多，无论是开发游戏还是运行游戏都有较大的资源开销，入门难度仍然不低，且其游戏的性能通常更低；但虚幻引擎自带的工具很多都非常有用，例如物理、动画和光照等，同时还有非常强大的渲染系统，使其游戏的视觉效果能快速达到较好水平（也就是制作一个“宣传骗”非常容易）。</p>
+<p>unity则是提供更多的灵活性，但也意味着开发者需要自己写很多代码，甚至有时候还需要完全更改渲染管线来实现更好的画面表现。不过总体而言，unity相对更轻量化，总体游戏性能更好，对2D的支持也比较完善，同样是适合独立开发者的选择。</p>
+<p>就这二者而言，由于唤境是2D游戏引擎，我认为要转到虚幻引擎可能会出现一些困难；尽管如此，虚幻引擎的蓝图系统允许开发者不写代码完成编程，这方面的优势会更大。然而，unity本身上手学习难度相对低，因此如果能学会C#的话我更推荐unity。</p>
+<h3 id="Godot"><a href="#Godot" class="headerlink" title="Godot"></a>Godot</h3><p>这是一个免费、开源、功能强大的引擎，同时支持2D和3D，也是许多唤境开发者首选的迁移目标（甚至许多从unity迁出的开发者）。Godot虽然目前没有太多非常出名的大型游戏作品，但在独立游戏开发者、个人和小型工作室以及许多正在学习游戏开发的人群中非常流行。这不仅有利于引擎维持其更新和热度，更创建了一个活跃的社区环境，对于开发者而言总是有利的。</p>
+<p>Godot支持多种不同的代码语言，有其自有的GDscript，也可通过插件支持来使用C#、C++、.NET或者python等多种语言。Godot实现了较好的平衡性，独特的节点系统同时保持了功能多样和规整有序。</p>
+<p><img src="/../_resources/1b39bf1e7947b89f2b096c4e3bf529f7.png" srcset="/img/loading.gif" lazyload alt="Godot程序界面"></p>
+<p>虽然优点很多，但Godot的学习曲线确实更长，尤其是对于从未真正将一门编程语言用于生产的开发者而言；对于使用唤境的许多开发者而言，这是一个较大的挑战。</p>
+<h3 id="Game-Maker-Studio（GMS）"><a href="#Game-Maker-Studio（GMS）" class="headerlink" title="Game Maker Studio（GMS）"></a>Game Maker Studio（GMS）</h3><p>完全面向2D游戏开发，支持一种类似虚幻蓝图系统的GML Visual可视化工具以及GML Code脚本语言进行编程。</p>
+<p>我个人并没有尝试过这个引擎，很大一部分原因是它的定价：允许个人免费非商业使用，但要商用则必须购买专业级许可证（100美元终身！），或者以每月80美元的价格订阅企业版（年付800美元）。这个价格于我而言是不可接受的水平。</p>
+<p>此外，就我在官网和文档中看到的资料来说，GMS本身似乎并没有什么非常值得我使用的理由，各种特色也并未成为杀手级应用，所以就个人而言，我并不推荐唤境开发者转向GMS，除非完全只是出于兴趣和学习目的开发游戏，或者自己资金充裕。</p>
+<h3 id="RPG-maker（RPGM）"><a href="#RPG-maker（RPGM）" class="headerlink" title="RPG maker（RPGM）"></a>RPG maker（RPGM）</h3><p>RPGM本身并非免费引擎，可以在steam上购买引擎并获得商业使用权；这也是一个比较有名的游戏引擎，正如其名所示，这是一个专注于制作RPG类游戏的引擎。</p>
+<p>与其他所有引擎都不同，RPGM的一大特点就是预制内容多，包括自带的各类素材库和生成器等，使得“真正完全没有开发基础的人”也能做出自己的游戏。但也正因如此，其灵活性相对要差一些（如果不是非常差的话），近年来热度也并不高，在我看来它就像是一轮湖中月，大多数开发者都无法真正用它做出一个完整的游戏，更不用说一个好玩的游戏了。</p>
+<h3 id="Construct-3（C3）"><a href="#Construct-3（C3）" class="headerlink" title="Construct 3（C3）"></a>Construct 3（C3）</h3><p>Construct也是一个非常轻量化的、面向2D的游戏引擎，同样吸引了很多唤境用户；至于原因？因为它们长得像，非常像。同样的事件表系统、无代码编程，同样简单的开发流程，非常相似的编辑器布局，C3是如此吸引唤境用户，以至于几个群友天天在群里宣传C3：</p>
+<p><img src="/../_resources/fa3d9e94bab7a72dae08a252b5684cf2.png" srcset="/img/loading.gif" lazyload alt="fa3d9e94bab7a72dae08a252b5684cf2.png"><br><img src="/../_resources/ac5a561a197a692853ae9717722e1b22.png" srcset="/img/loading.gif" lazyload alt="ac5a561a197a692853ae9717722e1b22.png"><br><img src="/../_resources/fef4ca043318da60e84372fb40243e78.png" srcset="/img/loading.gif" lazyload alt="fef4ca043318da60e84372fb40243e78.png"></p>
+<p>虽然我个人确实挺喜欢这个界面的，但是在定价方面我可以说非常不喜欢C3的做法：</p>
+<ul>
+<li>官网许可证页面：<a target="_blank" rel="noopener" href="https://www.construct.net/en/make-games/buy-construct">https://www.construct.net/en/make-games/buy-construct</a></li>
+<li>游戏事件限制：免费版50条，付费版无限制</li>
+<li>图层限制：免费版2个，付费版无限制</li>
+<li>特效支持：免费版2个，付费版无限制</li>
+<li>多人游戏、自定义加载屏、广告、导出到Windows&#x2F;安卓&#x2F;iOS以及非常多其他功能：仅付费版可用</li>
+<li>商用限制：免费版不允许商用</li>
+</ul>
+<p>至于价格本身其实不算贵，个人许可证一年99CNY，官方支持中文，但一没有永久许可证，二免费版的功能限制太严重，三仍然不能完全离线运行（免费版可以，付费版每周必须联网检查一次许可证有效），因此C3并不是我会选择的引擎。但对于很多唤境用户而言，C3仍然是值得考虑的选项。</p>
+<h3 id="GDevelop（GDE）"><a href="#GDevelop（GDE）" class="headerlink" title="GDevelop（GDE）"></a>GDevelop（GDE）</h3><p>某种程度上来说，GDE和C3具备可观的相似度，也因此与唤境具备一定相似度。相比C3而言，GDE自身就提供网页版编辑器，用GDE开发的游戏也是原生运行在浏览器中，因此引擎的使用体验与唤境相似度非常高，还提供了更多的灵活性。GDE同时支持2D和3D，使用一套与唤境相似但自由度更高、更复杂的事件系统，同样具有一个非常活跃的社区以及大量的社区贡献内容。</p>
+<p>定价方面，GDE引擎是开源的，但也具有一套良好的订阅机制。免费版具备开发游戏的所有基础功能（但不包括像AI功能这种），付费版定价从5.5到33美元&#x2F;月，提供更多的外部功能（例如项目协作、自定义排行榜样式等）。</p>
+<p>GDE也是我最终选择迁移到的引擎（虽然此后可能会继续学习Godot），更具体的使用体验和评测在下文。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>总结表格如下，其中推荐度指的是作为唤境开发者而言，我认为迁移到这个引擎有多大的价值。</p>
+<table>
+<thead>
+<tr>
+<th align="left">引擎</th>
+<th align="center">使用经历</th>
+<th align="center">商用许可</th>
+<th align="right">综合推荐度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Godot</td>
+<td align="center">约1周</td>
+<td align="center">开源&#x2F;完全免费</td>
+<td align="right">⭐⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td align="left">Unity</td>
+<td align="center">约1个月</td>
+<td align="center">付费商用</td>
+<td align="right">⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td align="left">GDevelop</td>
+<td align="center">约1周</td>
+<td align="center">开源&#x2F;免费商用&#x2F;功能付费</td>
+<td align="right">⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td align="left">虚幻4&#x2F;5</td>
+<td align="center">虚幻4，约1个月</td>
+<td align="center">付费商用</td>
+<td align="right">⭐⭐⭐</td>
+</tr>
+<tr>
+<td align="left">Construct 3</td>
+<td align="center">无</td>
+<td align="center">免费功能限制&#x2F;付费商用</td>
+<td align="right">⭐⭐⭐</td>
+</tr>
+<tr>
+<td align="left">Game Maker Studio</td>
+<td align="center">无</td>
+<td align="center">付费商用</td>
+<td align="right">⭐⭐</td>
+</tr>
+<tr>
+<td align="left">RPG Maker</td>
+<td align="center">无</td>
+<td align="center">付费使用&#x2F;商用</td>
+<td align="right">⭐</td>
+</tr>
+</tbody></table>
+<h2 id="为什么选择GDevelop？"><a href="#为什么选择GDevelop？" class="headerlink" title="为什么选择GDevelop？"></a>为什么选择GDevelop？</h2><p>在回答这个问题之前，首先简述一下我是怎么找到GDE的；实际上就是我在必应中搜索开源游戏引擎，然后在一条CSDN博客文章中看到的。简单了解过后，我认为这个引擎能够完全符合我的需求和预期，随即开始学习使用。</p>
+<p>选择开源引擎并非出于某种“程序洁癖”，而是因为开源的游戏引擎几乎就保证了离线可用性，无论是继续开发游戏还是导出游戏，基本都可以脱离官方在线服务而使用。</p>
+<h3 id="入坑前准备"><a href="#入坑前准备" class="headerlink" title="入坑前准备"></a>入坑前准备</h3><p>官方网站：<a target="_blank" rel="noopener" href="https://gdevelop.io/zh-cn">https://gdevelop.io/zh-cn</a><br>首先访问GDE官网，官方已支持大部分中文翻译（引擎内99%，但不包括社区扩展），有完整的许可证对比、文档和手册、游戏展示、社区等页面，还可以一键直接打开网页版编辑器，立刻就能体验引擎。</p>
+<p>Github仓库：<a target="_blank" rel="noopener" href="https://github.com/4ian/GDevelop">https://github.com/4ian/GDevelop</a><br>随后找到引擎源码仓库，一个非常优雅和标准的现代化开源项目，活跃度虽不及真正的大型项目，但一直维持稳定的热度，平均一天有6-12个PR，其中过半都能合并，可以说开发和维护情况仍然是非常积极的。</p>
+<p>YouTube频道：<a target="_blank" rel="noopener" href="https://www.youtube.com/@GDevelopApp">https:&#x2F;&#x2F;www.youtube.com&#x2F;@GDevelopApp</a><br>平均更新频率为月更2个视频，大部分是各类教程，少数宣传视频和游戏展示。播放量不大，多数都在5K~2W之间。与唤境的“网课”风格不同，这里的视频风格很多是作为一个真实开发者的视角进行的，演讲人会在视频中犯错，随后解释为什么会出错以及如何修复。不过虽然趣味性和互动性增强了，这种“在线试错”也更能留下深刻印象，但对于需要快速找到需求教程的情况来说就不太友好。但好在官网的文档相对完善，搜索功能也很好用（不过只有英文，可能需要用一下翻译）。</p>
+<h3 id="GDevelop初体验"><a href="#GDevelop初体验" class="headerlink" title="GDevelop初体验"></a>GDevelop初体验</h3><p>在下载引擎后，通常还需要注册一个账号；虽然不登录也完全可以正常使用，但有些界面会跳出订阅弹窗。</p>
+<p>不过，这里就是第一个问题所在了；官网虽然连接慢，但一旦访问进去就能正常使用了，而编辑器内我<strong>完全无法登录账号</strong>，也无法下载各类资产商店的资源，最终必须魔法上网才能解决。好在并非强制要求登录或在线使用，因此也并无大的影响。</p>
+<p>启动引擎后，我首先打开了一个教程项目，随后立即感受到扑面而来的熟悉感：跟唤境真的非常相似。折腾了一会教程项目后，我很快就开始翻阅文档，了解事件表、扩展、图层等的使用。在创建了第一个移植项目后，我马上就开始着手写自己的扩展（虽然最后发现并没啥用），但是在其中我找到的功能自由度完全超出我的想象。</p>
+<h3 id="真正的推荐理由"><a href="#真正的推荐理由" class="headerlink" title="真正的推荐理由"></a>真正的推荐理由</h3><p>回到正题，为什么我选择GDE并且也推荐它？排除与唤境相似、免代码编程等因素，这里还有我发现的很多很酷的方面。</p>
+<ol>
+<li><p>可移除的logo和水印<br> 之前使用唤境的时候，很多人都针对游戏启动画面、加载界面等提出请求，希望官方提供一个自定义logo功能，即便是要付费使用也行；这方面我完全同意，唤境的加载页面图片真的不好看，而且总有种我花时间做游戏，结果游戏还没开始就先给引擎打广告的感觉。虽然我喜欢并且支持唤境，但这方面我保留我的意见。<br> 然而，在GDE中，引擎不仅提供了完全可自定义的加载背景图，还可以手动选择是否展示水印和引擎logo。默认情况下二者都会显示，效果如下：<br> <img src="/../_resources/e9d87f6fef9a921f55431cc65d5d6588.png" srcset="/img/loading.gif" lazyload alt="启动时显示"></p>
+<p> <img src="/../_resources/af517f26829a3739b3ea3410fa5d5e9a.png" srcset="/img/loading.gif" lazyload alt="右下角水印（只会显示约5秒）"></p>
+<p> GDE官方的行为是，免费用户需要至少选择一种展示方式，付费用户才能完全去除；但实际上有一个非常简单的方法就能彻底删除logo和水印：</p>
+<ul>
+<li><p>首先打开项目文件夹</p>
+</li>
+<li><p>打开其中的json文件</p>
+</li>
+<li><p>找到loadingScreen和watermark这两项，将展示改为false，如下所示</p>
+ <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs json">    ......<br><span class="hljs-attr">&quot;loadingScreen&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    ......<br>  <span class="hljs-attr">&quot;showGDevelopSplash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span><br>    ......<br><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;watermark&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    ......<br>  <span class="hljs-attr">&quot;showWatermark&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><br><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    ......<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>随后启动引擎，进入属性界面，就能看到两个选项都被移除了，而且除非手动启用，否则引擎不会检查和更正。</p>
+</li>
+<li><p>json里还有更多有意思的选项，可以自己折腾。有些选项甚至可能引擎内都无法完全调整。</p>
+</li>
+</ul>
+<p> 对我而言，这真的是一个非常伟大的设计。实际上，我对这样的行为甚至产生惭愧的感觉，因此我会在我的游戏中加入自己设计的宣传图和感谢页面，或者在真正有能力的时候购买一个许可证来支持开发。</p>
+</li>
+<li><p>在线和离线结合<br> 对于开源引擎而言，官方卖许可证的很大一个卖点就是在线服务，包括AI功能、云项目、资源商店、联机服务器等等，而引擎所有基础功能都能完全离线使用。</p>
+<p> 例如，免费版用户的联机游戏最多支持4人联机（与唤境相同），付费版则似乎没有限制；免费版每天只能发布一个游戏到电脑和安卓（但在官方游戏网站上是无限制的），付费版提高次数的同时也会增加iOS支持。但H5打包是完全免费的，还可以直接生成到本地网页文件，你可以将这个游戏随便发布到任何网站托管平台。更重要的是，官方限制每天一次是通过服务器发布游戏，这跟唤境的做法是一致的，但你仍然可以无限制地自己打包生成PC和安卓客户端，不过需要学习electron等工具的使用。此外，多人游戏的4人限制仅限使用官方服务器时，如果是P2P或者用扩展来支持则不存在限制（或者说取决于游戏开发）。</p>
+<p> 甚至于对浏览器基础功能也有完善的支持，引擎内可以直接打开文件或网址（通常会被浏览器拦截，但客户端一般没问题），允许下载或上传文本内容，读取本地json读取等等。</p>
+</li>
+<li><p>强大的扩展和社区支持<br> 在开发过程中，各类扩展和来自社区的支持给了我非常大的助力。引擎已有的扩展有上百个，可以自己创建或者导入，也可以在引擎中直接下载。扩展这玩意不好描述，就拿实际例子来吧：</p>
+<ul>
+<li>Noise Generator：一个柏林噪声工具，可以实现类似minecraft的随机地形生成</li>
+<li>Back button：在安卓上运行游戏时，给返回键添加功能支持，而不是直接关闭游戏</li>
+<li>Load images from a URL：从链接加载图片（以前唤境支持过但不知道怎么用，后来删了）</li>
+<li>Dynamic Water：快速创建流体模拟系统</li>
+<li>THNK：完整的联机游戏插件扩展，允许P2P、中继和局域网多人游戏<br> 以及一些已经被整合进引擎的功能：</li>
+<li>firebase：通过自己的firebase提供一些云服务</li>
+<li>steamworks：与steam的底层兼容性，包括成就、联机、创意工坊、反作弊等steam提供的功能</li>
+<li>gamepad：手柄输入和振动支持</li>
+<li>leaderboards：排行榜系统</li>
+</ul>
+</li>
+</ol>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>这篇文章花了我一整天时间才写完，希望能为从唤境迁移游戏引擎的开发者提供一点帮助，而不是一味地推销我选择的引擎。显然GDE远非完美，但我尽可能描述了我选择的理由，以供参考。</p>
+<p>后续的游戏开发日志也会发布于博客网站，但由于工作原因，游戏开发可能只能作为我的爱好，因此不能保证以后一定会继续学习和开发。但这是一个陪伴我大学四年的爱好，我仍然希望未来可以延续下去。</p>
+<p>衷心祝愿所有开发者顺利完成游戏开发！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%88%B1%E5%A5%BD/" class="category-chain-item">爱好</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%88%B1%E5%A5%BD/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" class="category-chain-item">游戏开发</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%BC%80%E5%8F%91/" class="print-no-link">#开发</a>
+      
+        <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/" class="print-no-link">#游戏引擎</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>从唤境引擎迁移到其他游戏引擎</div>
+      <div>https://zjxdiu.github.io/blog/game_engine_chg/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>zjxdiu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"ZkMCrUSQDneRSAnbRh5WaJry-gzGzoHsz","appKey":"zUZV2LcazrzxOePqSCJPsWEK","path":"window.location.pathname","placeholder":"头像暂不可用，但建议填写邮箱以便通知回复ヾ(^▽^*)))","avatar":"","meta":["nick","mail"],"requiredFields":["nick"],"pageSize":20,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":"https://i0.hdslb.com/bfs/emote/,","emojiMaps":{"脱单doge":"https://i0.hdslb.com/bfs/emote/bf7e00ecab02171f8461ee8cf439c73db9797748.png","微笑":"https://i0.hdslb.com/bfs/emote/685612eadc33f6bc233776c6241813385844f182.png","口罩":"https://i0.hdslb.com/bfs/emote/3ad2f66b151496d2a5fb0a8ea75f32265d778dd3.png","doge":"https://i0.hdslb.com/bfs/emote/3087d273a78ccaff4bb1e9972e2ba2a7583c9f11.png","doge-圣诞":"https://i0.hdslb.com/bfs/emote/1afb5eb96846e0876071eeecb47be95dbf55f08d.png","妙啊":"https://i0.hdslb.com/bfs/emote/b4cb77159d58614a9b787b91b1cd22a81f383535.png","妙啊-圣诞":"https://i0.hdslb.com/bfs/emote/1cdb10e4b6c6743a1ec96f1579e3ef3045a8f225.png","OK":"https://i0.hdslb.com/bfs/emote/4683fd9ffc925fa6423110979d7dcac5eda297f4.png","OK-圣诞":"https://i0.hdslb.com/bfs/emote/75d1c99cce001d6d103a8fd406616be9f51621ab.png","星星眼":"https://i0.hdslb.com/bfs/emote/63c9d1a31c0da745b61cdb35e0ecb28635675db2.png","星星眼-圣诞":"https://i0.hdslb.com/bfs/emote/195641c30c55f34f9cd82c5e5c32d66a425c7723.png","辣眼睛":"https://i0.hdslb.com/bfs/emote/35d62c496d1e4ea9e091243fa812866f5fecc101.png","辣眼睛-圣诞":"https://i0.hdslb.com/bfs/emote/8080adfe5acdfd0b6b09bd91db24ea7334ac7b44.png","吃瓜":"https://i0.hdslb.com/bfs/emote/4191ce3c44c2b3df8fd97c33f85d3ab15f4f3c84.png","吃瓜-圣诞":"https://i0.hdslb.com/bfs/emote/aa6a3022e47b441c7f84d02cacc063a728a561e0.png","滑稽":"https://i0.hdslb.com/bfs/emote/d15121545a99ac46774f1f4465b895fe2d1411c3.png","滑稽-圣诞":"https://i0.hdslb.com/bfs/emote/5874276ea716d0e9797f827dcfca4332acf8f0de.png","呲牙":"https://i0.hdslb.com/bfs/emote/b5a5898491944a4268360f2e7a84623149672eb6.png","呲牙-圣诞":"https://i0.hdslb.com/bfs/emote/ae4395c1e29e9a2db0c9ccc4c0db05c414816e68.png","打call":"https://i0.hdslb.com/bfs/emote/431432c43da3ee5aab5b0e4f8931953e649e9975.png","打call-圣诞":"https://i0.hdslb.com/bfs/emote/2b04dd2d0e55d978ee485e1f7f3c5e355493ab78.png","调皮":"https://i0.hdslb.com/bfs/emote/8290b7308325e3179d2154327c85640af1528617.png","嗑瓜子":"https://i0.hdslb.com/bfs/emote/28a91da1685d90124cfeead74622e1ebb417c0eb.png","笑哭":"https://i0.hdslb.com/bfs/emote/c3043ba94babf824dea03ce500d0e73763bf4f40.png","捂脸-圣诞":"https://i0.hdslb.com/bfs/emote/9af59557383770c398daac81583e6c4d27d83da7.png","藏狐":"https://i0.hdslb.com/bfs/emote/ba0937ef6f3ccca85e2e0047e6263f3b4da37201.png","脸红":"https://i0.hdslb.com/bfs/emote/0922c375da40e6b69002bd89b858572f424dcfca.png","给心心":"https://i0.hdslb.com/bfs/emote/1597302b98827463f5b75c7cac1f29ea6ce572c4.png","嘟嘟":"https://i0.hdslb.com/bfs/emote/abd7404537d8162720ccbba9e0a8cdf75547e07a.png","哦呼":"https://i0.hdslb.com/bfs/emote/362bded07ea5434886271d23fa25f5d85d8af06c.png","喜欢":"https://i0.hdslb.com/bfs/emote/8a10a4d73a89f665feff3d46ca56e83dc68f9eb8.png","酸了":"https://i0.hdslb.com/bfs/emote/92b1c8cbceea3ae0e8e32253ea414783e8ba7806.png","嫌弃":"https://i0.hdslb.com/bfs/emote/de4c0783aaa60ec03de0a2b90858927bfad7154b.png","害羞":"https://i0.hdslb.com/bfs/emote/9d2ec4e1fbd6cb1b4d12d2bbbdd124ccb83ddfda.png","大哭":"https://i0.hdslb.com/bfs/emote/2caafee2e5db4db72104650d87810cc2c123fc86.png","疑惑":"https://i0.hdslb.com/bfs/emote/b7840db4b1f9f4726b7cb23c0972720c1698d661.png","喜极而泣":"https://i0.hdslb.com/bfs/emote/485a7e0c01c2d70707daae53bee4a9e2e31ef1ed.png","笑":"https://i0.hdslb.com/bfs/emote/81edf17314cea3b48674312b4364df44d5c01f17.png","偷笑":"https://i0.hdslb.com/bfs/emote/6c49d226e76c42cd8002abc47b3112bc5a92f66a.png","惊讶":"https://i0.hdslb.com/bfs/emote/f8e9a59cad52ae1a19622805696a35f0a0d853f3.png","捂脸":"https://i0.hdslb.com/bfs/emote/6921bb43f0c634870b92f4a8ad41dada94a5296d.png","阴险":"https://i0.hdslb.com/bfs/emote/ba8d5f8e7d136d59aab52c40fd3b8a43419eb03c.png","呆":"https://i0.hdslb.com/bfs/emote/33ad6000d9f9f168a0976bc60937786f239e5d8c.png","抠鼻":"https://i0.hdslb.com/bfs/emote/cb89184c97e3f6d50acfd7961c313ce50360d70f.png","大笑":"https://i0.hdslb.com/bfs/emote/ca94ad1c7e6dac895eb5b33b7836b634c614d1c0.png","惊喜":"https://i0.hdslb.com/bfs/emote/0afecaf3a3499479af946f29749e1a6c285b6f65.png","无语":"https://i0.hdslb.com/bfs/emote/44667b7d9349957e903b1b62cb91fb9b13720f04.png","点赞":"https://i0.hdslb.com/bfs/emote/1a67265993913f4c35d15a6028a30724e83e7d35.png","鼓掌":"https://i0.hdslb.com/bfs/emote/895d1fc616b4b6c830cf96012880818c0e1de00d.png","尴尬":"https://i0.hdslb.com/bfs/emote/cb321684ed5ce6eacdc2699092ab8fe7679e4fda.png","灵魂出窍":"https://i0.hdslb.com/bfs/emote/43d3db7d97343c01b47e22cfabeca84b4251f35a.png","委屈":"https://i0.hdslb.com/bfs/emote/d2f26cbdd6c96960320af03f5514c5b524990840.png","傲娇":"https://i0.hdslb.com/bfs/emote/010540d0f61220a0db4922e4a679a1d8eca94f4e.png","疼":"https://i0.hdslb.com/bfs/emote/905fd9a99ec316e353b9bd4ecd49a5f0a301eabf.png","冷":"https://i0.hdslb.com/bfs/emote/cb0ebbd0668640f07ebfc0e03f7a18a8cd00b4ed.png","热":"https://i0.hdslb.com/bfs/emote/4e58a2a6f5f1580ac33df2d2cf7ecad7d9ab3635.png","生病":"https://i0.hdslb.com/bfs/emote/0f25ce04ae1d7baf98650986454c634f6612cb76.png","捂眼":"https://i0.hdslb.com/bfs/emote/c5c6d6982e1e53e478daae554b239f2b227b172b.png","嘘声":"https://i0.hdslb.com/bfs/emote/e64af664d20716e090f10411496998095f62f844.png","思考":"https://i0.hdslb.com/bfs/emote/cfa9b7e89e4bfe04bbcd34ccb1b0df37f4fa905c.png","再见":"https://i0.hdslb.com/bfs/emote/fc510306bae26c9aec7e287cdf201ded27b065b9.png","翻白眼":"https://i0.hdslb.com/bfs/emote/eba54707c7168925b18f6f8b1f48d532fe08c2b1.png","哈欠":"https://i0.hdslb.com/bfs/emote/888d877729cbec444ddbd1cf4c9af155a7a06086.png","奋斗":"https://i0.hdslb.com/bfs/emote/bb2060c15dba7d3fd731c35079d1617f1afe3376.png","墨镜":"https://i0.hdslb.com/bfs/emote/3a03aebfc06339d86a68c2d893303b46f4b85771.png","难过":"https://i0.hdslb.com/bfs/emote/a651db36701610aa70a781fa98c07c9789b11543.png","撇嘴":"https://i0.hdslb.com/bfs/emote/531863568e5668c5ac181d395508a0eeb1f0cda4.png","抓狂":"https://i0.hdslb.com/bfs/emote/4c87afff88c22439c45b79e9d2035d21d5622eba.png","生气":"https://i0.hdslb.com/bfs/emote/3195714219c4b582a4fb02033dd1519913d0246d.png","干杯":"https://i0.hdslb.com/bfs/emote/8da12d5f55a2c7e9778dcc05b40571979fe208e6.png","爱心":"https://i0.hdslb.com/bfs/emote/ed04066ea7124106d17ffcaf75600700e5442f5c.png","胜利":"https://i0.hdslb.com/bfs/emote/b49fa9f4b1e7c3477918153b82c60b114d87347c.png","加油":"https://i0.hdslb.com/bfs/emote/c7aaeacb21e107292d3bb053e5abde4a4459ed30.png","抱拳":"https://i0.hdslb.com/bfs/emote/89516218158dbea18ab78e8873060bf95d33bbbe.png","响指":"https://i0.hdslb.com/bfs/emote/1b5c53cf14336903e1d2ae3527ca380a1256a077.png","保佑":"https://i0.hdslb.com/bfs/emote/fafe8d3de0dc139ebe995491d2dac458a865fb30.png","支持":"https://i0.hdslb.com/bfs/emote/3c210366a5585706c09d4c686a9d942b39feeb50.png","拥抱":"https://i0.hdslb.com/bfs/emote/41780a4254750cdaaccb20735730a36044e98ef3.png","跪了":"https://i0.hdslb.com/bfs/emote/f2b3aee7e521de7799d4e3aa379b01be032698ac.png","怪我咯":"https://i0.hdslb.com/bfs/emote/07cc6077f7f7d75b8d2c722dd9d9828a9fb9e46d.png","囧":"https://i0.hdslb.com/bfs/emote/12e41d357a9807cc80ef1e1ed258127fcc791424.png","奸笑":"https://i0.hdslb.com/bfs/emote/bb84906573472f0a84cebad1e9000eb6164a6f5a.png","吓":"https://i0.hdslb.com/bfs/emote/9c10c5ebc7bef27ec641b8a1877674e0c65fea5d.png","画风突变":"https://i0.hdslb.com/bfs/emote/ba4de7a3f97644038b15195bdc9f82a8fd118e77.png","tv-白眼":"https://i0.hdslb.com/bfs/emote/c1d59f439e379ee50eef488bcb5e5378e5044ea4.png","tv-doge":"https://i0.hdslb.com/bfs/emote/6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png","tv-坏笑":"https://i0.hdslb.com/bfs/emote/1f0b87f731a671079842116e0991c91c2c88645a.png","tv-难过":"https://i0.hdslb.com/bfs/emote/87f46748d3f142ebc6586ff58860d0e2fc8263ba.png","tv-生气":"https://i0.hdslb.com/bfs/emote/26702dcafdab5e8225b43ffd23c94ac1ff932654.png","tv-委屈":"https://i0.hdslb.com/bfs/emote/d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png","tv-斜眼笑":"https://i0.hdslb.com/bfs/emote/911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png","tv-呆":"https://i0.hdslb.com/bfs/emote/fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png","tv-发怒":"https://i0.hdslb.com/bfs/emote/34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png","tv-惊吓":"https://i0.hdslb.com/bfs/emote/0d15c7e2ee58e935adc6a7193ee042388adc22af.png","tv-呕吐":"https://i0.hdslb.com/bfs/emote/9f996894a39e282ccf5e66856af49483f81870f3.png","tv-思考":"https://i0.hdslb.com/bfs/emote/90cf159733e558137ed20aa04d09964436f618a1.png","tv-微笑":"https://i0.hdslb.com/bfs/emote/70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png","tv-疑问":"https://i0.hdslb.com/bfs/emote/0793d949b18d7be716078349c202c15ff166f314.png","tv-大哭":"https://i0.hdslb.com/bfs/emote/23269aeb35f99daee28dda129676f6e9ea87934f.png","tv-鼓掌":"https://i0.hdslb.com/bfs/emote/1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png","tv-抠鼻":"https://i0.hdslb.com/bfs/emote/c666f55e88d471e51bbd9fab9bb308110824a6eb.png","tv-亲亲":"https://i0.hdslb.com/bfs/emote/a8111ad55953ef5e3be3327ef94eb4a39d535d06.png","tv-调皮":"https://i0.hdslb.com/bfs/emote/b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png","tv-笑哭":"https://i0.hdslb.com/bfs/emote/1abc628f6d4f4caf9d0e7800878f4697abbc8273.png","tv-晕":"https://i0.hdslb.com/bfs/emote/5443c22b4d07fb1907ccc610c8e6db254f2461b7.png","tv-点赞":"https://i0.hdslb.com/bfs/emote/f85c354995bd99e28fc76c869bfe42ba6438eff4.png","tv-害羞":"https://i0.hdslb.com/bfs/emote/a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png","tv-睡着":"https://i0.hdslb.com/bfs/emote/8b196675b53af58264f383c50ad0945048290b33.png","tv-色":"https://i0.hdslb.com/bfs/emote/61822c7e9aae5da76475e7892534545336b23a6f.png","tv-吐血":"https://i0.hdslb.com/bfs/emote/09dd16a7aa59b77baa1155d47484409624470c77.png","tv-无奈":"https://i0.hdslb.com/bfs/emote/ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png","tv-再见":"https://i0.hdslb.com/bfs/emote/180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png","tv-流汗":"https://i0.hdslb.com/bfs/emote/cead1c351ab8d79e9f369605beb90148db0fbed3.png","tv-偷笑":"https://i0.hdslb.com/bfs/emote/bb690d4107620f1c15cff29509db529a73aee261.png","tv-抓狂":"https://i0.hdslb.com/bfs/emote/fe31c08edad661d63762b04e17b8d5ae3c71a757.png","tv-黑人问号":"https://i0.hdslb.com/bfs/emote/45821a01f51bc867da9edbaa2e070410819a95b2.png","tv-困":"https://i0.hdslb.com/bfs/emote/241ee304e44c0af029adceb294399391e4737ef2.png","tv-打脸":"https://i0.hdslb.com/bfs/emote/56ab10b624063e966bfcb76ea5dc4794d87dfd47.png","tv-闭嘴":"https://i0.hdslb.com/bfs/emote/c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png","tv-鄙视":"https://i0.hdslb.com/bfs/emote/6e72339f346a692a495b123174b49e4e8e781303.png","tv-腼腆":"https://i0.hdslb.com/bfs/emote/89712c0d4af73e67f89e35cbc518420380a7f6f4.png","tv-馋":"https://i0.hdslb.com/bfs/emote/fc7e829b845c43c623c8b490ee3602b7f0e76a31.png","tv-可爱":"https://i0.hdslb.com/bfs/emote/9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png","tv-发财":"https://i0.hdslb.com/bfs/emote/34db290afd2963723c6eb3c4560667db7253a21a.png","tv-生病":"https://i0.hdslb.com/bfs/emote/8b0ec90e6b86771092a498c54f09fc94621c1900.png","tv-流鼻血":"https://i0.hdslb.com/bfs/emote/c32d39db2737f89b904ca32700d140a9241b0767.png","tv-尴尬":"https://i0.hdslb.com/bfs/emote/7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png","tv-大佬":"https://i0.hdslb.com/bfs/emote/093c1e2c490161aca397afc45573c877cdead616.png","tv-流泪":"https://i0.hdslb.com/bfs/emote/7e71cde7858f0cd50d74b0264aa26db612a8a167.png","tv-冷漠":"https://i0.hdslb.com/bfs/emote/b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png","tv-皱眉":"https://i0.hdslb.com/bfs/emote/72ccad6679fea0d14cce648b4d818e09b8ffea2d.png","tv-鬼脸":"https://i0.hdslb.com/bfs/emote/0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png","tv-调侃":"https://i0.hdslb.com/bfs/emote/4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png","tv-目瞪口呆":"https://i0.hdslb.com/bfs/emote/0b8cb81a68de5d5365212c99375e7ace3e7891b7.png","Cat-escort":"https://i0.hdslb.com/bfs/emote/81784f53f5ca7004a90d316c81889d8161dc05a6.png","Cat-coffeebath":"https://i0.hdslb.com/bfs/emote/f80cfd44e0f216f4171a549e869aab32d80d4c39.png","Cat-stealth":"https://i0.hdslb.com/bfs/emote/21f7d24b1e8de29f2c61f64e70af9f6aec14e394.png","Cat-hightouch":"https://i0.hdslb.com/bfs/emote/3d7264b8349bc1be6d45beebbcfab69e7b9895fc.png","Cat-lonely":"https://i0.hdslb.com/bfs/emote/72a9d2f20fb79883bbed3cac914187545ac3a0cc.png","Cat-heart":"https://i0.hdslb.com/bfs/emote/3f98c4debfe792a1969b99ae71f7f5d4bf00c3d5.png","Cat-slip":"https://i0.hdslb.com/bfs/emote/a6e45e065ed17e2af03f7263784bc36d94b25e74.png","Cat-chips":"https://i0.hdslb.com/bfs/emote/12d2d3ce0e72749c45706444cca580dc22148876.png","Cat-study":"https://i0.hdslb.com/bfs/emote/9f6d28ecd7e33c3f5e7cd74cc36f4feedb42e995.png","Cat-dash":"https://i0.hdslb.com/bfs/emote/0f2d1f99efd5df816c694da76e91a173fa643589.png","Cat-pressure":"https://i0.hdslb.com/bfs/emote/c6c270e9989e7152457b907595a6e34064d0c1b2.png","Cat-hibye":"https://i0.hdslb.com/bfs/emote/9e4955f479a1211d401fbaa71ceaf5186b9e57bd.png","Cat-confuse":"https://i0.hdslb.com/bfs/emote/107ebcbd4dd5895f4595ea6db963dc4566809c6e.png","Cat-ignore":"https://i0.hdslb.com/bfs/emote/94de4f63a5f965ee8312a88e4c57c07c0174acce.png","Cat-agree":"https://i0.hdslb.com/bfs/emote/48b00f75518a727d64c385fe8ca2fa49aeb08c77.png","Cat-fight":"https://i0.hdslb.com/bfs/emote/e39c491906d0fcd0176eede702305655d44044c5.png","Cat-splash":"https://i0.hdslb.com/bfs/emote/9513157fed2425ed2caa4eb9bc84a0bca80df9bc.png","Cat-calledme":"https://i0.hdslb.com/bfs/emote/aacb6fb852f6acbbc8386ecef76c98b77178e23e.png","Cat-sleep":"https://i0.hdslb.com/bfs/emote/39b964d10bde1634f136b662f5b624fcb3bcedb8.png","Cat-congrats":"https://i0.hdslb.com/bfs/emote/98f6e73340d9ed43403242fc842e42508d38bba6.png","原神-哇":"https://i0.hdslb.com/bfs/emote/8188ddf95bace929d382c7a83214afde79d83bfc.png","原神-哼":"https://i0.hdslb.com/bfs/emote/91ed33b74bc36873c3ac8b2648f70d7ab6d8ab78.png","原神-嗯":"https://i0.hdslb.com/bfs/emote/8b0a87e414f453a29730b6e0f45ca61f2f898688.png","原神-欸嘿":"https://i0.hdslb.com/bfs/emote/8fba438fcbe0550877b04efd768d857082307c5e.png","原神-喝茶":"https://i0.hdslb.com/bfs/emote/1de5789fbb3526ef7823c54db7081790a38e7044.png","原神-生气":"https://i0.hdslb.com/bfs/emote/90a38c34742899f8e84138ed55f56cad3ba611fb.png"},"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Powered by Hexo</span></a> <i class="iconfont icon-code"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Theme Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问次数 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        独立访问 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
