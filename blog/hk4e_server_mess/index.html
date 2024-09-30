@@ -18,11 +18,11 @@
   <meta name="author" content="zjxdiu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="人在上课，突闻噩耗。虽然现在的新冠并没有两年前那么恐怖，见者九死一生，但仍然是流感中较为严重的一类。    最近全国各地都突然严重爆发，我学校的老校区也出现了阳性感染者，这实在不是什么好消息。不过，疫情虽然对经济冲击严重，但我们仍然可能可以从另一个角度思考问题，试图以积极的方式面对。  在2020年中，大约是（延期后的）高考结束的那个暑期，我们经历了一次非常恐怖的矿潮。那时候，显卡的价格飞涨到一个">
+    <meta name="description" content="前言本文是我折腾某个动漫（XX）游戏服务端时的记录，内容杂乱、无固定格式，甚至还包含许多centos的使用内容（因为我不会Linux），仅用作备忘录；不过如果你刚好也在折腾这个，那或许其中某些信息会对你有所帮助。 关于服务端我获取到的hk4e server是从同学手里拿到的3.4dev版本，在启动脚本打印信息中提到服务端由XX研究社提供，具体内容不在此处透露，有兴趣可自行了解。注意别被骗了，要你花">
   
   
   
-  <title>疫情爆炸，如何积极面对 - zjxdiu~Enchanted Room</title>
+  <title>折腾hk4e服务器的记录 - zjxdiu~Enchanted Room</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -211,13 +211,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/2d068d534adab2c23a5469541f3c85a8.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">疫情爆炸，如何积极面对</span>
+            <span id="subtitle">折腾hk4e服务器的记录</span>
           
         </div>
 
@@ -228,8 +228,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-27 11:48" pubdate>
-          2022年11月27日中午11点48分
+        <time datetime="2024-09-30 10:14" pubdate>
+          2024年9月30日上午10点14分
         </time>
       </span>
     
@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.4k 字
         
       </span>
     
@@ -422,17 +422,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
+      <a class="category-subitem 
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="测试"
         id="heading-db06c78d1e24cf708a14ce81c9b617ec" role="tab" data-toggle="collapse" href="#collapse-db06c78d1e24cf708a14ce81c9b617ec"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         测试
         <span class="list-group-count">(1)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse " id="collapse-db06c78d1e24cf708a14ce81c9b617ec"
+      <div class="category-collapse collapse show" id="collapse-db06c78d1e24cf708a14ce81c9b617ec"
            role="tabpanel" aria-labelledby="heading-db06c78d1e24cf708a14ce81c9b617ec">
         
         
@@ -444,7 +444,7 @@
       
         <a href="/blog/hk4e_server_mess/" title="折腾hk4e服务器的记录"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">折腾hk4e服务器的记录</span>
         </a>
       
@@ -459,17 +459,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem 
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="生活"
         id="heading-aefcbfca08c840aeb8bd72dc1c8ff7f9" role="tab" data-toggle="collapse" href="#collapse-aefcbfca08c840aeb8bd72dc1c8ff7f9"
-        aria-expanded="true"
+        aria-expanded="false"
       >
         生活
         <span class="list-group-count">(2)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-aefcbfca08c840aeb8bd72dc1c8ff7f9"
+      <div class="category-collapse collapse " id="collapse-aefcbfca08c840aeb8bd72dc1c8ff7f9"
            role="tabpanel" aria-labelledby="heading-aefcbfca08c840aeb8bd72dc1c8ff7f9">
         
         
@@ -490,7 +490,7 @@
       
         <a href="/blog/%E9%9A%8F%E8%AE%B020221125/" title="疫情爆炸，如何积极面对"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">疫情爆炸，如何积极面对</span>
         </a>
       
@@ -517,35 +517,70 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">疫情爆炸，如何积极面对</h1>
+            <h1 id="seo-header">折腾hk4e服务器的记录</h1>
             
             
               <div class="markdown-body">
                 
-                <p><img src="/../_resources/bae16920a3e51780c72e170d6411a8ac.png" srcset="/img/loading.gif" lazyload alt="bae16920a3e51780c72e170d6411a8ac.png"><br>人在上课，突闻噩耗。<br>虽然现在的新冠并没有两年前那么恐怖，见者九死一生，但仍然是流感中较为严重的一类。   </p>
-<p>最近全国各地都突然严重爆发，我学校的老校区也出现了阳性感染者，这实在不是什么好消息。<br>不过，疫情虽然对经济冲击严重，但我们仍然可能可以从另一个角度思考问题，试图以积极的方式面对。</p>
-<hr>
-<p>在2020年中，大约是（延期后的）高考结束的那个暑期，我们经历了一次非常恐怖的矿潮。那时候，显卡的价格飞涨到一个离谱都不足以形容的地步，而正值开学季的准大学生们则欲哭无泪：想买电脑，根本抢不到！<br>尽管当时笔记本电脑缺货更多是由于芯片供应短缺造成的，但挖矿的影响同样不可忽视。而就在大家想着如何用合理的价格买到自己心仪的显卡时，有一些人则希望大家能够从另一个角度来看待这个问题。</p>
-<blockquote>
-<p>“_有时候达成你的目标和需求不止一种方法；面对畸形的市场，与其抱怨，不如换一种新的思维来看待这件事_”</p>
-</blockquote>
-<p>这句话确实给了我不少启发和灵感。</p>
-<hr>
-<h3 id="这是一个给你折腾机会的完美时机"><a href="#这是一个给你折腾机会的完美时机" class="headerlink" title="这是一个给你折腾机会的完美时机"></a>这是一个给你折腾机会的完美时机</h3><p>所谓折腾，就是你可以干任何以前你想干但缺乏时机的事。当然，如果你想环游世界，那可能还是之后再说吧（？）<br>举个例子，我利用高中被疫情困在家里的时间，自己学习了非常多的东西，包括但不限于：</p>
-<ul>
-<li>网络工程与应用</li>
-<li>服务器搭建与优化</li>
-<li>网页前端设计</li>
-<li>游戏开发入门</li>
-</ul>
-<p>这些都是我理解的“折腾”，平时由于高三学习压力较大、学校里不能自由使用手机和电脑，这些东西都没有机会学习和实践。<br>而利用好了这几个月，我认为我在折腾中收获颇丰，并为进入大学后的生活提供了十足的帮助。</p>
-<p><img src="/../_resources/a5e6e966826c7b2508826b512966be12.png" srcset="/img/loading.gif" lazyload alt="a5e6e966826c7b2508826b512966be12.png"><br>这是我在一个月内做的网页前端设计，并应用于自己家庭的内网中，以便实现我的学习电脑与打印服务器电脑（配置很低很卡）之间进行快速的文件传输和通信。</p>
-<hr>
-<h3 id="这是一个可以锻炼你眼光的合理时机"><a href="#这是一个可以锻炼你眼光的合理时机" class="headerlink" title="这是一个可以锻炼你眼光的合理时机"></a>这是一个可以锻炼你眼光的合理时机</h3><p>如果要折腾，你肯定免不了要花点钱，有的甚至开销很大（比如我喜欢折腾电脑硬件，这就是花费很高的一种）。但正是因为花销大，才能锻炼我的眼光，确切来说是我选购东西的眼光。</p>
-<p>最近正在考虑折腾一个服务器电脑。家里有闲置的笔记本和台式机，也许我可以改造台式机，重新选择ITX机箱和静音散热器，并将其作为服务器主机使用。<br>或者，也可以另外花费240左右购买J1900准系统迷你主机，这种方案的优势是被动散热无噪音、寿命长，硬盘我已经有一块可用的SSD，还可以顺便折腾Windows server 2007等系统，加上我本人对能折腾的迷你电脑比较感兴趣，这似乎是不错的选择。<br>然而，这个方案最大的问题就是开销更多；买一个ITX机箱+低噪散热器的价格显然低于准系统+内存的价格，所以这就对我的选购能力提出了严峻的挑战。虽然我并没有实际购买，但在这个过程中，我能感觉到自己网购眼光的提升。</p>
-<hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>积极面对这**的世界，听起来并不是一件轻松的事，毕竟谁能在生存受阻的情况下坦然自若呢？但是，苦中作乐本就是身具人性的最大优势，而我们不应该让其淹没在无穷无尽的原始需求中。<br>最后，为这个尚存一线美好的世界送上祝福，希望每个真诚的人都能被温柔以待。<br><img src="/../_resources/a15b89a10fa9a65103dc7e49a3856ea7.png" srcset="/img/loading.gif" lazyload alt="a15b89a10fa9a65103dc7e49a3856ea7.png"></p>
-<hr>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文是我折腾某个动漫（XX）游戏服务端时的记录，内容杂乱、无固定格式，甚至还包含许多centos的使用内容（因为我不会Linux），仅用作备忘录；不过如果你刚好也在折腾这个，那或许其中某些信息会对你有所帮助。</p>
+<h2 id="关于服务端"><a href="#关于服务端" class="headerlink" title="关于服务端"></a>关于服务端</h2><p>我获取到的hk4e server是从同学手里拿到的3.4dev版本，在启动脚本打印信息中提到服务端由XX研究社提供，具体内容不在此处透露，有兴趣可自行了解。<br><strong>注意别被骗了，要你花钱的都是倒卖</strong> <em>（除了某些国产网盘下载也许需要充会员才给你开放完整下载权限，或者需花钱魔法上网等）</em></p>
+<h3 id="启动流程备忘："><a href="#启动流程备忘：" class="headerlink" title="启动流程备忘："></a>启动流程备忘：</h3><p>开机，打开终端；<br>第一步：启动反向代理（不使用frp则无需此步骤）<br>su root（输入密码，进入超级用户）<br>ifconfig （检查IP地址是否正确）<br>cd frpc[TAB] （进入frp客户端文件夹）<br>.&#x2F;frpc -c .&#x2F;frpc.toml （启动frp客户端，提前验证服务端是否启动）<br>第二步：启动服务端<br>34s start<br>34s status （检查各服务启动情况）</p>
+<h2 id="关于客户端"><a href="#关于客户端" class="headerlink" title="关于客户端"></a>关于客户端</h2><p>3.x客户端可使用补丁方式连接，无需代理。<br>需要注意的是，由于3.4服务端分发问题严重，官方已删除3.4客户端的分发链接，互联网上几乎所有二次上传的文件也都被DMCA或已失效。</p>
+<h2 id="关于虚拟机性能"><a href="#关于虚拟机性能" class="headerlink" title="关于虚拟机性能"></a>关于虚拟机性能</h2><p>我的电脑是一台华硕笔记本电脑，搭载i7-11800H和自己升级的32G内存，实际来说16G内存+Win10即可运行基本完整的服务端，24G内存即可同时启动服务端和客户端游玩。要开带联机的服务器，虚拟机至少需分配13G内存，因此16G内存将无法同时启动客户端，必须在单独的电脑上启动。</p>
+<p>对于CPU而言，需要注意不要开太多核心，至少在我电脑上开4核就是最快的（太少了也慢，建议不低于3核）<br><img src="/../_resources/9cf5298ca9a64398fabb53f8ac3fbd36.png" srcset="/img/loading.gif" lazyload alt="我的虚拟机配置.png"></p>
+<h2 id="关于公网连接的端口和协议"><a href="#关于公网连接的端口和协议" class="headerlink" title="关于公网连接的端口和协议"></a>关于公网连接的端口和协议</h2><p>这一点是我折腾时间最长、难度最高的部分，因为没有任何文档和指引，全靠自己摸索。<br>通过调查配置文件、自己抓包分析、试错等多种方式，确定公网连接所需端口及协议列表如下：</p>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>服务</th>
+<th>传输层协议</th>
+<th>说明</th>
+<th>开放？</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>23401</td>
+<td>gameserver</td>
+<td>UDP</td>
+<td>主游戏服务</td>
+<td>必须</td>
+</tr>
+<tr>
+<td>23405</td>
+<td>dispatch</td>
+<td>TCP</td>
+<td>签派（即区服下发）</td>
+<td>否</td>
+</tr>
+<tr>
+<td>23406</td>
+<td>muipserver</td>
+<td>TCP</td>
+<td>游戏进程&#x2F;多IP通信服务</td>
+<td>使用GM时</td>
+</tr>
+<tr>
+<td>23410</td>
+<td>sdkserver</td>
+<td>TCP</td>
+<td>SDK服务</td>
+<td>必须</td>
+</tr>
+</tbody></table>
+<h2 id="关于数据库和文件"><a href="#关于数据库和文件" class="headerlink" title="关于数据库和文件"></a>关于数据库和文件</h2><p>终端中使用bt指令可执行控制操作，如强制修改MySQL密码、查询宝塔面板地址等；<br>数据库中部分表的含义可参考：<a target="_blank" rel="noopener" href="https://www.iopq.net/forum.php?mod=viewthread&tid=17117217">https://www.iopq.net/forum.php?mod=viewthread&tid=17117217</a><br>宝塔面板左侧进入数据库即可备份和恢复，点右侧管理按钮即可进入PhpMyAdmin进行数据库编辑。</p>
+<h3 id="如何备份账号数据"><a href="#如何备份账号数据" class="headerlink" title="如何备份账号数据"></a>如何备份账号数据</h3><p>在数据库路径<code>/34live_db/34live_db_user/</code>下，分别导出<code>t_block_data_X</code>、<code>t_home_data_X</code>和<code>t_player_data_X</code>（其中X是用户id）；<br>导出后得到sql文件，备份即创建完成。<br>恢复时，先确定恢复目标id的表格是否存在（可使用面板查询，若服务崩溃可通过SQL指令查询，指令可询问AI获取），若不存在可直接导入对应SQL恢复文件；若存在，则应先使用文本编辑软件打开SQL文件，删除其中<code>CREATE TABLE</code>段落处的所有内容再执行恢复。</p>
+<h3 id="提示“当前所选内容没有包含唯一字段”"><a href="#提示“当前所选内容没有包含唯一字段”" class="headerlink" title="提示“当前所选内容没有包含唯一字段”"></a>提示“当前所选内容没有包含唯一字段”</h3><p>出现此问题时，进入服务器主文件夹，找到<code>/www/server/phpmyadmin/phpmyadmin_[hexString]/config.inc.php</code>，在<code>Servers configuration</code>下加入一行：<code>$cfg[&#39;RowActionLinksWithoutUnique&#39;] = true;</code>，保存文件重启服务端即可。</p>
+<h3 id="文件只读"><a href="#文件只读" class="headerlink" title="文件只读"></a>文件只读</h3><p>由于centos自带的资源管理器在获取root权限后经常出现各种奇奇怪怪的问题，因此建议的方法是将对应文件复制到桌面，编辑后通过获取了root权限的终端使用<code>cp /源文件目录/源文件 /目标目录/目标文件</code>将新文件覆盖过去。</p>
+<h2 id="关于功能"><a href="#关于功能" class="headerlink" title="关于功能"></a>关于功能</h2><h3 id="添加卡池"><a href="#添加卡池" class="headerlink" title="添加卡池"></a>添加卡池</h3><p>虽然说明书里说可以使用<code>yskc</code>指令来更换卡池，但实际上由于默认MySQL不允许空密码登录，设置是无效的（终端里会显示很多<code>Access denied for user &#39;root&#39;@&#39;localhost&#39; (using password: YES)</code>之类的错误）；<br>建议使用外部工具来设置，例如该数据库连接工具：<br><img src="/../_resources/23dc117188705bd913a3dc7d02c9205a.png" srcset="/img/loading.gif" lazyload alt="工具界面.png"></p>
+<p>卡池类型中，201是角色限时，301是武器限时；<br>先删除旧的限时卡池，再从下方预设卡池选择添加；<br>“抽奖卡池选择”字段中，左侧选择卡池类型id，右侧需输入卡池自身id（理论上来说所有卡池各不相同即可）</p>
+<h3 id="添加活动"><a href="#添加活动" class="headerlink" title="添加活动"></a>添加活动</h3><p><strong>主题活动仅限3.x可正常运行，推测是每次大版本号更新时会删除部分旧版活动资源和数据，因此老活动通常只能开普通活动；可以通过活动id判断。</strong><br>在活动id表格中可查询活动id；<br>若id以5开头则为普通活动，多数可以正常游玩；非5开头通常不可正常游玩。（也有很多例外，总体来说越新的活动正常概率越高）<br><img src="/../_resources/0dbf476932b691056ddea041db6195b4.png" srcset="/img/loading.gif" lazyload alt="活动id表.png"></p>
+<h2 id="最终注意事项"><a href="#最终注意事项" class="headerlink" title="最终注意事项"></a>最终注意事项</h2><ol>
+<li>干一些奇怪的操作前一定要备份数据库，别嫌麻烦，万一炸了随时可以恢复，总不至于从头创建账号；</li>
+<li>不要点商城里的丽莎皮肤，会卡死客户端；</li>
+<li>GM里的父任务选项尽量别用，很容易出问题；</li>
+<li>xl2tpd这个组件似乎有问题，用VPN的话会吃满一个CPU核心，尽量用frp反代。</li>
+</ol>
 
                 
               </div>
@@ -569,7 +604,7 @@
   
     <span>></span>
     
-  <a href="/categories/%E6%9D%82%E9%A1%B9/%E7%94%9F%E6%B4%BB/" class="category-chain-item">生活</a>
+  <a href="/categories/%E6%9D%82%E9%A1%B9/%E6%B5%8B%E8%AF%95/" class="category-chain-item">测试</a>
   
   
 
@@ -586,9 +621,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%97%A5%E5%B8%B8/" class="print-no-link">#日常</a>
+        <a href="/tags/%E6%B8%B8%E6%88%8F/" class="print-no-link">#游戏</a>
       
-        <a href="/tags/%E7%94%9F%E6%B4%BB/" class="print-no-link">#生活</a>
+        <a href="/tags/%E7%BD%91%E7%BB%9C/" class="print-no-link">#网络</a>
       
     </div>
   
@@ -600,8 +635,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>疫情爆炸，如何积极面对</div>
-      <div>https://zjxdiu.github.io/blog/随记20221125/</div>
+      <div>折腾hk4e服务器的记录</div>
+      <div>https://zjxdiu.github.io/blog/hk4e_server_mess/</div>
     </div>
     <div class="license-meta">
       
@@ -613,7 +648,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月27日</div>
+          <div>2024年9月30日</div>
         </div>
       
       
