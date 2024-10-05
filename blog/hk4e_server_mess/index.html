@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          2.4k 字
         
       </span>
     
@@ -524,10 +524,11 @@
                 
                 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文是我折腾某个动漫（XX）游戏服务端时的记录，内容杂乱、无固定格式，甚至还包含许多centos的使用内容（因为我不会Linux），仅用作备忘录；不过如果你刚好也在折腾这个，那或许其中某些信息会对你有所帮助。</p>
 <h2 id="关于服务端"><a href="#关于服务端" class="headerlink" title="关于服务端"></a>关于服务端</h2><p>我获取到的hk4e server是从同学手里拿到的3.4dev版本，在启动脚本打印信息中提到服务端由XX研究社提供，具体内容不在此处透露，有兴趣可自行了解。<br><strong>注意别被骗了，要你花钱的都是倒卖</strong> <em>（除了某些国产网盘下载也许需要充会员才给你开放完整下载权限，或者需花钱魔法上网等）</em></p>
-<h3 id="启动流程备忘："><a href="#启动流程备忘：" class="headerlink" title="启动流程备忘："></a>启动流程备忘：</h3><p>开机，打开终端；<br>第一步：启动反向代理（不使用frp则无需此步骤）<br>su root（输入密码，进入超级用户）<br>ifconfig （检查IP地址是否正确）<br>cd frpc[TAB] （进入frp客户端文件夹）<br>.&#x2F;frpc -c .&#x2F;frpc.toml （启动frp客户端，提前验证服务端是否启动）<br>第二步：启动服务端<br>34s start<br>34s status （检查各服务启动情况）</p>
+<h3 id="启动流程备忘："><a href="#启动流程备忘：" class="headerlink" title="启动流程备忘："></a>启动流程备忘：</h3><p>开机，打开终端；<br><strong>反向代理无法在本地使用，详见下文</strong><br>第一步：启动反向代理（不使用frp则无需此步骤）<br>su root（输入密码，进入超级用户）<br>ifconfig （检查IP地址是否正确）<br>cd frpc[TAB] （进入frp客户端文件夹）<br>.&#x2F;frpc -c .&#x2F;frpc.toml （启动frp客户端，提前验证服务端是否启动）<br>第二步：启动服务端<br>34s start<br>34s status （检查各服务启动情况）</p>
 <h2 id="关于客户端"><a href="#关于客户端" class="headerlink" title="关于客户端"></a>关于客户端</h2><p>3.x客户端可使用补丁方式连接，无需代理。<br>需要注意的是，由于3.4服务端分发问题严重，官方已删除3.4客户端的分发链接，互联网上几乎所有二次上传的文件也都被DMCA或已失效。</p>
-<h2 id="关于虚拟机性能"><a href="#关于虚拟机性能" class="headerlink" title="关于虚拟机性能"></a>关于虚拟机性能</h2><p>我的电脑是一台华硕笔记本电脑，搭载i7-11800H和自己升级的32G内存，实际来说16G内存+Win10即可运行基本完整的服务端，24G内存即可同时启动服务端和客户端游玩。要开带联机的服务器，虚拟机至少需分配13G内存，因此16G内存将无法同时启动客户端，必须在单独的电脑上启动。</p>
-<p>对于CPU而言，需要注意不要开太多核心，至少在我电脑上开4核就是最快的（太少了也慢，建议不低于3核）<br><img src="/../_resources/9cf5298ca9a64398fabb53f8ac3fbd36.png" srcset="/img/loading.gif" lazyload alt="我的虚拟机配置.png"></p>
+<h2 id="关于虚拟机性能"><a href="#关于虚拟机性能" class="headerlink" title="关于虚拟机性能"></a>关于虚拟机性能</h2><p>我的电脑是一台华硕笔记本电脑，搭载i7-11800H和自己升级的32G内存，实际来说16G内存+Win10即可运行基本完整的服务端，24G内存即可同时启动服务端和客户端游玩。<br>要开带联机的服务器，虚拟机至少需分配13G内存，因此16G内存将无法同时启动客户端，必须在单独的电脑上启动。</p>
+<p>对于CPU而言，需要注意不要开太多核心，至少在我电脑上开4核就是最快的（太少了也慢，建议不低于3核），而多于6核的时候宿主机和虚拟机一起卡。<br><img src="/../_resources/9cf5298ca9a64398fabb53f8ac3fbd36.png" srcset="/img/loading.gif" lazyload alt="我的虚拟机配置.png"></p>
+<hr>
 <h2 id="关于公网连接的端口和协议"><a href="#关于公网连接的端口和协议" class="headerlink" title="关于公网连接的端口和协议"></a>关于公网连接的端口和协议</h2><p>这一点是我折腾时间最长、难度最高的部分，因为没有任何文档和指引，全靠自己摸索。<br>通过调查配置文件、自己抓包分析、试错等多种方式，确定公网连接所需端口及协议列表如下：</p>
 <table>
 <thead>
@@ -541,7 +542,7 @@
 </thead>
 <tbody><tr>
 <td>23401</td>
-<td>gameserver</td>
+<td>maingame</td>
 <td>UDP</td>
 <td>主游戏服务</td>
 <td>必须</td>
@@ -551,7 +552,7 @@
 <td>dispatch</td>
 <td>TCP</td>
 <td>签派（即区服下发）</td>
-<td>否</td>
+<td>必须</td>
 </tr>
 <tr>
 <td>23406</td>
@@ -568,18 +569,26 @@
 <td>必须</td>
 </tr>
 </tbody></table>
+<h3 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h3><p>卡下载更新：检查TCP 23405（使用本地的反代会导致变成内部IP进而无法连接）<br>开门白屏：检查UDP 23401，检查gateserver配置中的outer_ip（注意该字段不允许使用域名！）<br>开门黑屏闪加载圈：检查TCP 23410，及sdkserver配置中对应区服IP（使用本地的反代会导致变成内部IP进而无法连接）<br>GM工具无法连接：检查TCP 23406</p>
+<h3 id="使用反向代理的问题"><a href="#使用反向代理的问题" class="headerlink" title="使用反向代理的问题"></a>使用反向代理的问题</h3><p>由于我的服务器是对公网开放的，但我电脑是在NAT内网之下，所以我是利用了一个带公网IP的商用宽带环境做内网穿透使用；之前的做法是通过L2TP VPN连接到商宽环境，然后将其外网端口转发到我的VPN客户端IP上。<br>但我的虚拟机在使用xl2tpd的时候CPU会占满100%，GitHub上有一个已关闭的issue指向同一个问题，似乎可以通过更新centos的内核来解决，而我暂时还不想更新，所以这里另寻他路。<br>那么这种需要服务器在内网、客户端在外网的环境，使用反向代理似乎是无脑的选择；通过反向代理，客户端发往服务器的数据会先发送到反向代理服务器，反代服务器再将请求转发到内网的真实服务器上，反之亦然。<br>因此我快速配置好了frp反代软件，然而通过外网就是无法连接（我在内网时选择走外网链接是正常，但如果不在内网则不行）；具体症状主要表现为卡更新（准备更新资源）。<br>经过反复日志排查，我的猜测是位于真实服务器上的反向代理客户端是以本地的身份向服务器发送请求的，因此服务器也会以本地地址响应；这里主要是影响了dispatch的功能，可能服务器返回的是内网IP URL，因此不在同一内网的机器无法查询。<br>我也尝试过非常多方法，甚至直接将内网IP整个删掉并替换，但仍然无效。最终不得不放弃反向代理的方案，转而使用其他VPN方法。</p>
+<h3 id="通过Softether-VPN-client连接"><a href="#通过Softether-VPN-client连接" class="headerlink" title="通过Softether VPN client连接"></a>通过Softether VPN client连接</h3><p>因为是使用Softether搭建的VPN服务器，所以客户端也用这个软件很合理。<br>至于为什么一开始没有使用？因为在Linux下配置client需要很多手动操作，而我刚好对Linux一无所知。<br>这里非常感谢@Variazioni 提供的教程，原文见：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Variazioni/article/details/127004628">https://blog.csdn.net/Variazioni/article/details/127004628</a><br>简而言之，Linux下使用softether client不仅需要通过命令行界面完成操作（没有图形程序），还需要手动进行DHCP、调整路由表等。操作方法如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">进入VPN客户端文件夹</span><br>cd vpnclient<br><span class="hljs-meta prompt_"># </span><span class="language-bash">启动VPN管理程序</span><br>./vpncmd<br><span class="hljs-meta prompt_"># </span><span class="language-bash">根据界面提示按2进入client管理，直接回车连接本地client</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">使用<span class="hljs-built_in">help</span>查看指令列表，一般手动disconnect再connect就行</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">确认已连接后，新开终端，进入下一步</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">手动执行DHCP，先取消已存在的DHCP客户端</span><br>dhclient -r<br><span class="hljs-meta prompt_"># </span><span class="language-bash">再重新进行DHCP</span><br>dhclient vpn_vpn<br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看网卡配置，确定IP已获取</span><br>ifconfig<br><span class="hljs-meta prompt_"># </span><span class="language-bash">下面调整路由表，先要知道VPN服务器的[IP]</span><br>nslookup [域名]<br><span class="hljs-meta prompt_"># </span><span class="language-bash">调整路由表，假设内网IP默认网关192.168.0.1</span><br>ip route add [IP] via 192.168.0.1<br>ip route del default via 192.168.0.1<br></code></pre></td></tr></table></figure>
+<p>经过以上调整后即可完成VPN配置，可ping一下VPN服务器网络内的IP检查是否成功。</p>
+<hr>
 <h2 id="关于数据库和文件"><a href="#关于数据库和文件" class="headerlink" title="关于数据库和文件"></a>关于数据库和文件</h2><p>终端中使用bt指令可执行控制操作，如强制修改MySQL密码、查询宝塔面板地址等；<br>数据库中部分表的含义可参考：<a target="_blank" rel="noopener" href="https://www.iopq.net/forum.php?mod=viewthread&tid=17117217">https://www.iopq.net/forum.php?mod=viewthread&tid=17117217</a><br>宝塔面板左侧进入数据库即可备份和恢复，点右侧管理按钮即可进入PhpMyAdmin进行数据库编辑。</p>
-<h3 id="如何备份账号数据"><a href="#如何备份账号数据" class="headerlink" title="如何备份账号数据"></a>如何备份账号数据</h3><p>在数据库路径<code>/34live_db/34live_db_user/</code>下，分别导出<code>t_block_data_X</code>、<code>t_home_data_X</code>和<code>t_player_data_X</code>（其中X是用户id）；<br>导出后得到sql文件，备份即创建完成。<br>恢复时，先确定恢复目标id的表格是否存在（可使用面板查询，若服务崩溃可通过SQL指令查询，指令可询问AI获取），若不存在可直接导入对应SQL恢复文件；若存在，则应先使用文本编辑软件打开SQL文件，删除其中<code>CREATE TABLE</code>段落处的所有内容再执行恢复。</p>
+<h3 id="如何备份账号数据"><a href="#如何备份账号数据" class="headerlink" title="如何备份账号数据"></a>如何备份账号数据</h3><p>在数据库路径<code>/34live_db/34live_db_user/</code>下，分别导出<code>t_block_data_X</code>、<code>t_home_data_X</code>和<code>t_player_data_X</code>（其中X是用户id）；导出后得到sql文件，备份即创建完成。<br>也可在宝塔面板备份所有数据库，不过恢复的时候可能会出现各种密码问题，不是非常建议。<br>恢复时，先确定恢复目标id的表格是否存在（可使用面板查询，若服务崩溃可通过SQL指令查询，指令可询问AI获取），若不存在可直接导入对应SQL恢复文件；若存在，则应先使用文本编辑软件打开SQL文件，删除其中<code>CREATE TABLE</code>段落处的所有内容再执行恢复。<br>注意，若需要复制账号，请先创建一个新号，进游戏看一遍开局CG再执行以上操作，并且记得将所有表里的UID进行修改确保不冲突，否则可能出现数据冗余错误（即账号记录和实际表不匹配），导致gateserver无法启动等问题。这时需要手动连接数据库进行调整等，总之很麻烦。<br><strong>养成折腾之前备份数据库的习惯！再稳一点可以存虚拟机快照！</strong></p>
 <h3 id="提示“当前所选内容没有包含唯一字段”"><a href="#提示“当前所选内容没有包含唯一字段”" class="headerlink" title="提示“当前所选内容没有包含唯一字段”"></a>提示“当前所选内容没有包含唯一字段”</h3><p>出现此问题时，进入服务器主文件夹，找到<code>/www/server/phpmyadmin/phpmyadmin_[hexString]/config.inc.php</code>，在<code>Servers configuration</code>下加入一行：<code>$cfg[&#39;RowActionLinksWithoutUnique&#39;] = true;</code>，保存文件重启服务端即可。</p>
 <h3 id="文件只读"><a href="#文件只读" class="headerlink" title="文件只读"></a>文件只读</h3><p>由于centos自带的资源管理器在获取root权限后经常出现各种奇奇怪怪的问题，因此建议的方法是将对应文件复制到桌面，编辑后通过获取了root权限的终端使用<code>cp /源文件目录/源文件 /目标目录/目标文件</code>将新文件覆盖过去。</p>
+<hr>
 <h2 id="关于功能"><a href="#关于功能" class="headerlink" title="关于功能"></a>关于功能</h2><h3 id="添加卡池"><a href="#添加卡池" class="headerlink" title="添加卡池"></a>添加卡池</h3><p>虽然说明书里说可以使用<code>yskc</code>指令来更换卡池，但实际上由于默认MySQL不允许空密码登录，设置是无效的（终端里会显示很多<code>Access denied for user &#39;root&#39;@&#39;localhost&#39; (using password: YES)</code>之类的错误）；<br>建议使用外部工具来设置，例如该数据库连接工具：<br><img src="/../_resources/23dc117188705bd913a3dc7d02c9205a.png" srcset="/img/loading.gif" lazyload alt="工具界面.png"></p>
 <p>卡池类型中，201是角色限时，301是武器限时；<br>先删除旧的限时卡池，再从下方预设卡池选择添加；<br>“抽奖卡池选择”字段中，左侧选择卡池类型id，右侧需输入卡池自身id（理论上来说所有卡池各不相同即可）</p>
 <h3 id="添加活动"><a href="#添加活动" class="headerlink" title="添加活动"></a>添加活动</h3><p><strong>主题活动仅限3.x可正常运行，推测是每次大版本号更新时会删除部分旧版活动资源和数据，因此老活动通常只能开普通活动；可以通过活动id判断。</strong><br>在活动id表格中可查询活动id；<br>若id以5开头则为普通活动，多数可以正常游玩；非5开头通常不可正常游玩。（也有很多例外，总体来说越新的活动正常概率越高）<br><img src="/../_resources/0dbf476932b691056ddea041db6195b4.png" srcset="/img/loading.gif" lazyload alt="活动id表.png"></p>
-<h2 id="最终注意事项"><a href="#最终注意事项" class="headerlink" title="最终注意事项"></a>最终注意事项</h2><ol>
+<hr>
+<h2 id="最终注意事项（备忘）"><a href="#最终注意事项（备忘）" class="headerlink" title="最终注意事项（备忘）"></a>最终注意事项（备忘）</h2><ol>
 <li>干一些奇怪的操作前一定要备份数据库，别嫌麻烦，万一炸了随时可以恢复，总不至于从头创建账号；</li>
 <li>不要点商城里的丽莎皮肤，会卡死客户端；</li>
 <li>GM里的父任务选项尽量别用，很容易出问题；</li>
-<li>xl2tpd这个组件似乎有问题，用VPN的话会吃满一个CPU核心，尽量用frp反代。</li>
+<li><del>xl2tpd这个组件似乎有问题，用VPN的话会吃满一个CPU核心，尽量用frp反代。</del></li>
 </ol>
 
                 
@@ -621,9 +630,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%B8%B8%E6%88%8F/" class="print-no-link">#游戏</a>
-      
         <a href="/tags/%E7%BD%91%E7%BB%9C/" class="print-no-link">#网络</a>
+      
+        <a href="/tags/%E6%B8%B8%E6%88%8F/" class="print-no-link">#游戏</a>
       
     </div>
   
