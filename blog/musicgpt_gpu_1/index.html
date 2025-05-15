@@ -18,11 +18,11 @@
   <meta name="author" content="zjxdiu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="需求现有编程为需要从串口接收数据进行处理的arduino主板，每次传输内容为3位数字；arduino处理方法为先读取为字符串，再转换为整型变量进行处理。每次从串口接收到有效数据时，arduino需要打开一个LED灯；若后续5秒内没有接收到串口数据，则关闭LED。 在实际使用时，需要使用批处理先从powershell执行一条命令，将其结果写入文本文件，随后将文件第四行的内容发送到串口上。 初步方法询">
+    <meta name="description" content="前言MusicGen模型是由Meta公司开发的开源音乐生成模型，而MusicGPT是GitHub上的一个开源项目。MusicGPT将MusicGen模型和使用方法封装在一起，提供友好的用户界面（webui）、快速部署、GPU加速、推理速度优化等功能，为本地音乐生成提供了简单的入门方案。 实际上这个仓库相对有些过时，musicgen模型早已更新v2，支持立体声音乐生成；而这个项目仍使用初代模型，只能">
   
   
   
-  <title>【arduino学习笔记】通过批处理向串口发送数据到arduino的坑 - zjxdiu~Enchanted Room</title>
+  <title>MusicGPT部署实战：基于musicgen的文字到音乐生成模型 - zjxdiu~Enchanted Room</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -211,13 +211,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/432d27de464cf808.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">【arduino学习笔记】通过批处理向串口发送数据到arduino的坑</span>
+            <span id="subtitle">MusicGPT部署实战：基于musicgen的文字到音乐生成模型</span>
           
         </div>
 
@@ -228,8 +228,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-04 10:15" pubdate>
-          2024年1月4日上午10点15分
+        <time datetime="2025-05-15 10:09" pubdate>
+          2025年5月15日上午10点09分
         </time>
       </span>
     
@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          744 字
+          1.1k 字
         
       </span>
     
@@ -321,17 +321,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem 
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="arduino"
         id="heading-75f5750f6dd6afbec57b0928a0ec306b" role="tab" data-toggle="collapse" href="#collapse-75f5750f6dd6afbec57b0928a0ec306b"
-        aria-expanded="true"
+        aria-expanded="false"
       >
         arduino
         <span class="list-group-count">(1)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-75f5750f6dd6afbec57b0928a0ec306b"
+      <div class="category-collapse collapse " id="collapse-75f5750f6dd6afbec57b0928a0ec306b"
            role="tabpanel" aria-labelledby="heading-75f5750f6dd6afbec57b0928a0ec306b">
         
         
@@ -343,7 +343,7 @@
       
         <a href="/blog/arduino_batch_com_comm/" title="【arduino学习笔记】通过批处理向串口发送数据到arduino的坑"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">【arduino学习笔记】通过批处理向串口发送数据到arduino的坑</span>
         </a>
       
@@ -468,17 +468,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
+      <a class="category-subitem 
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="软件"
         id="heading-f0dfc65b71f0f4c075027ecbfe66ef7c" role="tab" data-toggle="collapse" href="#collapse-f0dfc65b71f0f4c075027ecbfe66ef7c"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         软件
         <span class="list-group-count">(3)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse " id="collapse-f0dfc65b71f0f4c075027ecbfe66ef7c"
+      <div class="category-collapse collapse show" id="collapse-f0dfc65b71f0f4c075027ecbfe66ef7c"
            role="tabpanel" aria-labelledby="heading-f0dfc65b71f0f4c075027ecbfe66ef7c">
         
         
@@ -490,7 +490,7 @@
       
         <a href="/blog/musicgpt_gpu_1/" title="MusicGPT部署实战：基于musicgen的文字到音乐生成模型"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">MusicGPT部署实战：基于musicgen的文字到音乐生成模型</span>
         </a>
       
@@ -535,28 +535,56 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">【arduino学习笔记】通过批处理向串口发送数据到arduino的坑</h1>
+            <h1 id="seo-header">MusicGPT部署实战：基于musicgen的文字到音乐生成模型</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>现有编程为需要从串口接收数据进行处理的arduino主板，每次传输内容为3位数字；arduino处理方法为先读取为字符串，再转换为整型变量进行处理。<br>每次从串口接收到有效数据时，arduino需要打开一个LED灯；若后续5秒内没有接收到串口数据，则关闭LED。</p>
-<p>在实际使用时，需要使用批处理先从powershell执行一条命令，将其结果写入文本文件，随后将文件第四行的内容发送到串口上。</p>
-<h2 id="初步方法"><a href="#初步方法" class="headerlink" title="初步方法"></a>初步方法</h2><p>询问bing chat和网上搜索，开始编写脚本：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs batch">@echo off<br>setlocal EnableDelayedExpansion<br>:loop<br>mode COM3 BAUD=96 PARITY=n DATA=8<br>Powershell -command &quot;Get-WMIObject -Query “SELECT * FROM Win32_PerfFormattedData_Counters_ThermalZoneInformation” -Namespace “root/CIMV2” | Select-object Temperature&quot; &gt;temp.txt<br>for /f &quot;skip=3 delims=&quot; %%a in (temp.txt) do (<br>set txt=%%~a<br>goto :nxt<br>)<br>:nxt<br>echo %txt%<br>echo %txt% &gt;COM3<br>:break<br>del temp.txt<br>ping localhost -n 5 &gt;nul<br>goto loop<br></code></pre></td></tr></table></figure>
-<p>这里的<code>mode COM3 BAUD=96 PARITY=n DATA=8</code>就是用于设置串口通信参数的命令，而<code>&gt;COM3</code>是将内容发送到COM3串口上。</p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>该方法存在一个缺陷，arduino的串口通信模式与这里设定的可能不同（尤其是与IDE的默认模式），导致LED灯无法正常打开。</p>
-<p>这里还有一个奇怪的地方，不知道是不是我代码有问题，每次重新上传烧录代码到arduino之后LED就能正常被批处理打开，但如果断电重连则不行；此外，断电后如果先用IDE通信则LED正常打开，再用批处理发送不能打开，LED保持熄灭；而如果先用批处理发送，则后续再用IDE发送也无法打开LED。</p>
-<h2 id="推测与解决方案"><a href="#推测与解决方案" class="headerlink" title="推测与解决方案"></a>推测与解决方案</h2><p>由于我没有仔细阅读arduino官方reference文档，不是非常了解Serial.available()函数具体是如何动作的；但我的推测是，这个函数在等待串口数据的时候会暂时阻塞机器，这也是半双工串口通信的一个问题。</p>
-<p>至于它如何影响arduino以至于出现这些奇怪的问题？我也不是很清楚，但我找到了解决方案。</p>
-<p>微软官方文档：<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows-server/administration/windows-commands/mode">https://learn.microsoft.com/zh-cn/windows-server/administration/windows-commands/mode</a><br>在仔细阅读了批处理中mode指令控制串口参数的用法后，我进行了一些尝试，并成功解决了问题。</p>
-<p>只需要在<code>mode</code>这一行后面加入<code>DTR=OFF RTS=OFF</code>即可：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs batch">mode COM3 BAUD=96 PARITY=n DATA=8 DTR=OFF RTS=OFF<br></code></pre></td></tr></table></figure>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>MusicGen模型是由Meta公司开发的开源音乐生成模型，而MusicGPT是GitHub上的一个开源项目。MusicGPT将MusicGen模型和使用方法封装在一起，提供友好的用户界面（webui）、快速部署、GPU加速、推理速度优化等功能，为本地音乐生成提供了简单的入门方案。</p>
+<p><strong>实际上这个仓库相对有些过时，musicgen模型早已更新v2，支持立体声音乐生成；而这个项目仍使用初代模型，只能生成最大30s的单声道音乐，且不支持melody模型。不过对于中端消费级计算机来说仍然是不错的入门选择。</strong></p>
+<h2 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h2><p>仓库地址：<a target="_blank" rel="noopener" href="https://github.com/gabotechs/MusicGPT">https://github.com/gabotechs/MusicGPT</a></p>
+<p>Release下载地址：<a target="_blank" rel="noopener" href="https://github.com/gabotechs/MusicGPT/releases">https://github.com/gabotechs/MusicGPT/releases</a></p>
+<p>本文基于Windows，直接下载musicgpt-x86_64-pc-windows-msvc.exe即可。</p>
+<h2 id="运行前准备"><a href="#运行前准备" class="headerlink" title="运行前准备"></a>运行前准备</h2><p>MusicGPT支持两种运行方式：CPU和GPU。</p>
+<ul>
+<li>如果你拥有一块<strong>显存6G</strong>以上的NVIDIA显卡，在下载CUDA、cuDNN并做好配置后可以使用GPU运行，生成速度会相对较快。</li>
+<li>否则，你可以使用CPU来运行。实际速度并不会慢太多，但需要更多的内存。</li>
+</ul>
+<p>CPU运行配置：<br>CPU：推荐桌面端i7-9700、移动端i7-11800H或更强的处理器<br>内存：至少16G，建议32G；推荐DDR4-3200或更高速率<br>硬盘：在C盘需预留3-20GB空间（取决于运行的模型），推荐固态硬盘<br>网络：国际互联网连接</p>
+<p>GPU运行配置：<br>显卡：支持CUDA 12的NVIDIA GPU，建议3060及以上显卡<br>内存：建议不少于8G<br>硬盘：在C盘需预留3-20GB空间（取决于运行的模型），推荐固态硬盘<br>网络：国际互联网连接</p>
+<p>由于模型会在初次运行时自动下载，因此需要稳定（最好是高速）的国际互联网连接。</p>
+<ul>
+<li>small模型约需下载2GB数据，medium模型约7.5GB。</li>
+</ul>
+<h2 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h2><p>下载程序后，放在一个特定文件夹中，可以直接双击运行。<br>不带任何参数启动时，会默认下载&#x2F;使用small模型，并采用CPU运行。</p>
+<p>程序下载的模型位置：<code>%APPDATA%\gabotechs\musicgpt\data\v1</code><br>其他数据位置：<code>%APPDATA%\gabotechs\musicgpt\data</code></p>
+<p>运行成功后，将主程序重命名为musicgpt.exe或其他方便的名字，随后编写批处理脚本方便后续使用。如果希望直接以想要的模型开始，也可以先写脚本再启动。</p>
+<p>脚本示例1：使用GPU运行small模型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs batch">@echo off<br>musicgpt.exe --gpu<br>pause<br>exit<br></code></pre></td></tr></table></figure>
 
+<p>脚本示例2：使用GPU运行medium模型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs batch">@echo off<br>musicgpt.exe --gpu --model medium<br>pause<br>exit<br></code></pre></td></tr></table></figure>
 
-<p>这是什么原因呢？我猜测批处理默认情况下会通过DTR和RTS信号来决定何时发送数据。这两个信号是串行通信中的控制信号，前者用于计算机向arduino发出信号，让arduino准备好接收；后者用于arduino向计算机回馈信号，允许计算机发送串口数据。</p>
-<p>但这样的过程会浪费很多等待时间，相当于双方要完成握手才能发送数据（类比TCP连接）；而整个握手和等待的时间内arduino都处于阻塞状态，LED就处于熄灭状态。</p>
-<p>因此，在手动关闭了DTR和RTS信号后，计算机便无需等待arduino响应即可发送数据，arduino也无需等待连接建立，计算机可随时向arduino发送数据（类比UDP包），进而大幅节约了进程时间，使得arduino不再一直处于阻塞状态，LED可以正常点亮。</p>
+<p>启动成功后，网页会自动打开，直接在界面中进行对话即可。这也是这个项目的一大特色功能，即提供了类似chatGPT的聊天界面来生成音乐。发送你要生成的提示词即可生成。</p>
+<p>程序在运行后无法切换模型，如果要切换则必须重新以不同的参数启动软件。</p>
+<h2 id="解决GPU问题"><a href="#解决GPU问题" class="headerlink" title="解决GPU问题"></a>解决GPU问题</h2><p>在初次运行时出现的错误一般是网络导致的，考虑使用代理服务器。</p>
+<p>我个人遇到最大的问题是GPU运行错误。CPU模式下运行正常，但加入<code>--gpu</code>参数后程序报错。<br>典型的错误信息包含以下内容：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">..</span>. D:\a\_work\1\s\onnxruntime\core\session\provider_bridge_ort.cc:1426 onnxruntime::ProviderLibrary::<span class="hljs-built_in">Get</span> [ONNXRuntimeError] : 1 : FAIL : LoadLibrary failed with <span class="hljs-built_in">error</span> 126 <span class="hljs-string">&quot;&quot;</span> when trying <span class="hljs-keyword">to</span> load<span class="hljs-built_in">..</span>.<br><span class="hljs-literal">No</span> GPU accelerator<span class="hljs-built_in">..</span>.<br></code></pre></td></tr></table></figure>
+<p>（因为这篇文章是一段时间之后写的了，部分内容是靠回忆写的，但大体的含义是一样的）</p>
+<p>遇到这个信息说明硬件加速的环境配置有问题。我在网上查询了很长时间，最终在NVIDIA开发者论坛中找到了最终解决方案。但在此之间，请先进行健全性检查：</p>
+<ol>
+<li>在cmd中运行<code>nvcc --version</code>，检查cuda是否安装、配置正确，以及是否为正确的版本（需要12以上）；如果版本不正确则重新安装新版本，如果无法执行命令则环境变量没有配置好，请参考网上的cuda安装教程来配置环境变量。</li>
+<li>参照网上的教程安装cuDNN，这一步非常关键，MusicGPT采用的onnx硬件加速是需要cuDNN的，因此不安装或版本有误都会导致运行错误。</li>
+</ol>
+<p>如果经过以上两个步骤仍然无法解决，则请出最终杀手：依赖项检查。</p>
+<ol>
+<li>在GitHub下载Dependencies：<a target="_blank" rel="noopener" href="https://github.com/lucasg/Dependencies">https://github.com/lucasg/Dependencies</a></li>
+<li>解压程序，运行DependenciesGui.exe</li>
+<li>找到报错信息中后面的dll文件路径，通常位于<code>%APPDATA%\gabotechs\musicgpt\data\dynlibs\1.20.1\onnxruntime-win-x64-gpu-1.20.1\lib\onnxruntime_providers_cuda.dll</code></li>
+<li>将这个dll文件拖进刚才的DependenciesGui.exe窗口中，看左边列表中是否有缺失的依赖库（如图就缺失了一个，原因是电脑中安装的cuDNN版本是8，而程序需要9）</li>
+<li>根据缺失的信息可以上网搜索如何解决，将对应的文件补全后程序应该可以正常运行。</li>
+</ol>
+<p><img src="/../_resources/1ce75d2d9638c040a3ad25c6a63cc7de.png" srcset="/img/loading.gif" lazyload alt="1ce75d2d9638c040a3ad25c6a63cc7de.png"></p>
 
                 
               </div>
@@ -580,7 +608,7 @@
   
     <span>></span>
     
-  <a href="/categories/%E5%AD%A6%E4%B9%A0/arduino/" class="category-chain-item">arduino</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E8%BD%AF%E4%BB%B6/" class="category-chain-item">软件</a>
   
   
 
@@ -597,7 +625,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%BD%AF%E4%BB%B6/" class="print-no-link">#软件</a>
+        <a href="/tags/%E6%95%99%E7%A8%8B/" class="print-no-link">#教程</a>
       
         <a href="/tags/%E5%BC%80%E5%8F%91/" class="print-no-link">#开发</a>
       
@@ -611,8 +639,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【arduino学习笔记】通过批处理向串口发送数据到arduino的坑</div>
-      <div>https://zjxdiu.github.io/blog/arduino_batch_com_comm/</div>
+      <div>MusicGPT部署实战：基于musicgen的文字到音乐生成模型</div>
+      <div>https://zjxdiu.github.io/blog/musicgpt_gpu_1/</div>
     </div>
     <div class="license-meta">
       
@@ -624,7 +652,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年1月4日</div>
+          <div>2025年5月15日</div>
         </div>
       
       

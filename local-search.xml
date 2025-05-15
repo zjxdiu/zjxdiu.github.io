@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>MusicGPT部署实战：基于musicgen的文字到音乐生成模型</title>
+    <link href="/blog/musicgpt_gpu_1/"/>
+    <url>/blog/musicgpt_gpu_1/</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>MusicGen模型是由Meta公司开发的开源音乐生成模型，而MusicGPT是GitHub上的一个开源项目。MusicGPT将MusicGen模型和使用方法封装在一起，提供友好的用户界面（webui）、快速部署、GPU加速、推理速度优化等功能，为本地音乐生成提供了简单的入门方案。</p><p><strong>实际上这个仓库相对有些过时，musicgen模型早已更新v2，支持立体声音乐生成；而这个项目仍使用初代模型，只能生成最大30s的单声道音乐，且不支持melody模型。不过对于中端消费级计算机来说仍然是不错的入门选择。</strong></p><h2 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h2><p>仓库地址：<a href="https://github.com/gabotechs/MusicGPT">https://github.com/gabotechs/MusicGPT</a></p><p>Release下载地址：<a href="https://github.com/gabotechs/MusicGPT/releases">https://github.com/gabotechs/MusicGPT/releases</a></p><p>本文基于Windows，直接下载musicgpt-x86_64-pc-windows-msvc.exe即可。</p><h2 id="运行前准备"><a href="#运行前准备" class="headerlink" title="运行前准备"></a>运行前准备</h2><p>MusicGPT支持两种运行方式：CPU和GPU。</p><ul><li>如果你拥有一块<strong>显存6G</strong>以上的NVIDIA显卡，在下载CUDA、cuDNN并做好配置后可以使用GPU运行，生成速度会相对较快。</li><li>否则，你可以使用CPU来运行。实际速度并不会慢太多，但需要更多的内存。</li></ul><p>CPU运行配置：<br>CPU：推荐桌面端i7-9700、移动端i7-11800H或更强的处理器<br>内存：至少16G，建议32G；推荐DDR4-3200或更高速率<br>硬盘：在C盘需预留3-20GB空间（取决于运行的模型），推荐固态硬盘<br>网络：国际互联网连接</p><p>GPU运行配置：<br>显卡：支持CUDA 12的NVIDIA GPU，建议3060及以上显卡<br>内存：建议不少于8G<br>硬盘：在C盘需预留3-20GB空间（取决于运行的模型），推荐固态硬盘<br>网络：国际互联网连接</p><p>由于模型会在初次运行时自动下载，因此需要稳定（最好是高速）的国际互联网连接。</p><ul><li>small模型约需下载2GB数据，medium模型约7.5GB。</li></ul><h2 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h2><p>下载程序后，放在一个特定文件夹中，可以直接双击运行。<br>不带任何参数启动时，会默认下载&#x2F;使用small模型，并采用CPU运行。</p><p>程序下载的模型位置：<code>%APPDATA%\gabotechs\musicgpt\data\v1</code><br>其他数据位置：<code>%APPDATA%\gabotechs\musicgpt\data</code></p><p>运行成功后，将主程序重命名为musicgpt.exe或其他方便的名字，随后编写批处理脚本方便后续使用。如果希望直接以想要的模型开始，也可以先写脚本再启动。</p><p>脚本示例1：使用GPU运行small模型</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs batch">@echo off<br>musicgpt.exe --gpu<br>pause<br>exit<br></code></pre></td></tr></table></figure><p>脚本示例2：使用GPU运行medium模型</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs batch">@echo off<br>musicgpt.exe --gpu --model medium<br>pause<br>exit<br></code></pre></td></tr></table></figure><p>启动成功后，网页会自动打开，直接在界面中进行对话即可。这也是这个项目的一大特色功能，即提供了类似chatGPT的聊天界面来生成音乐。发送你要生成的提示词即可生成。</p><p>程序在运行后无法切换模型，如果要切换则必须重新以不同的参数启动软件。</p><h2 id="解决GPU问题"><a href="#解决GPU问题" class="headerlink" title="解决GPU问题"></a>解决GPU问题</h2><p>在初次运行时出现的错误一般是网络导致的，考虑使用代理服务器。</p><p>我个人遇到最大的问题是GPU运行错误。CPU模式下运行正常，但加入<code>--gpu</code>参数后程序报错。<br>典型的错误信息包含以下内容：</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">..</span>. D:\a\_work\1\s\onnxruntime\core\session\provider_bridge_ort.cc:1426 onnxruntime::ProviderLibrary::<span class="hljs-built_in">Get</span> [ONNXRuntimeError] : 1 : FAIL : LoadLibrary failed with <span class="hljs-built_in">error</span> 126 <span class="hljs-string">&quot;&quot;</span> when trying <span class="hljs-keyword">to</span> load<span class="hljs-built_in">..</span>.<br><span class="hljs-literal">No</span> GPU accelerator<span class="hljs-built_in">..</span>.<br></code></pre></td></tr></table></figure><p>（因为这篇文章是一段时间之后写的了，部分内容是靠回忆写的，但大体的含义是一样的）</p><p>遇到这个信息说明硬件加速的环境配置有问题。我在网上查询了很长时间，最终在NVIDIA开发者论坛中找到了最终解决方案。但在此之间，请先进行健全性检查：</p><ol><li>在cmd中运行<code>nvcc --version</code>，检查cuda是否安装、配置正确，以及是否为正确的版本（需要12以上）；如果版本不正确则重新安装新版本，如果无法执行命令则环境变量没有配置好，请参考网上的cuda安装教程来配置环境变量。</li><li>参照网上的教程安装cuDNN，这一步非常关键，MusicGPT采用的onnx硬件加速是需要cuDNN的，因此不安装或版本有误都会导致运行错误。</li></ol><p>如果经过以上两个步骤仍然无法解决，则请出最终杀手：依赖项检查。</p><ol><li>在GitHub下载Dependencies：<a href="https://github.com/lucasg/Dependencies">https://github.com/lucasg/Dependencies</a></li><li>解压程序，运行DependenciesGui.exe</li><li>找到报错信息中后面的dll文件路径，通常位于<code>%APPDATA%\gabotechs\musicgpt\data\dynlibs\1.20.1\onnxruntime-win-x64-gpu-1.20.1\lib\onnxruntime_providers_cuda.dll</code></li><li>将这个dll文件拖进刚才的DependenciesGui.exe窗口中，看左边列表中是否有缺失的依赖库（如图就缺失了一个，原因是电脑中安装的cuDNN版本是8，而程序需要9）</li><li>根据缺失的信息可以上网搜索如何解决，将对应的文件补全后程序应该可以正常运行。</li></ol><p><img src="/../_resources/1ce75d2d9638c040a3ad25c6a63cc7de.png" alt="1ce75d2d9638c040a3ad25c6a63cc7de.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习</category>
+      
+      <category>软件</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>教程</tag>
+      
+      <tag>开发</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>折腾hk4e服务器的记录</title>
     <link href="/blog/hk4e_server_mess/"/>
     <url>/blog/hk4e_server_mess/</url>
